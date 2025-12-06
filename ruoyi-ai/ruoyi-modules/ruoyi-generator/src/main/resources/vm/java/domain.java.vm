@@ -1,0 +1,39 @@
+package ${packageName}.domain;
+
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.Data;
+#foreach ($import in $importList)
+import ${import};
+#end
+
+/**
+ * ${functionName}对象 ${tableName}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Data
+@TableName("${tableName}")
+public class ${ClassName} implements Serializable {
+
+
+#foreach ($column in $columns)
+    #if(!$table.isSuperColumn($column.javaField))
+    /**
+     * $column.columnComment
+     */
+        #if($column.javaField=='delFlag')
+        @TableLogic
+        #end
+        #if($column.javaField=='version')
+        @Version
+        #end
+        #if($column.isPk==1)
+        @TableId(value = "${column.columnName}", type = IdType.AUTO)
+        #end
+    private $column.javaType $column.javaField;
+
+    #end
+#end
+
+}

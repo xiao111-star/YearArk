@@ -1,0 +1,17 @@
+package ${packageName}.mapper;
+
+import ${packageName}.domain.${ClassName};
+import ${packageName}.domain.vo.${ClassName}Vo;
+import org.ruoyi.core.mapper.BaseMapperPlus;
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * ${functionName}Mapper接口
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Mapper
+public interface ${ClassName}Mapper extends BaseMapperPlus<${ClassName}, ${ClassName}Vo> {
+
+}
