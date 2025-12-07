@@ -1,0 +1,36 @@
+{
+  "root": "Root",
+  "system": {
+    "root": "System",
+    "user": "User",
+    "role": "Role",
+    "menu": "Menu",
+    "dept": "Department",
+    "post": "Post",
+    "dict": "Dictionary",
+    "config": "Parameter Settings",
+    "notice": "Notifications",
+    "log": {
+      "root": "Log",
+      "operation": "Operation Log",
+      "login": "Login Log"
+    },
+    "oss": "File",
+    "client": "Client"
+  },
+  "tenant": {
+    "root": "Tenant",
+    "package": "Package"
+  },
+  "monitor": {
+    "root": "System Monitoring",
+    "online": "Online Users",
+    "cache": "Cache Monitoring",
+    "admin": "Admin Monitoring",
+    "job": "Task Scheduling Center"
+  },
+  "tool": {
+    "root": "System Tools",
+    "gen": "Code Generation"
+  }
+}
