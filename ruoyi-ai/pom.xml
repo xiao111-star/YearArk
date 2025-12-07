@@ -394,7 +394,6 @@
         <module>ruoyi-modules</module>
         <module>ruoyi-modules-api</module>
         <module>ruoyi-admin</module>
-        <module>ruoyi-extend</module>
     </modules>
 
     <packaging>pom</packaging>

@@ -7,6 +7,21 @@
         <option value="$PROJECT_DIR$/ruoyi-ai/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/ruoyi-ai/ruoyi-common/ruoyi-common-chat/pom.xml" />
+        <option value="$PROJECT_DIR$/ruoyi-ai/ruoyi-extend/pom.xml" />
+        <option value="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-chat-api/pom.xml" />
+        <option value="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-knowledge-api/pom.xml" />
+        <option value="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-workflow-api/pom.xml" />
+        <option value="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-aihuman/pom.xml" />
+        <option value="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-chat/pom.xml" />
+        <option value="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-generator/pom.xml" />
+        <option value="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-graph/pom.xml" />
+        <option value="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-wechat/pom.xml" />
+        <option value="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-workflow/pom.xml" />
+      </set>
+    </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="ms-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

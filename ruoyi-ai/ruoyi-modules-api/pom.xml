@@ -14,10 +14,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>ruoyi-chat-api</module>
-        <module>ruoyi-knowledge-api</module>
         <module>ruoyi-system-api</module>
-        <module>ruoyi-workflow-api</module>
     </modules>
 
     <properties>

@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  *
  * @author Lion Li
  */
-@SpringBootApplication(scanBasePackages = {"org.ruoyi", "org.ruoyi.aihuman"})
+@SpringBootApplication(scanBasePackages = {"org.ruoyi"})
 @EnableScheduling
 @EnableAsync
 public class RuoYiAIApplication {

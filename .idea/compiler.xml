@@ -3,13 +3,6 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="ruoyi-mcp-server" />
-        <module name="ruoyi-ai-copilot" />
-      </profile>
       <profile name="Annotation profile for ruoyi-ai" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -28,39 +21,29 @@
           <entry name="$PROJECT_DIR$/../apache-maven-3.9.11/repository/org/mapstruct/mapstruct-processor/1.5.3.Final/mapstruct-processor-1.5.3.Final.jar" />
           <entry name="$PROJECT_DIR$/../apache-maven-3.9.11/repository/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
         </processorPath>
+        <module name="ruoyi-common-mybatis" />
         <module name="ruoyi-system" />
-        <module name="ruoyi-wechat" />
-        <module name="ruoyi-graph" />
+        <module name="ruoyi-common-sms" />
+        <module name="ruoyi-common-json" />
+        <module name="ruoyi-common-mail" />
         <module name="ruoyi-common-redis" />
-        <module name="ruoyi-knowledge-api" />
-        <module name="ruoyi-generator" />
         <module name="ruoyi-common-tenant" />
+        <module name="ruoyi-system-api" />
         <module name="ruoyi-common-doc" />
+        <module name="ruoyi-common-core" />
         <module name="ruoyi-common-satoken" />
         <module name="ruoyi-common-security" />
+        <module name="ruoyi-common-translation" />
+        <module name="ruoyi-common-web" />
+        <module name="ruoyi-common-ratelimiter" />
+        <module name="ruoyi-common-idempotent" />
         <module name="ruoyi-common-oss" />
         <module name="ruoyi-common-encrypt" />
         <module name="ruoyi-common-sensitive" />
         <module name="ruoyi-common-excel" />
-        <module name="ruoyi-workflow" />
+        <module name="ruoyi-common-pay" />
         <module name="ruoyi-common-log" />
         <module name="ruoyi-admin" />
-        <module name="ruoyi-common-mybatis" />
-        <module name="ruoyi-workflow-api" />
-        <module name="ruoyi-common-sms" />
-        <module name="ruoyi-common-json" />
-        <module name="ruoyi-common-mail" />
-        <module name="ruoyi-system-api" />
-        <module name="ruoyi-common-core" />
-        <module name="ruoyi-chat" />
-        <module name="ruoyi-common-translation" />
-        <module name="ruoyi-common-web" />
-        <module name="ruoyi-common-ratelimiter" />
-        <module name="ruoyi-chat-api" />
-        <module name="ruoyi-common-idempotent" />
-        <module name="ruoyi-common-chat" />
-        <module name="ruoyi-common-pay" />
-        <module name="ruoyi-aihuman" />
       </profile>
     </annotationProcessing>
   </component>
@@ -68,12 +51,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ruoyi-admin" options="-parameters" />
       <module name="ruoyi-ai" options="-parameters" />
-      <module name="ruoyi-ai-copilot" options="-parameters -parameters" />
-      <module name="ruoyi-aihuman" options="-parameters" />
-      <module name="ruoyi-chat" options="-parameters" />
-      <module name="ruoyi-chat-api" options="-parameters" />
       <module name="ruoyi-common" options="-parameters" />
-      <module name="ruoyi-common-chat" options="-parameters" />
       <module name="ruoyi-common-core" options="-parameters" />
       <module name="ruoyi-common-doc" options="-parameters" />
       <module name="ruoyi-common-encrypt" options="-parameters" />
@@ -94,18 +72,10 @@
       <module name="ruoyi-common-tenant" options="-parameters" />
       <module name="ruoyi-common-translation" options="-parameters" />
       <module name="ruoyi-common-web" options="-parameters" />
-      <module name="ruoyi-extend" options="-parameters" />
-      <module name="ruoyi-generator" options="-parameters" />
-      <module name="ruoyi-graph" options="-parameters" />
-      <module name="ruoyi-knowledge-api" options="-parameters" />
-      <module name="ruoyi-mcp-server" options="-parameters" />
       <module name="ruoyi-modules" options="-parameters" />
       <module name="ruoyi-modules-api" options="-parameters" />
       <module name="ruoyi-system" options="-parameters" />
       <module name="ruoyi-system-api" options="-parameters" />
-      <module name="ruoyi-wechat" options="-parameters" />
-      <module name="ruoyi-workflow" options="-parameters" />
-      <module name="ruoyi-workflow-api" options="-parameters" />
     </option>
   </component>
 </project>
