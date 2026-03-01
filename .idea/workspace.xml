@@ -4,9 +4,150 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="267c28b1-7f08-4a11-8500-356541775c2b" name="Changes" comment="kiro顶层指导文件">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="267c28b1-7f08-4a11-8500-356541775c2b" name="Changes" comment="移除所有与ai相关的框架包袱">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YearArk.sql" beforeDir="false" afterPath="$PROJECT_DIR$/YearArk.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/jieshao.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/js/axios.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/js/cubism4.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/js/jquery-3.1.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/js/live2d.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/js/live2dcubismcore.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/js/pixi.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/230108/230108.4096/texture_00.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/230108/230108.cdi3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/230108/230108.moc3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/230108/230108.model3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/230108/230108.physics3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/230108/230108.prprl2d.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/230108/ARKitFaceTrackerSettingBeta.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/230108/cc_230108.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/230108/motions/idle.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/230108/motions/shuohua.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/Hiyori.2048/texture_00.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/Hiyori.2048/texture_01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/Hiyori.cdi3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/Hiyori.moc3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/Hiyori.model3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/Hiyori.physics3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/Hiyori.pose3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/Hiyori.userdata3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/motions/Hiyori_m01.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/motions/Hiyori_m02.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/motions/Hiyori_m03.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/motions/Hiyori_m04.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/motions/Hiyori_m05.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/motions/Hiyori_m06.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/motions/Hiyori_m07.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/motions/Hiyori_m08.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/motions/Hiyori_m09.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/Hiyori/motions/Hiyori_m10.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/March 7th/March 7th.4096/texture_00.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/March 7th/March 7th.4096/texture_01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/March 7th/March 7th.cdi3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/March 7th/March 7th.moc3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/March 7th/March 7th.model3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/March 7th/March 7th.physics3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/March 7th/exp/1.exp3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/March 7th/exp/2.exp3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/March 7th/exp/3.exp3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/March 7th/exp/4.exp3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/March 7th/exp/5.exp3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/March 7th/exp/6.exp3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/March 7th/exp/7.exp3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/March 7th/exp/8.exp3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/March 7th/motions/zhaiyan.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/March 7th/motions/zhaoxiang.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/kei_vowels_pro/kei_vowels_pro.2048/texture_00.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/kei_vowels_pro/kei_vowels_pro.cdi3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/kei_vowels_pro/kei_vowels_pro.moc3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/kei_vowels_pro/kei_vowels_pro.model3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/kei_vowels_pro/kei_vowels_pro.motionsync3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/kei_vowels_pro/kei_vowels_pro.physics3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/kei_vowels_pro/motions/01_kei_en.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/kei_vowels_pro/motions/01_kei_jp.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/kei_vowels_pro/motions/01_kei_ko.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/kei_vowels_pro/motions/01_kei_zh.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/kei_vowels_pro/sounds/01_kei_zh.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/pachan/pachan.model3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/pachan/pachirisu anime girl - top half.4096/texture_00.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/pachan/pachirisu anime girl - top half.cdi3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/pachan/pachirisu anime girl - top half.moc3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/pachan/pachirisu anime girl - top half.physics3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/梅朵吉祥物/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/梅朵吉祥物/kaixin.exp3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/梅朵吉祥物/maozi.exp3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/梅朵吉祥物/mouth open.exp3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/梅朵吉祥物/mouth.motion3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/梅朵吉祥物/shibai.exp3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/梅朵吉祥物/yinchen.exp3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/梅朵吉祥物/梅朵吉祥物.4096/texture_00.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/梅朵吉祥物/梅朵吉祥物.4096/texture_01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/梅朵吉祥物/梅朵吉祥物.cdi3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/梅朵吉祥物/梅朵吉祥物.moc3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/梅朵吉祥物/梅朵吉祥物.model3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/梅朵吉祥物/梅朵吉祥物.motionsync3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/梅朵吉祥物/梅朵吉祥物.physics3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/梅朵吉祥物/梅朵吉祥物.vtube.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/public/Live2D/models/梅朵吉祥物/梅朵吉祥物.xyplugin.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/dev/schema/schema.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/dev/schema/types.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/dev/schemaField/schemaField.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/dev/schemaGroup/schemaGroup.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/operator/configurationManage/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/operator/mcpInfo/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/operator/mcpInfo/types.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/operator/message/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/operator/message/model.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/operator/model/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/operator/model/model.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/operator/payOrder/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/operator/payOrder/model.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/operator/promptTemplate/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/operator/promptTemplate/model.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/demo/demo/api/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/demo/demo/api/model.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/demo/demo/data.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/demo/demo/demo-modal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/demo/demo/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/demo/tree/api/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/demo/tree/api/model.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/demo/tree/data.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/demo/tree/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/demo/tree/tree-modal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/dev/schema/data.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/dev/schema/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/dev/schema/schema-modal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/dev/schemaField/data.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/dev/schemaField/generate-field-modal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/dev/schemaField/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/dev/schemaField/schema-field-modal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/dev/schemaGroup/data.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/dev/schemaGroup/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/dev/schemaGroup/schemaGroup-modal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/operator/configurationManage/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/operator/mcpInfo/data.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/operator/mcpInfo/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/operator/mcpInfo/mcpInfo-modal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/operator/message/data.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/operator/message/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/operator/message/message-modal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/operator/model/data.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/operator/model/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/operator/model/model-modal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/operator/payOrder/data.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/operator/payOrder/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/operator/payOrder/payOrder-modal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/operator/promptTemplate/data.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/operator/promptTemplate/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/operator/promptTemplate/template-modal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/docs/工作流模块说明.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/image/00.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/image/qq.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/image/wx.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-admin/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-admin/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-admin/src/main/resources/mcp-server.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,37 +182,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.RuoYiAIApplication.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.RuoYiAIApplication.executor": "Run",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/bytedance/workspaces/YearArk",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.dev:antd.executor": "Run",
-    "npm.install.executor": "Run",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.3275862",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "MavenSettings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.RuoYiAIApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Dependencies from package.json&quot;: &quot;Dependencies from package.json available&quot;,
+    &quot;Notification.DoNotAsk-Dependencies from package.json&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.RuoYiAIApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/bytedance/workspaces/YearArk&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.dev:antd.executor&quot;: &quot;Run&quot;,
+    &quot;npm.install.executor&quot;: &quot;Run&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.3275862&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -85,7 +228,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="npm.dev:antd">
+  <component name="RunManager" selected="Application.RuoYiAIApplication">
     <configuration name="RuoYiAIApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.ruoyi.RuoYiAIApplication" />
       <module name="ruoyi-admin" />
@@ -118,16 +261,16 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.dev:antd" />
         <item itemvalue="Application.RuoYiAIApplication" />
+        <item itemvalue="npm.dev:antd" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26927.53" />
-        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.26927.53" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.29188.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.29188.11" />
       </set>
     </attachedChunks>
   </component>
@@ -140,7 +283,9 @@
       <updated>1765100894864</updated>
       <workItem from="1765100896197" duration="6965000" />
       <workItem from="1765113625604" duration="2679000" />
-      <workItem from="1772359384954" duration="5553000" />
+      <workItem from="1772359384954" duration="6552000" />
+      <workItem from="1772375110861" duration="120000" />
+      <workItem from="1772375368104" duration="286000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -190,7 +335,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772373107714</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="kiro顶层指导文件">
+      <option name="closed" value="true" />
+      <created>1772373789935</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1772373789935</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
