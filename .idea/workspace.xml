@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="267c28b1-7f08-4a11-8500-356541775c2b" name="Changes" comment="init">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+    <list default="true" id="267c28b1-7f08-4a11-8500-356541775c2b" name="Changes" comment="kiro顶层指导文件">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -141,7 +140,7 @@
       <updated>1765100894864</updated>
       <workItem from="1765100896197" duration="6965000" />
       <workItem from="1765113625604" duration="2679000" />
-      <workItem from="1772359384954" duration="4452000" />
+      <workItem from="1772359384954" duration="5553000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -183,7 +182,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765123582122</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="kiro顶层指导文件">
+      <option name="closed" value="true" />
+      <created>1772373107714</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1772373107714</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,6 +227,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="kiro顶层指导文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="kiro顶层指导文件" />
   </component>
 </project>
