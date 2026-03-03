@@ -15,13 +15,16 @@ import org.ruoyi.system.domain.YaTemplate;
 import org.ruoyi.system.domain.dto.YaTemplateDto;
 import org.ruoyi.system.domain.dto.YaTemplateQueryDto;
 import org.ruoyi.system.domain.vo.YaTemplateVo;
+import org.ruoyi.system.domain.vo.SysUserVo;
 import org.ruoyi.system.mapper.YaTemplateMapper;
+import org.ruoyi.system.mapper.SysUserMapper;
 import org.ruoyi.system.service.IYaAlbumService;
 import org.ruoyi.system.service.IYaTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class YaTemplateServiceImpl extends ServiceImpl<YaTemplateMapper, YaTemplate> implements IYaTemplateService {
@@ -29,21 +32,33 @@ public class YaTemplateServiceImpl extends ServiceImpl<YaTemplateMapper, YaTempl
     @Autowired
     private IYaAlbumService albumService;
 
+    @Autowired
+    private SysUserMapper sysUserMapper;
+
     @Override
     public TableDataInfo<YaTemplateVo> queryPage(YaTemplateQueryDto query, PageQuery pageQuery) {
         Page<YaTemplate> page = this.page(pageQuery.build(), buildWrapper(query));
-        return new TableDataInfo<>(BeanUtil.copyToList(page.getRecords(), YaTemplateVo.class), page.getTotal());
+        List<YaTemplateVo> voList = BeanUtil.copyToList(page.getRecords(), YaTemplateVo.class);
+        fillUserNames(voList);
+        return new TableDataInfo<>(voList, page.getTotal());
     }
 
     @Override
     public List<YaTemplateVo> queryList(YaTemplateQueryDto query) {
-        return BeanUtil.copyToList(this.list(buildWrapper(query)), YaTemplateVo.class);
+        List<YaTemplateVo> voList = BeanUtil.copyToList(this.list(buildWrapper(query)), YaTemplateVo.class);
+        fillUserNames(voList);
+        return voList;
     }
 
     @Override
     public YaTemplateVo queryById(Integer id) {
         YaTemplate entity = this.getById(id);
-        return entity == null ? null : BeanUtil.copyProperties(entity, YaTemplateVo.class);
+        if (entity == null) {
+            return null;
+        }
+        YaTemplateVo vo = BeanUtil.copyProperties(entity, YaTemplateVo.class);
+        fillUserNames(List.of(vo));
+        return vo;
     }
 
     @Override
@@ -92,5 +107,29 @@ public class YaTemplateServiceImpl extends ServiceImpl<YaTemplateMapper, YaTempl
         qw.eq(q.getStatus() != null, YaTemplate::getStatus, q.getStatus());
         qw.orderByDesc(YaTemplate::getCreateAt);
         return qw;
+    }
+
+    /**
+     * 填充创建人和更新者的用户名
+     */
+    private void fillUserNames(List<YaTemplateVo> voList) {
+        if (voList == null || voList.isEmpty()) {
+            return;
+        }
+        
+        for (YaTemplateVo vo : voList) {
+            if (vo.getCreateBy() != null) {
+                SysUserVo createUser = sysUserMapper.selectUserById(vo.getCreateBy().longValue());
+                if (createUser != null) {
+                    vo.setCreateByName(createUser.getNickName());
+                }
+            }
+            if (vo.getUpdateBy() != null) {
+                SysUserVo updateUser = sysUserMapper.selectUserById(vo.getUpdateBy().longValue());
+                if (updateUser != null) {
+                    vo.setUpdateByName(updateUser.getNickName());
+                }
+            }
+        }
     }
 }

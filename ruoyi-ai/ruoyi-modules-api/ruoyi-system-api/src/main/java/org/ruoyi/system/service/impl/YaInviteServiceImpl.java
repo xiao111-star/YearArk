@@ -52,6 +52,11 @@ public class YaInviteServiceImpl extends ServiceImpl<YaInviteMapper, YaInvite> i
 
     @Override
     public boolean deleteByIds(List<Integer> ids) {
+        for (Integer id : ids) {
+            if (this.getById(id) == null) {
+                throw new RuntimeException("邀请记录 [id=" + id + "] 不存在");
+            }
+        }
         return this.removeByIds(ids);
     }
 

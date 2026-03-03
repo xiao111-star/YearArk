@@ -5,89 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="267c28b1-7f08-4a11-8500-356541775c2b" name="Changes" comment="基础CRUD接口">
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-common/ruoyi-common-core/src/main/java/org/ruoyi/common/core/constant/AlbumConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-common/ruoyi-common-core/src/main/java/org/ruoyi/common/core/constant/AlbumMediaConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-common/ruoyi-common-core/src/main/java/org/ruoyi/common/core/constant/CommonConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-common/ruoyi-common-core/src/main/java/org/ruoyi/common/core/constant/TemplateConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-common/ruoyi-common-core/src/main/java/org/ruoyi/common/core/constant/TemplatePageConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaAlbum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaAlbumMedia.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaAlbumPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaInvite.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaInviteToken.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaTemplate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaTemplatePage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaTemplateSchema.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaAlbumDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaAlbumMediaDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaAlbumMediaQueryDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaAlbumPageDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaAlbumPageQueryDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaAlbumQueryDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaInviteDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaInviteQueryDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaInviteTokenDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaInviteTokenQueryDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaTemplateDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaTemplatePageDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaTemplatePageQueryDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaTemplateQueryDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaTemplateSchemaDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaTemplateSchemaQueryDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaUserDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaUserQueryDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaAlbumMediaVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaAlbumPageVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaAlbumVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaInviteTokenVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaInviteVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaTemplatePageVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaTemplateSchemaVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaTemplateVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaUserVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/mapper/YaAlbumMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/mapper/YaAlbumMediaMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/mapper/YaAlbumPageMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/mapper/YaInviteMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/mapper/YaInviteTokenMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/mapper/YaTemplateMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/mapper/YaTemplatePageMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/mapper/YaTemplateSchemaMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/mapper/YaUserMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/IYaAlbumMediaService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/IYaAlbumPageService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/IYaAlbumService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/IYaInviteService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/IYaInviteTokenService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/IYaTemplatePageService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/IYaTemplateSchemaService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/IYaTemplateService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/IYaUserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaAlbumMediaServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaAlbumPageServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaAlbumServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaInviteServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaInviteTokenServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplatePageServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplateSchemaServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplateServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaUserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/YaAlbumController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/YaAlbumMediaController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/YaAlbumPageController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/YaInviteController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/YaInviteTokenController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/YaTemplateController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/YaTemplatePageController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/YaTemplateSchemaController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/YaUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.kiro/steering/project-guide.md" beforeDir="false" afterPath="$PROJECT_DIR$/.kiro/steering/project-guide.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YearArk.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-common/ruoyi-common-mybatis/src/main/java/org/ruoyi/handler/InjectionMetaObjectHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-common/ruoyi-common-mybatis/src/main/java/org/ruoyi/handler/InjectionMetaObjectHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-common/ruoyi-common-mybatis/src/main/resources/common-mybatis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-common/ruoyi-common-mybatis/src/main/resources/common-mybatis.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,41 +51,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.RuoYiAIApplication.executor": "Debug",
-    "Notification.DisplayName-DoNotAsk-Dependencies from package.json": "Dependencies from package.json available",
-    "Notification.DoNotAsk-Dependencies from package.json": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.RuoYiAIApplication.executor": "Run",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/bytedance/workspaces/YearArk",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.dev:antd.executor": "Run",
-    "npm.install.executor": "Run",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.3275862",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "com.itangcent.idea.plugin.configurable.AccountConfigurable.apifox",
-    "ts.external.directory.path": "E:\\WorkSpace\\IdeaProjects\\YearArk\\ruoyi-admin\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.RuoYiAIApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Dependencies from package.json&quot;: &quot;Dependencies from package.json available&quot;,
+    &quot;Notification.DoNotAsk-Dependencies from package.json&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.RuoYiAIApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/bytedance/workspaces/YearArk&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.dev:antd.executor&quot;: &quot;Run&quot;,
+    &quot;npm.install.executor&quot;: &quot;Run&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.3275862&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.itangcent.idea.plugin.configurable.AccountConfigurable.apifox&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;E:\\WorkSpace\\IdeaProjects\\YearArk\\ruoyi-admin\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -246,7 +164,7 @@
       <workItem from="1772375368104" duration="286000" />
       <workItem from="1772375930038" duration="13684000" />
       <workItem from="1772425199849" duration="29921000" />
-      <workItem from="1772517321130" duration="3762000" />
+      <workItem from="1772517321130" duration="5456000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -336,7 +254,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772521383935</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="基础CRUD接口">
+      <option name="closed" value="true" />
+      <created>1772521512183</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1772521512183</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

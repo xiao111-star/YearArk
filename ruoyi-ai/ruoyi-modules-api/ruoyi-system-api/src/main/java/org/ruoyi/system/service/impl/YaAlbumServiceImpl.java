@@ -66,6 +66,11 @@ public class YaAlbumServiceImpl extends ServiceImpl<YaAlbumMapper, YaAlbum> impl
     // 删除接口，同时删除该纪念册下的所有纪念册单页
     @Override
     public boolean deleteByIds(List<Integer> ids) {
+        for (Integer id : ids) {
+            if (this.getById(id) == null) {
+                throw new RuntimeException("纪念册 [id=" + id + "] 不存在");
+            }
+        }
         // 先删除所有关联的 AlbumPage
         for (Integer albumId : ids) {
             LambdaQueryWrapper<YaAlbumPage> wrapper = new LambdaQueryWrapper<>();

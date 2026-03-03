@@ -75,6 +75,11 @@ public class YaInviteTokenServiceImpl extends ServiceImpl<YaInviteTokenMapper, Y
 
     @Override
     public boolean deleteByIds(List<Integer> ids) {
+        for (Integer id : ids) {
+            if (this.getById(id) == null) {
+                throw new RuntimeException("邀请Token [id=" + id + "] 不存在");
+            }
+        }
         return this.removeByIds(ids);
     }
 
