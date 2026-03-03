@@ -12,6 +12,7 @@ import org.ruoyi.common.core.utils.ObjectUtils;
 import org.ruoyi.common.satoken.utils.LoginHelper;
 import org.ruoyi.core.domain.BaseEntity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -49,9 +50,16 @@ public class InjectionMetaObjectHandler implements MetaObjectHandler {
                     }
                 }
             } else {
+                // 处理非 BaseEntity 的实体类
+                // 支持 Date 类型
                 Date date = new Date();
                 this.strictInsertFill(metaObject, "createTime", Date.class, date);
                 this.strictInsertFill(metaObject, "updateTime", Date.class, date);
+                
+                // 支持 LocalDateTime 类型（用于 ya_ 业务表）
+                LocalDateTime now = LocalDateTime.now();
+                this.strictInsertFill(metaObject, "createAt", LocalDateTime.class, now);
+                this.strictInsertFill(metaObject, "updateAt", LocalDateTime.class, now);
             }
         } catch (Exception e) {
             throw new ServiceException("自动注入异常 => " + e.getMessage(), HttpStatus.HTTP_UNAUTHORIZED);
@@ -77,7 +85,12 @@ public class InjectionMetaObjectHandler implements MetaObjectHandler {
                     baseEntity.setUpdateBy(userId);
                 }
             } else {
+                // 处理非 BaseEntity 的实体类
+                // 支持 Date 类型
                 this.strictUpdateFill(metaObject, "updateTime", Date.class, new Date());
+                
+                // 支持 LocalDateTime 类型（用于 ya_ 业务表）
+                this.strictUpdateFill(metaObject, "updateAt", LocalDateTime.class, LocalDateTime.now());
             }
         } catch (Exception e) {
             throw new ServiceException("自动注入异常 => " + e.getMessage(), HttpStatus.HTTP_UNAUTHORIZED);
