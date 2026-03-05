@@ -1,7 +1,10 @@
 package org.ruoyi.system.controller.yearark;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import lombok.RequiredArgsConstructor;
 import org.ruoyi.common.core.domain.R;
+import org.ruoyi.common.log.annotation.Log;
+import org.ruoyi.common.log.enums.BusinessType;
 import org.ruoyi.common.web.core.BaseController;
 import org.ruoyi.core.page.PageQuery;
 import org.ruoyi.core.page.TableDataInfo;
@@ -67,6 +70,8 @@ public class YaTemplateSchemaController extends BaseController {
      * @param dto 页面模板Schema信息
      * @return 操作结果
      */
+    @SaCheckPermission("yearark:templateSchema:add")
+    @Log(title = "JSON Schema管理", businessType = BusinessType.INSERT)
     @PostMapping
     public R<Void> insert(@Validated @RequestBody YaTemplateSchemaDto dto) {
         return toAjax(schemaService.insertByDto(dto));
@@ -78,6 +83,8 @@ public class YaTemplateSchemaController extends BaseController {
      * @param dto 页面模板Schema信息
      * @return 操作结果
      */
+    @SaCheckPermission("yearark:templateSchema:edit")
+    @Log(title = "JSON Schema管理", businessType = BusinessType.UPDATE)
     @PostMapping("/update")
     public R<Void> update(@Validated @RequestBody YaTemplateSchemaDto dto) {
         return toAjax(schemaService.updateByDto(dto));
@@ -89,6 +96,8 @@ public class YaTemplateSchemaController extends BaseController {
      * @param ids 页面模板SchemaID列表
      * @return 操作结果
      */
+    @SaCheckPermission("yearark:templateSchema:remove")
+    @Log(title = "JSON Schema管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable List<Integer> ids) {
         return toAjax(schemaService.deleteByIds(ids));

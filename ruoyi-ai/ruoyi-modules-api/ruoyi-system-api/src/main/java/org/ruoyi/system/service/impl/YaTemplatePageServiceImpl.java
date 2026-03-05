@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.ruoyi.common.core.constant.CommonConstants;
+import org.ruoyi.common.core.exception.ServiceException;
 import org.ruoyi.common.satoken.utils.LoginHelper;
 import org.ruoyi.core.page.PageQuery;
 import org.ruoyi.core.page.TableDataInfo;
@@ -58,19 +59,25 @@ public class YaTemplatePageServiceImpl extends ServiceImpl<YaTemplatePageMapper,
 
     @Override
     public boolean insertByDto(YaTemplatePageDto dto) {
+        if (ObjectUtil.isEmpty(dto.getType())) {
+            throw new ServiceException("请选择页面类型");
+        }
+        if (StrUtil.isBlank(dto.getContent())) {
+            throw new ServiceException("请输入模板内容");
+        }
         //查询选择的模板是否存在
         if (yaTemplateService.count(
                 new LambdaQueryWrapper<YaTemplate>()
                         .eq(YaTemplate::getId, dto.getTemplateId())
         ) == 0) {
-            throw new RuntimeException("模板 [id=" + dto.getTemplateId() + "] 不存在");
+            throw new ServiceException("关联的模板套件不存在");
         }
         //查询选择的schema是否存在
         if(yaTemplateSchemaService.count(
                 new LambdaQueryWrapper<YaTemplateSchema>()
                         .eq(YaTemplateSchema::getId, dto.getTemplateSchemaId())
         ) == 0){
-            throw new RuntimeException("模板 [id=" + dto.getTemplateId() + "] 的 Schema [id=" + dto.getTemplateSchemaId() + "] 不存在");
+            throw new ServiceException("关联的 Schema 不存在");
         }
 
         YaTemplatePage yaTemplatePage = BeanUtil.toBean(dto, YaTemplatePage.class);
@@ -93,7 +100,7 @@ public class YaTemplatePageServiceImpl extends ServiceImpl<YaTemplatePageMapper,
                     new LambdaQueryWrapper<YaTemplate>()
                             .eq(YaTemplate::getId, dto.getTemplateId())
             ) == 0){
-                throw new RuntimeException("模板 [id=" + dto.getTemplateId() + "] 不存在");
+                throw new ServiceException("关联的模板套件不存在");
             }
         }
         // 检查选择的schema是否存在
@@ -102,7 +109,7 @@ public class YaTemplatePageServiceImpl extends ServiceImpl<YaTemplatePageMapper,
                     new LambdaQueryWrapper<YaTemplateSchema>()
                             .eq(YaTemplateSchema::getId, dto.getTemplateSchemaId())
             ) == 0){
-                throw new RuntimeException("模板 [id=" + dto.getTemplateId() + "] 的 Schema [id=" + dto.getTemplateSchemaId() + "] 不存在");
+                throw new ServiceException("关联的 Schema 不存在");
             }
         }
 
@@ -132,6 +139,7 @@ public class YaTemplatePageServiceImpl extends ServiceImpl<YaTemplatePageMapper,
         if (q == null) return qw;
         qw.eq(q.getTemplateId() != null, YaTemplatePage::getTemplateId, q.getTemplateId());
         qw.eq(StrUtil.isNotBlank(q.getType()), YaTemplatePage::getType, q.getType());
+        qw.eq(q.getStatus() != null, YaTemplatePage::getStatus, q.getStatus());
         qw.orderByDesc(YaTemplatePage::getCreateAt);
         return qw;
     }

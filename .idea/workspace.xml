@@ -4,8 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="267c28b1-7f08-4a11-8500-356541775c2b" name="Changes" comment="基础CRUD接口">
+    <list default="true" id="267c28b1-7f08-4a11-8500-356541775c2b" name="Changes" comment="模板管理和模板schema管理">
+      <change afterPath="$PROJECT_DIR$/.kiro/specs/admin-template-management/.config.kiro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.kiro/specs/admin-template-management/design.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.kiro/specs/admin-template-management/requirements.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.kiro/specs/admin-template-management/tasks.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.kiro/specs/yearark-album-mvp/.config.kiro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.kiro/specs/yearark-album-mvp/requirements.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.kiro/steering/tech.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/yearark/template-page/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/yearark/template-page/model.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/yearark/template-schema/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/yearark/template-schema/model.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/yearark/template/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/yearark/template/model.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/yearark/template-schema/data.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/yearark/template-schema/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/yearark/template-schema/schema-modal.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/yearark/template/data.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/yearark/template/detail/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/yearark/template/detail/template-page-modal.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/yearark/template/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/yearark/template/template-modal.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/router/routes/local.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/router/routes/local.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaTemplateSchema.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaTemplateSchema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaTemplatePageQueryDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaTemplatePageQueryDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaTemplateSchemaDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaTemplateSchemaDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaTemplateSchemaVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaTemplateSchemaVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaTemplateVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaTemplateVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplatePageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplatePageServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplateSchemaServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplateSchemaServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplateServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/YaTemplateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/YaTemplateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/YaTemplatePageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/YaTemplatePageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/YaTemplateSchemaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/YaTemplateSchemaController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +72,9 @@
         <option name="userSettingsFile" value="D:\tool\apache-maven-3.9.6\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -104,7 +140,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Application.RuoYiAIApplication">
+  <component name="RunManager" selected="npm.dev:antd">
     <configuration name="RuoYiAIApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.ruoyi.RuoYiAIApplication" />
       <module name="ruoyi-admin" />
@@ -137,8 +173,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.RuoYiAIApplication" />
         <item itemvalue="npm.dev:antd" />
+        <item itemvalue="Application.RuoYiAIApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -165,6 +201,8 @@
       <workItem from="1772375930038" duration="13684000" />
       <workItem from="1772425199849" duration="29921000" />
       <workItem from="1772517321130" duration="5456000" />
+      <workItem from="1772534538910" duration="4473000" />
+      <workItem from="1772705109470" duration="7503000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -262,7 +300,23 @@
       <option name="project" value="LOCAL" />
       <updated>1772521512183</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="delete接口增加存在校验">
+      <option name="closed" value="true" />
+      <created>1772544085287</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1772544085287</updated>
+    </task>
+    <task id="LOCAL-00014" summary="模板管理和模板schema管理">
+      <option name="closed" value="true" />
+      <created>1772715102926</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1772715102926</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -303,7 +357,9 @@
     <MESSAGE value="移除所有与ai相关的框架包袱" />
     <MESSAGE value="domain" />
     <MESSAGE value="基础CRUD接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="基础CRUD接口" />
+    <MESSAGE value="delete接口增加存在校验" />
+    <MESSAGE value="模板管理和模板schema管理" />
+    <option name="LAST_COMMIT_MESSAGE" value="模板管理和模板schema管理" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -319,12 +375,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplateServiceImpl.java</url>
-          <line>63</line>
+          <line>84</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/YaTemplateController.java</url>
-          <line>91</line>
+          <line>89</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>

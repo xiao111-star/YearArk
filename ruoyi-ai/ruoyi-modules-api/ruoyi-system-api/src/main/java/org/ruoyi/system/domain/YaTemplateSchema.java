@@ -31,6 +31,15 @@ public class YaTemplateSchema implements Serializable {
      * 内容（JSON Schema）
      */
     private String content;
+    /**
+     * 图片数量
+     */
+    private Integer imageCount;
+
+    /**
+     * 文字数量
+     */
+    private Integer textCount;
 
     /**
      * 创建时间

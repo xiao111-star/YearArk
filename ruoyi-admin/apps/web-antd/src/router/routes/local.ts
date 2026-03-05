@@ -37,7 +37,18 @@ const localRoutes: RouteRecordStringComponent[] = [
     },
     name: 'RoleAssign',
     path: '/system/role-assign/:roleId',
-  }
+  },
+  {
+    component: '/yearark/template/detail/index',
+    meta: {
+      activePath: '/yearark/template',
+      icon: 'ant-design:file-text-outlined',
+      title: '模板详情',
+      hideInMenu: true,
+    },
+    name: 'YeararkTemplateDetail',
+    path: '/yearark/template/detail/:id',
+  },
 ];
 
 /**

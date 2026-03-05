@@ -24,4 +24,6 @@ public class YaTemplateVo {
     private Integer updateBy;
     private String createByName;
     private String updateByName;
+    private Long albumCount;
+    private String typeName;
 }

@@ -1,12 +1,13 @@
 package org.ruoyi.system.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.catalina.security.SecurityUtil;
 import org.ruoyi.common.core.constant.CommonConstants;
+import org.ruoyi.common.core.exception.ServiceException;
 import org.ruoyi.common.satoken.utils.LoginHelper;
 import org.ruoyi.core.page.PageQuery;
 import org.ruoyi.core.page.TableDataInfo;
@@ -20,11 +21,11 @@ import org.ruoyi.system.mapper.YaTemplateMapper;
 import org.ruoyi.system.mapper.SysUserMapper;
 import org.ruoyi.system.service.IYaAlbumService;
 import org.ruoyi.system.service.IYaTemplateService;
+import org.ruoyi.system.service.ISysDictDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class YaTemplateServiceImpl extends ServiceImpl<YaTemplateMapper, YaTemplate> implements IYaTemplateService {
@@ -35,11 +36,15 @@ public class YaTemplateServiceImpl extends ServiceImpl<YaTemplateMapper, YaTempl
     @Autowired
     private SysUserMapper sysUserMapper;
 
+    @Autowired
+    private ISysDictDataService dictDataService;
+
     @Override
     public TableDataInfo<YaTemplateVo> queryPage(YaTemplateQueryDto query, PageQuery pageQuery) {
         Page<YaTemplate> page = this.page(pageQuery.build(), buildWrapper(query));
         List<YaTemplateVo> voList = BeanUtil.copyToList(page.getRecords(), YaTemplateVo.class);
         fillUserNames(voList);
+        fillAlbumCountAndTypeName(voList);
         return new TableDataInfo<>(voList, page.getTotal());
     }
 
@@ -58,6 +63,7 @@ public class YaTemplateServiceImpl extends ServiceImpl<YaTemplateMapper, YaTempl
         }
         YaTemplateVo vo = BeanUtil.copyProperties(entity, YaTemplateVo.class);
         fillUserNames(List.of(vo));
+        fillAlbumCountAndTypeName(List.of(vo));
         return vo;
     }
 
@@ -76,6 +82,9 @@ public class YaTemplateServiceImpl extends ServiceImpl<YaTemplateMapper, YaTempl
 
     @Override
     public boolean updateByDto(YaTemplateDto dto) {
+        if (ObjectUtil.isEmpty(dto.getId())) {
+            throw new ServiceException("请选择要修改的模板");
+        }
         YaTemplate yaTemplate = BeanUtil.toBean(dto, YaTemplate.class);
         Long userId = LoginHelper.getUserId();
         if (userId != null) {
@@ -93,7 +102,7 @@ public class YaTemplateServiceImpl extends ServiceImpl<YaTemplateMapper, YaTempl
                 new LambdaQueryWrapper<YaAlbum>().eq(YaAlbum::getTemplateId, templateId)
             );
             if (count > 0) {
-                throw new RuntimeException("模板 [id=" + templateId + "] 已被纪念册使用，无法删除");
+                throw new ServiceException("模板 [id=" + templateId + "] 已被纪念册使用，无法删除");
             }
         }
         return this.removeByIds(ids);
@@ -128,6 +137,34 @@ public class YaTemplateServiceImpl extends ServiceImpl<YaTemplateMapper, YaTempl
                 SysUserVo updateUser = sysUserMapper.selectUserById(vo.getUpdateBy().longValue());
                 if (updateUser != null) {
                     vo.setUpdateByName(updateUser.getNickName());
+                }
+            }
+        }
+    }
+
+    /**
+     * 填充纪念册使用数量和类型中文名称
+     */
+    private void fillAlbumCountAndTypeName(List<YaTemplateVo> voList) {
+        if (voList == null || voList.isEmpty()) {
+            return;
+        }
+
+        for (YaTemplateVo vo : voList) {
+            // 统计纪念册使用数量（@TableLogic 自动过滤 is_delete != 0 的记录）
+            long count = albumService.count(
+                new LambdaQueryWrapper<YaAlbum>().eq(YaAlbum::getTemplateId, vo.getId())
+            );
+            vo.setAlbumCount(count);
+
+            // 字典翻译 type -> typeName
+            if (vo.getType() != null) {
+                try {
+                    String label = dictDataService.selectDictLabel("ya_template_type", String.valueOf(vo.getType()));
+                    vo.setTypeName(label);
+                } catch (Exception e) {
+                    // 字典未配置时不影响正常返回
+                    vo.setTypeName(null);
                 }
             }
         }

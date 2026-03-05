@@ -12,5 +12,7 @@ public class YaTemplateSchemaDto {
 
     private Integer id;
     private String content;
+    private Integer imageCount;
+    private Integer textCount;
     private Integer status;
 }

@@ -12,5 +12,5 @@ public class YaTemplatePageQueryDto {
 
     private Integer templateId;
     private String type;
-    private Integer Status;
+    private Integer status;
 }

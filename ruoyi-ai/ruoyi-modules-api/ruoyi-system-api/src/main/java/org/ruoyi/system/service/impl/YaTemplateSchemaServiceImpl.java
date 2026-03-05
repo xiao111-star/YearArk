@@ -1,10 +1,15 @@
 package org.ruoyi.system.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ruoyi.common.core.constant.CommonConstants;
+import org.ruoyi.common.core.exception.ServiceException;
+import org.ruoyi.common.core.utils.StringUtils;
 import org.ruoyi.common.satoken.utils.LoginHelper;
 import org.ruoyi.core.page.PageQuery;
 import org.ruoyi.core.page.TableDataInfo;
@@ -28,10 +33,14 @@ public class YaTemplateSchemaServiceImpl extends ServiceImpl<YaTemplateSchemaMap
     @Autowired
     private IYaTemplatePageService templatePageService;
 
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
     @Override
     public TableDataInfo<YaTemplateSchemaVo> queryPage(YaTemplateSchemaQueryDto query, PageQuery pageQuery) {
         Page<YaTemplateSchema> page = this.page(pageQuery.build(), buildWrapper(query));
-        return new TableDataInfo<>(BeanUtil.copyToList(page.getRecords(), YaTemplateSchemaVo.class), page.getTotal());
+        List<YaTemplateSchemaVo> voList = BeanUtil.copyToList(page.getRecords(), YaTemplateSchemaVo.class);
+        fillUsageCount(voList);
+        return new TableDataInfo<>(voList, page.getTotal());
     }
 
     @Override
@@ -47,6 +56,16 @@ public class YaTemplateSchemaServiceImpl extends ServiceImpl<YaTemplateSchemaMap
 
     @Override
     public boolean insertByDto(YaTemplateSchemaDto dto) {
+        if(StringUtils.isBlank(dto.getContent())){
+            throw new ServiceException("请输入模板内容");
+        }
+        if(ObjectUtil.isEmpty(dto.getImageCount())){
+            throw new ServiceException("请输入图片数量");
+        }
+        if(ObjectUtil.isEmpty(dto.getTextCount())){
+            throw new ServiceException("请输入文本数量");
+        }
+        validateJsonContent(dto.getContent());
         YaTemplateSchema yaTemplateSchema = BeanUtil.toBean(dto, YaTemplateSchema.class);
         yaTemplateSchema.setStatus(dto.getStatus()!=null?dto.getStatus(): CommonConstants.IS_AVAILABLE);
         Long userId = LoginHelper.getUserId();
@@ -60,6 +79,7 @@ public class YaTemplateSchemaServiceImpl extends ServiceImpl<YaTemplateSchemaMap
 
     @Override
     public boolean updateByDto(YaTemplateSchemaDto dto) {
+        validateJsonContent(dto.getContent());
         YaTemplateSchema yaTemplateSchema = BeanUtil.toBean(dto, YaTemplateSchema.class);
         Long userId = LoginHelper.getUserId();
         if (userId != null) {
@@ -76,10 +96,33 @@ public class YaTemplateSchemaServiceImpl extends ServiceImpl<YaTemplateSchemaMap
                 new LambdaQueryWrapper<YaTemplatePage>().eq(YaTemplatePage::getTemplateSchemaId, schemaId)
             );
             if (count > 0) {
-                throw new RuntimeException("Schema [id=" + schemaId + "] 已被模板页面使用，无法删除");
+                throw new ServiceException("该 Schema 已被模板页面使用，无法删除");
             }
         }
         return this.removeByIds(ids);
+    }
+
+    private void validateJsonContent(String content) {
+        if (content == null || content.isBlank()) {
+            return;
+        }
+        try {
+            OBJECT_MAPPER.readTree(content);
+        } catch (JsonProcessingException e) {
+            long line = e.getLocation() != null ? e.getLocation().getLineNr() : -1;
+            long column = e.getLocation() != null ? e.getLocation().getColumnNr() : -1;
+            throw new ServiceException("JSON 格式不正确：第" + line + "行第" + column + "列");
+        }
+    }
+
+    private void fillUsageCount(List<YaTemplateSchemaVo> voList) {
+        for (YaTemplateSchemaVo vo : voList) {
+            // 统计被引用的模板页面数量
+            long count = templatePageService.count(
+                new LambdaQueryWrapper<YaTemplatePage>().eq(YaTemplatePage::getTemplateSchemaId, vo.getId())
+            );
+            vo.setUsageCount(count);
+        }
     }
 
     private LambdaQueryWrapper<YaTemplateSchema> buildWrapper(YaTemplateSchemaQueryDto q) {

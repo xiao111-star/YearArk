@@ -1,10 +1,10 @@
 package org.ruoyi.system.controller.yearark;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import lombok.RequiredArgsConstructor;
 import org.ruoyi.common.core.domain.R;
+import org.ruoyi.common.log.annotation.Log;
+import org.ruoyi.common.log.enums.BusinessType;
 import org.ruoyi.common.web.core.BaseController;
 import org.ruoyi.core.page.PageQuery;
 import org.ruoyi.core.page.TableDataInfo;
@@ -70,11 +70,10 @@ public class YaTemplatePageController extends BaseController {
      * @param dto 套件页面模板信息
      * @return 操作结果
      */
+    @SaCheckPermission("yearark:templatePage:add")
+    @Log(title = "模板页面管理", businessType = BusinessType.INSERT)
     @PostMapping
     public R<Void> insert(@Validated @RequestBody YaTemplatePageDto dto) {
-        if (ObjectUtil.isEmpty(dto.getType())){
-            return R.fail("请选择页面类型");
-        }
         return toAjax(templatePageService.insertByDto(dto));
     }
 
@@ -84,6 +83,8 @@ public class YaTemplatePageController extends BaseController {
      * @param dto 套件页面模板信息
      * @return 操作结果
      */
+    @SaCheckPermission("yearark:templatePage:edit")
+    @Log(title = "模板页面管理", businessType = BusinessType.UPDATE)
     @PostMapping("/update")
     public R<Void> update(@Validated @RequestBody YaTemplatePageDto dto) {
         return toAjax(templatePageService.updateByDto(dto));
@@ -95,6 +96,8 @@ public class YaTemplatePageController extends BaseController {
      * @param ids 套件页面模板ID列表
      * @return 操作结果
      */
+    @SaCheckPermission("yearark:templatePage:remove")
+    @Log(title = "模板页面管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public R<Void> delete(@PathVariable List<Integer> ids) {
         return toAjax(templatePageService.deleteByIds(ids));
