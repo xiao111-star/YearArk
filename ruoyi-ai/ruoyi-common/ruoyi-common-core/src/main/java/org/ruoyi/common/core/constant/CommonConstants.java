@@ -8,13 +8,13 @@ public interface CommonConstants {
     /**
      * 已被删除
      */
-    Integer DELETED = 1;
+    Integer DELETED = 2;
     /**
-     * 可用
+     * 开启
      */
-    Integer IS_AVAILABLE = 1;
+    Integer IS_AVAILABLE = 0;
     /**
-     * 不可用
+     * 停用
      */
-    Integer NOT_AVAILABLE = 0;
+    Integer NOT_AVAILABLE = 1;
 }

@@ -53,7 +53,7 @@ public class YaUser implements Serializable {
     private String avatarUrl;
 
     /**
-     * 状态（0 禁用  1 可用）
+     * 状态（0 开启 1 停用）
      */
     private Integer status;
 

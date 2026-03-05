@@ -65,7 +65,7 @@ public class YaInviteToken implements Serializable {
     private LocalDateTime expiredAt;
 
     /**
-     * 状态（0 已过期 1 可用）
+     * 状态（0 开启 1 停用）
      */
     private Integer status;
 

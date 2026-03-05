@@ -64,7 +64,7 @@ public class YaTemplateSchema implements Serializable {
     private String updateBy;
 
     /**
-     * 状态
+     * 状态（0 开启 1 停用）
      */
     private Integer status;
 

@@ -1,21 +1,18 @@
 import type { FormSchemaGetter } from '#/adapter/form';
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { h } from 'vue';
-
+import { DictEnum } from '@vben/constants';
 import { getPopupContainer } from '@vben/utils';
 
-import { Tag } from 'ant-design-vue';
+import { getDictOptions } from '#/utils/dict';
+import { renderDict } from '#/utils/render';
 
 export const querySchema: FormSchemaGetter = () => [
   {
     component: 'Select',
     componentProps: {
       getPopupContainer,
-      options: [
-        { label: '启用', value: 1 },
-        { label: '禁用', value: 0 },
-      ],
+      options: getDictOptions(DictEnum.SYS_NORMAL_DISABLE),
     },
     fieldName: 'status',
     label: '状态',
@@ -50,9 +47,7 @@ export const columns: VxeGridProps['columns'] = [
     width: 80,
     slots: {
       default: ({ row }) => {
-        return row.status === 1
-          ? h(Tag, { color: 'green' }, () => '启用')
-          : h(Tag, { color: 'red' }, () => '禁用');
+        return renderDict(row.status, DictEnum.SYS_NORMAL_DISABLE);
       },
     },
   },
@@ -117,13 +112,10 @@ export const modalSchema: FormSchemaGetter = () => [
     component: 'RadioGroup',
     componentProps: {
       buttonStyle: 'solid',
-      options: [
-        { label: '启用', value: 1 },
-        { label: '禁用', value: 0 },
-      ],
+      options: getDictOptions(DictEnum.SYS_NORMAL_DISABLE),
       optionType: 'button',
     },
-    defaultValue: 1,
+    defaultValue: 0,
     fieldName: 'status',
     label: '状态',
   },

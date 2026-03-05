@@ -53,7 +53,7 @@ public class YaTemplatePage implements Serializable {
     private String type;
 
     /**
-     * 状态
+     * 状态（0 开启 1 停用）
      */
     private Integer status;
 

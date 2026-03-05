@@ -43,7 +43,7 @@ public class YaInvite implements Serializable {
     private String accessCode;
 
     /**
-     * 状态（0 禁用 1 可用）
+     * 状态（0 开启 1 停用）
      */
     private Integer status;
 

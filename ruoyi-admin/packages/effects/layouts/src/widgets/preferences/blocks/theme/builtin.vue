@@ -92,7 +92,7 @@ function selectColor() {
 }
 
 watch(
-  () => [modelValue.value, props.isDark] as [BuiltinThemeType, boolean],
+  (): [BuiltinThemeType, boolean] => [modelValue.value!, props.isDark],
   ([themeType, isDark]) => {
     const theme = builtinThemePresets.value.find(
       (item) => item.type === themeType,

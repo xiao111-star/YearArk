@@ -1,4 +1,4 @@
-import type { AxiosRequestConfig } from '@vben/request/src';
+import type { AxiosRequestConfig } from '@vben/request';
 
 import type { OssFile } from './model';
 

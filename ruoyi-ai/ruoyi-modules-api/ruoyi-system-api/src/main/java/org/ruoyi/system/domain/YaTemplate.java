@@ -48,7 +48,7 @@ public class YaTemplate implements Serializable {
     private String des;
 
     /**
-     * 状态
+     * 状态（0 开启 1 停用）
      */
     private Integer status;
 

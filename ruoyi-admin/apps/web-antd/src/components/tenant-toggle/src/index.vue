@@ -87,7 +87,8 @@ async function onDeselect() {
  * @param input 输入内容
  * @param option 选项
  */
-function filterOption(input: string, option: TenantOption) {
+function filterOption(input: string, option: TenantOption | undefined) {
+  if (!option) return false;
   return option.companyName.toLowerCase().includes(input.toLowerCase());
 }
 </script>

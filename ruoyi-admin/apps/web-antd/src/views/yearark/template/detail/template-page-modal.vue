@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
+import { DictEnum } from '@vben/constants';
 import { cloneDeep, getPopupContainer } from '@vben/utils';
 
 import { useVbenForm } from '#/adapter/form';
@@ -11,6 +12,7 @@ import {
   templatePageUpdate,
 } from '#/api/yearark/template-page';
 import { schemaList } from '#/api/yearark/template-schema';
+import { getDictOptions } from '#/utils/dict';
 
 const emit = defineEmits<{ reload: [] }>();
 
@@ -93,13 +95,10 @@ const [BasicForm, formApi] = useVbenForm({
       component: 'RadioGroup',
       componentProps: {
         buttonStyle: 'solid',
-        options: [
-          { label: '启用', value: 1 },
-          { label: '禁用', value: 0 },
-        ],
+        options: getDictOptions(DictEnum.SYS_NORMAL_DISABLE),
         optionType: 'button',
       },
-      defaultValue: 1,
+      defaultValue: 0,
       fieldName: 'status',
       label: '状态',
     },

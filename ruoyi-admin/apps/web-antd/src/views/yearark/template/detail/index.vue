@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { computed, h, onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-
 import type { VxeGridProps } from '#/adapter/vxe-table';
 import type { YaTemplatePage } from '#/api/yearark/template-page/model';
 import type { YaTemplate } from '#/api/yearark/template/model';
 
+import { computed, h, onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
 import { Page, useVbenModal } from '@vben/common-ui';
 import { getVxePopupContainer } from '@vben/utils';
+
+import { DictEnum } from '@vben/constants';
 
 import {
   Card,
@@ -18,7 +20,6 @@ import {
   Popconfirm,
   Space,
   Statistic,
-  Tag,
 } from 'ant-design-vue';
 
 import { useVbenVxeGrid, vxeCheckboxChecked } from '#/adapter/vxe-table';
@@ -27,6 +28,9 @@ import {
   templatePagePage,
   templatePageRemove,
 } from '#/api/yearark/template-page';
+import { DictTag } from '#/components/dict';
+import { getDictOptions } from '#/utils/dict';
+import { renderDict } from '#/utils/render';
 
 import templatePageModal from './template-page-modal.vue';
 
@@ -72,9 +76,7 @@ const pageColumns: VxeGridProps['columns'] = [
     width: 80,
     slots: {
       default: ({ row }: { row: YaTemplatePage }) => {
-        return row.status === 1
-          ? h(Tag, { color: 'green' }, () => '启用')
-          : h(Tag, { color: 'red' }, () => '禁用');
+        return renderDict(row.status, DictEnum.SYS_NORMAL_DISABLE);
       },
     },
   },
@@ -176,9 +178,10 @@ function handleBack() {
           {{ templateData.typeName || templateData.type }}
         </DescriptionsItem>
         <DescriptionsItem label="状态">
-          <Tag :color="templateData.status === 1 ? 'green' : 'red'">
-            {{ templateData.status === 1 ? '启用' : '禁用' }}
-          </Tag>
+          <DictTag
+            :dicts="getDictOptions(DictEnum.SYS_NORMAL_DISABLE)"
+            :value="templateData.status"
+          />
         </DescriptionsItem>
         <DescriptionsItem label="预览图">
           <Image
