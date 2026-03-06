@@ -28,6 +28,11 @@ public class YaTemplateSchema implements Serializable {
     private Integer id;
 
     /**
+     * Schema名称
+     */
+    private String name;
+
+    /**
      * 内容（JSON Schema）
      */
     private String content;

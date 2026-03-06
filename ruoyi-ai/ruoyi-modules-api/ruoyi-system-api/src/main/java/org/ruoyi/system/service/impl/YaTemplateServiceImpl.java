@@ -13,6 +13,7 @@ import org.ruoyi.core.page.PageQuery;
 import org.ruoyi.core.page.TableDataInfo;
 import org.ruoyi.system.domain.YaAlbum;
 import org.ruoyi.system.domain.YaTemplate;
+import org.ruoyi.system.domain.YaTemplatePage;
 import org.ruoyi.system.domain.dto.YaTemplateDto;
 import org.ruoyi.system.domain.dto.YaTemplateQueryDto;
 import org.ruoyi.system.domain.vo.YaTemplateVo;
@@ -20,9 +21,11 @@ import org.ruoyi.system.domain.vo.SysUserVo;
 import org.ruoyi.system.mapper.YaTemplateMapper;
 import org.ruoyi.system.mapper.SysUserMapper;
 import org.ruoyi.system.service.IYaAlbumService;
+import org.ruoyi.system.service.IYaTemplatePageService;
 import org.ruoyi.system.service.IYaTemplateService;
 import org.ruoyi.system.service.ISysDictDataService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,12 +35,13 @@ public class YaTemplateServiceImpl extends ServiceImpl<YaTemplateMapper, YaTempl
 
     @Autowired
     private IYaAlbumService albumService;
-
     @Autowired
     private SysUserMapper sysUserMapper;
-
     @Autowired
     private ISysDictDataService dictDataService;
+    @Lazy
+    @Autowired
+    private IYaTemplatePageService yaTemplatePageService;
 
     @Override
     public TableDataInfo<YaTemplateVo> queryPage(YaTemplateQueryDto query, PageQuery pageQuery) {
@@ -105,6 +109,11 @@ public class YaTemplateServiceImpl extends ServiceImpl<YaTemplateMapper, YaTempl
                 throw new ServiceException("模板 [id=" + templateId + "] 已被纪念册使用，无法删除");
             }
         }
+        // 删除模板的时候 一并删除模板页
+        ids.forEach(templateId ->
+                yaTemplatePageService.remove(new LambdaQueryWrapper<YaTemplatePage>()
+                        .eq(YaTemplatePage::getTemplateId, templateId))
+        );
         return this.removeByIds(ids);
     }
 

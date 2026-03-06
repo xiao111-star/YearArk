@@ -1,5 +1,6 @@
 package org.ruoyi.system.domain.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
@@ -11,6 +12,7 @@ import lombok.Data;
 public class YaTemplateSchemaDto {
 
     private Integer id;
+    private String name;
     private String content;
     private Integer imageCount;
     private Integer textCount;

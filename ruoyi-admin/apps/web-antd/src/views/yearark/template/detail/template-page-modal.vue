@@ -26,7 +26,7 @@ const schemaOptions = ref<Array<{ label: string; value: number }>>([]);
 async function loadSchemaOptions() {
   const list = await schemaList({});
   schemaOptions.value = list.map((item) => ({
-    label: `Schema #${item.id}`,
+    label: item.name,
     value: item.id,
   }));
 }
@@ -52,11 +52,8 @@ const [BasicForm, formApi] = useVbenForm({
       component: 'Select',
       componentProps: {
         getPopupContainer,
-        options: [
-          { label: '封面', value: 'cover' },
-          { label: '内容页', value: 'content' },
-          { label: '封底', value: 'back' },
-        ],
+        options: getDictOptions('ya_template_page_type'),
+        style: { width: '100%' },
       },
       fieldName: 'type',
       label: '页面类型',
@@ -69,6 +66,7 @@ const [BasicForm, formApi] = useVbenForm({
         options: schemaOptions.value,
         allowClear: true,
         showSearch: true,
+        style: { width: '100%' },
         filterOption: (input: string, option: any) =>
           option.label.toLowerCase().includes(input.toLowerCase()),
       }),

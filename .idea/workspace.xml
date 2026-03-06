@@ -4,25 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="267c28b1-7f08-4a11-8500-356541775c2b" name="Changes" comment="schema-design.md">
+    <list default="true" id="267c28b1-7f08-4a11-8500-356541775c2b" name="Changes" comment="同步框架字典值：&#10;逻辑删除、停用">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/operator/oss/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/operator/oss/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/components/tenant-toggle/src/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/components/tenant-toggle/src/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/yearark/template-page/model.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/yearark/template-page/model.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/yearark/template-schema/model.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/api/yearark/template-schema/model.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/yearark/template-schema/data.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/yearark/template-schema/data.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/yearark/template/data.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/yearark/template/data.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/yearark/template/detail/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/yearark/template/detail/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/yearark/template/detail/template-page-modal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-admin/apps/web-antd/src/views/yearark/template/detail/template-page-modal.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ruoyi-admin/packages/effects/layouts/src/widgets/language-toggle.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-admin/packages/effects/layouts/src/widgets/language-toggle.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruoyi-admin/packages/effects/layouts/src/widgets/layout-toggle.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-admin/packages/effects/layouts/src/widgets/layout-toggle.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruoyi-admin/packages/effects/layouts/src/widgets/preferences/blocks/theme/builtin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-admin/packages/effects/layouts/src/widgets/preferences/blocks/theme/builtin.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ruoyi-admin/packages/effects/layouts/src/widgets/theme-toggle/theme-toggle.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-admin/packages/effects/layouts/src/widgets/theme-toggle/theme-toggle.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-common/ruoyi-common-core/src/main/java/org/ruoyi/common/core/constant/CommonConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-common/ruoyi-common-core/src/main/java/org/ruoyi/common/core/constant/CommonConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaInvite.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaInvite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaInviteToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaInviteToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaTemplate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaTemplatePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaTemplatePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaTemplateSchema.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaTemplateSchema.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaTemplatePageDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaTemplatePageDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaTemplatePageQueryDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaTemplatePageQueryDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaTemplateSchemaDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/dto/YaTemplateSchemaDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaTemplateSchemaVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaTemplateSchemaVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplatePageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplatePageServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplateSchemaServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplateSchemaServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplateServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,41 +71,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.RuoYiAIApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Notification.DisplayName-DoNotAsk-Dependencies from package.json&quot;: &quot;Dependencies from package.json available&quot;,
-    &quot;Notification.DoNotAsk-Dependencies from package.json&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.RuoYiAIApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/bytedance/workspaces/YearArk&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.dev:antd.executor&quot;: &quot;Run&quot;,
-    &quot;npm.install.executor&quot;: &quot;Run&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.3275862&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.itangcent.idea.plugin.configurable.AccountConfigurable.apifox&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;E:\\WorkSpace\\IdeaProjects\\YearArk\\ruoyi-admin\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.RuoYiAIApplication.executor": "Debug",
+    "Notification.DisplayName-DoNotAsk-Dependencies from package.json": "Dependencies from package.json available",
+    "Notification.DoNotAsk-Dependencies from package.json": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.RuoYiAIApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/bytedance/workspaces/YearArk",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.dev:antd.executor": "Debug",
+    "npm.install.executor": "Run",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.3275862",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "com.itangcent.idea.plugin.configurable.AccountConfigurable.apifox",
+    "ts.external.directory.path": "E:\\WorkSpace\\IdeaProjects\\YearArk\\ruoyi-admin\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -124,7 +124,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="npm.dev:antd">
+  <component name="RunManager" selected="Application.RuoYiAIApplication">
     <configuration name="RuoYiAIApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.ruoyi.RuoYiAIApplication" />
       <module name="ruoyi-admin" />
@@ -157,8 +157,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.dev:antd" />
         <item itemvalue="Application.RuoYiAIApplication" />
+        <item itemvalue="npm.dev:antd" />
       </list>
     </recent_temporary>
   </component>
@@ -186,7 +186,7 @@
       <workItem from="1772425199849" duration="29921000" />
       <workItem from="1772517321130" duration="5456000" />
       <workItem from="1772534538910" duration="4473000" />
-      <workItem from="1772705109470" duration="10320000" />
+      <workItem from="1772705109470" duration="19968000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -316,7 +316,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772723204249</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="同步框架字典值：&#10;逻辑删除、停用">
+      <option name="closed" value="true" />
+      <created>1772732661004</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1772732661004</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -360,7 +368,8 @@
     <MESSAGE value="delete接口增加存在校验" />
     <MESSAGE value="模板管理和模板schema管理" />
     <MESSAGE value="schema-design.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="schema-design.md" />
+    <MESSAGE value="同步框架字典值：&#10;逻辑删除、停用" />
+    <option name="LAST_COMMIT_MESSAGE" value="同步框架字典值：&#10;逻辑删除、停用" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -376,7 +385,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplateServiceImpl.java</url>
-          <line>84</line>
+          <line>88</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

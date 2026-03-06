@@ -65,6 +65,9 @@ public class YaTemplateSchemaServiceImpl extends ServiceImpl<YaTemplateSchemaMap
         if(ObjectUtil.isEmpty(dto.getTextCount())){
             throw new ServiceException("请输入文本数量");
         }
+        if(ObjectUtil.isEmpty(dto.getName())){
+            throw new ServiceException("请输入模板名称");
+        }
         validateJsonContent(dto.getContent());
         YaTemplateSchema yaTemplateSchema = BeanUtil.toBean(dto, YaTemplateSchema.class);
         yaTemplateSchema.setStatus(dto.getStatus()!=null?dto.getStatus(): CommonConstants.IS_AVAILABLE);

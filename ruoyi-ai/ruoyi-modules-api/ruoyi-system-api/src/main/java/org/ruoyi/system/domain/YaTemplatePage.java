@@ -50,7 +50,7 @@ public class YaTemplatePage implements Serializable {
     /**
      * 类型
      */
-    private String type;
+    private Integer type;
 
     /**
      * 状态（0 开启 1 停用）

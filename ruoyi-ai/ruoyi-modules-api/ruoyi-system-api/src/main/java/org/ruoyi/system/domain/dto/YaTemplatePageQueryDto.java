@@ -11,6 +11,6 @@ import lombok.Data;
 public class YaTemplatePageQueryDto {
 
     private Integer templateId;
-    private String type;
+    private Integer type;
     private Integer status;
 }

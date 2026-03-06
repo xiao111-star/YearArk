@@ -7,9 +7,8 @@ import { computed, h, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { Page, useVbenModal } from '@vben/common-ui';
-import { getVxePopupContainer } from '@vben/utils';
-
 import { DictEnum } from '@vben/constants';
+import { getVxePopupContainer } from '@vben/utils';
 
 import {
   Card,
@@ -49,13 +48,19 @@ onMounted(() => {
 
 const pageColumns: VxeGridProps['columns'] = [
   { type: 'checkbox', width: 60 },
-  { title: '页面ID', field: 'id', width: 80 },
-  { title: '关联Schema', field: 'templateSchemaId', width: 120 },
-  { title: '页面类型', field: 'type', width: 120 },
+  { title: '页面ID', field: 'id', minWidth: 80 },
+  { title: '关联Schema', field: 'templateSchemaId', minWidth: 120 },
+  { title: '页面类型', field: 'type', minWidth: 120,
+    slots: {
+      default: ({ row }: { row: YaTemplatePage }) => {
+        return renderDict(row.type, 'ya_template_page_type');
+      },
+    },
+  },
   {
     title: '预览图',
     field: 'previewUrl',
-    width: 100,
+    minWidth: 100,
     slots: {
       default: ({ row }: { row: YaTemplatePage }) => {
         if (!row.previewUrl) {
@@ -73,14 +78,14 @@ const pageColumns: VxeGridProps['columns'] = [
   {
     title: '状态',
     field: 'status',
-    width: 80,
+    minWidth: 80,
     slots: {
       default: ({ row }: { row: YaTemplatePage }) => {
         return renderDict(row.status, DictEnum.SYS_NORMAL_DISABLE);
       },
     },
   },
-  { title: '创建时间', field: 'createAt', width: 180 },
+  { title: '创建时间', field: 'createAt', minWidth: 180 },
   {
     field: 'action',
     fixed: 'right',

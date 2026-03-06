@@ -138,7 +138,7 @@ public class YaTemplatePageServiceImpl extends ServiceImpl<YaTemplatePageMapper,
         LambdaQueryWrapper<YaTemplatePage> qw = new LambdaQueryWrapper<>();
         if (q == null) return qw;
         qw.eq(q.getTemplateId() != null, YaTemplatePage::getTemplateId, q.getTemplateId());
-        qw.eq(StrUtil.isNotBlank(q.getType()), YaTemplatePage::getType, q.getType());
+        qw.eq(ObjectUtil.isNotEmpty(q.getType()), YaTemplatePage::getType, q.getType());
         qw.eq(q.getStatus() != null, YaTemplatePage::getStatus, q.getStatus());
         qw.orderByDesc(YaTemplatePage::getCreateAt);
         return qw;

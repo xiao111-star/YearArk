@@ -4,7 +4,7 @@ export interface YaTemplatePage {
   templateSchemaId?: number;
   content: string;
   previewUrl?: string;
-  type: string;
+  type: number;
   status: number;
   createAt?: string;
   updateAt?: string;
@@ -14,6 +14,6 @@ export interface YaTemplatePage {
 
 export interface YaTemplatePageQuery {
   templateId?: number;
-  type?: string;
+  type?: number;
   status?: number;
 }

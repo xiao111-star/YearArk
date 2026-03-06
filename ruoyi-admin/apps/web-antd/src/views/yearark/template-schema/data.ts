@@ -24,27 +24,32 @@ export const columns: VxeGridProps['columns'] = [
   {
     title: 'Schema ID',
     field: 'id',
-    width: 100,
+    minWidth: 100,
+  },
+  {
+    title: 'Schema名称',
+    field: 'name',
+    minWidth: 200,
   },
   {
     title: '图片数量',
     field: 'imageCount',
-    width: 100,
+    minWidth: 100,
   },
   {
     title: '文字数量',
     field: 'textCount',
-    width: 100,
+    minWidth: 100,
   },
   {
     title: '使用数量',
     field: 'usageCount',
-    width: 100,
+    minWidth: 100,
   },
   {
     title: '状态',
     field: 'status',
-    width: 80,
+    minWidth: 100,
     slots: {
       default: ({ row }) => {
         return renderDict(row.status, DictEnum.SYS_NORMAL_DISABLE);
@@ -54,7 +59,7 @@ export const columns: VxeGridProps['columns'] = [
   {
     title: '创建时间',
     field: 'createAt',
-    width: 180,
+    minWidth: 180,
   },
   {
     field: 'action',
@@ -74,6 +79,15 @@ export const modalSchema: FormSchemaGetter = () => [
     },
     fieldName: 'id',
     label: 'Schema ID',
+  },
+  {
+    component: 'Input',
+    componentProps: {
+      placeholder: '请输入Schema名称',
+    },
+    fieldName: 'name',
+    label: 'Schema名称',
+    rules: 'required',
   },
   {
     component: 'Textarea',

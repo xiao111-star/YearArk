@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class YaTemplateSchemaVo {
 
     private Integer id;
+    private String name;
     private String content;
     private Integer imageCount;
     private Integer textCount;

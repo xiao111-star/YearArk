@@ -1,5 +1,6 @@
 export interface YaTemplateSchema {
   id: number;
+  name?: string;
   content: string;
   imageCount?: number;
   textCount?: number;

@@ -42,15 +42,17 @@ export const columns: VxeGridProps['columns'] = [
   {
     title: '模板ID',
     field: 'id',
-    width: 80,
+    minWidth: 80,
   },
   {
     title: '模板名称',
     field: 'name',
+    minWidth: 120,
   },
   {
     title: '模板类型',
     field: 'type',
+    minWidth: 100,
     slots: {
       default: ({ row }) => {
         return renderDict(row.type, 'ya_template_type');
@@ -60,7 +62,7 @@ export const columns: VxeGridProps['columns'] = [
   {
     title: '预览图',
     field: 'previewUrl',
-    width: 100,
+    minWidth: 100,
     slots: {
       default: ({ row }) => {
         if (!row.previewUrl) {
@@ -80,11 +82,12 @@ export const columns: VxeGridProps['columns'] = [
   {
     title: '描述',
     field: 'des',
+    minWidth: 120,
   },
   {
     title: '状态',
     field: 'status',
-    width: 80,
+    minWidth: 80,
     slots: {
       default: ({ row }) => {
         return renderDict(row.status, DictEnum.SYS_NORMAL_DISABLE);
@@ -94,27 +97,22 @@ export const columns: VxeGridProps['columns'] = [
   {
     title: '使用数量',
     field: 'albumCount',
-    width: 100,
+    minWidth: 100,
   },
   {
     title: '创建时间',
     field: 'createAt',
-    width: 180,
+    minWidth: 180,
   },
   {
     title: '更新时间',
     field: 'updateAt',
-    width: 180,
+    minWidth: 180,
   },
   {
     title: '创建人',
     field: 'createByName',
-    width: 100,
-  },
-  {
-    title: '更新者',
-    field: 'updateByName',
-    width: 100,
+    minWidth: 100,
   },
   {
     field: 'action',
