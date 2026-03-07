@@ -23,4 +23,9 @@ public interface IYaAlbumService extends IService<YaAlbum> {
     boolean updateByDto(YaAlbumDto dto);
 
     boolean deleteByIds(List<Integer> ids);
+
+    /**
+     * 校验纪念册归属（album.userId == userId），不通过则抛异常
+     */
+    void checkOwnership(Integer albumId, Integer userId);
 }

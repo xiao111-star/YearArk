@@ -23,4 +23,22 @@ public interface IYaInviteService extends IService<YaInvite> {
     boolean updateByDto(YaInviteDto dto);
 
     boolean deleteByIds(List<Integer> ids);
+
+    /**
+     * 用户端创建邀请链接（自动生成邀请码、校验归属、计算过期时间）
+     *
+     * @param dto    邀请信息（albumId, accessCode, expireHours）
+     * @param userId 当前用户ID
+     * @return 是否成功
+     */
+    boolean createInvite(YaInviteDto dto, Integer userId);
+
+    /**
+     * 用户端禁用邀请链接（校验归属）
+     *
+     * @param id     邀请链接ID
+     * @param userId 当前用户ID
+     * @return 是否成功
+     */
+    boolean disableInvite(Integer id, Integer userId);
 }

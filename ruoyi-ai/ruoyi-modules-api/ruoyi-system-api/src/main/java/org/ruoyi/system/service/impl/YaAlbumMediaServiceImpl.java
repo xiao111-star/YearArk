@@ -12,6 +12,7 @@ import org.ruoyi.core.page.TableDataInfo;
 import org.ruoyi.system.domain.YaAlbumMedia;
 import org.ruoyi.system.domain.dto.YaAlbumMediaDto;
 import org.ruoyi.system.domain.dto.YaAlbumMediaQueryDto;
+import org.ruoyi.system.domain.vo.MediaStatsVo;
 import org.ruoyi.system.domain.vo.YaAlbumMediaVo;
 import org.ruoyi.system.mapper.YaAlbumMediaMapper;
 import org.ruoyi.system.service.IYaAlbumMediaService;
@@ -72,5 +73,24 @@ public class YaAlbumMediaServiceImpl extends ServiceImpl<YaAlbumMediaMapper, YaA
         qw.like(StrUtil.isNotBlank(q.getTags()), YaAlbumMedia::getTags, q.getTags());
         qw.orderByAsc(YaAlbumMedia::getSort);
         return qw;
+    }
+
+    @Override
+    public MediaStatsVo getStats(Integer albumId) {
+        long imageCount = this.count(
+            new LambdaQueryWrapper<YaAlbumMedia>()
+                .eq(YaAlbumMedia::getAlbumId, albumId)
+                .eq(YaAlbumMedia::getType, 2)
+        );
+        long textCount = this.count(
+            new LambdaQueryWrapper<YaAlbumMedia>()
+                .eq(YaAlbumMedia::getAlbumId, albumId)
+                .eq(YaAlbumMedia::getType, 1)
+        );
+
+        MediaStatsVo stats = new MediaStatsVo();
+        stats.setImageCount(imageCount);
+        stats.setTextCount(textCount);
+        return stats;
     }
 }

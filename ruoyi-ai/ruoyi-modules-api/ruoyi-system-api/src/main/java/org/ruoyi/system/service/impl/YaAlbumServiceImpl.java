@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.ruoyi.common.core.constant.AlbumConstants;
 import org.ruoyi.common.core.constant.CommonConstants;
+import org.ruoyi.common.core.exception.ServiceException;
 import org.ruoyi.core.page.PageQuery;
 import org.ruoyi.core.page.TableDataInfo;
 import org.ruoyi.system.domain.YaAlbum;
@@ -91,5 +92,13 @@ public class YaAlbumServiceImpl extends ServiceImpl<YaAlbumMapper, YaAlbum> impl
         qw.eq(q.getIsPublic() != null, YaAlbum::getIsPublic, q.getIsPublic());
         qw.orderByDesc(YaAlbum::getCreateAt);
         return qw;
+    }
+
+    @Override
+    public void checkOwnership(Integer albumId, Integer userId) {
+        YaAlbum album = this.getById(albumId);
+        if (album == null || !album.getUserId().equals(userId)) {
+            throw new ServiceException("无权操作该纪念册");
+        }
     }
 }

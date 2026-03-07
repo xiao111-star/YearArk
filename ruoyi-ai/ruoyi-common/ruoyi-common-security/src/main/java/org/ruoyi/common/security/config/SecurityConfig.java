@@ -39,17 +39,12 @@ public class SecurityConfig implements WebMvcConfigurer {
             SaRouter
                 // 获取所有的
                 .match(allUrlHandler.getUrls())
+                // 排除用户端路径（由 YaUserSecurityConfig 独立管理）
+                .notMatch("/api/user/**")
                 // 对未排除的路径进行检查
                 .check(() -> {
                     // 检查是否登录 是否有token
                     StpUtil.checkLogin();
-
-                    // 有效率影响 用于临时测试
-                    // if (log.isDebugEnabled()) {
-                    //     log.debug("剩余有效时间: {}", StpUtil.getTokenTimeout());
-                    //     log.debug("临时有效时间: {}", StpUtil.getTokenActivityTimeout());
-                    // }
-
                 });
         })).addPathPatterns("/**")
             // 排除不需要拦截的路径

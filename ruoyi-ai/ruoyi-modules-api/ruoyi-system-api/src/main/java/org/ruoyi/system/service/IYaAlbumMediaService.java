@@ -6,6 +6,7 @@ import org.ruoyi.core.page.TableDataInfo;
 import org.ruoyi.system.domain.YaAlbumMedia;
 import org.ruoyi.system.domain.dto.YaAlbumMediaDto;
 import org.ruoyi.system.domain.dto.YaAlbumMediaQueryDto;
+import org.ruoyi.system.domain.vo.MediaStatsVo;
 import org.ruoyi.system.domain.vo.YaAlbumMediaVo;
 
 import java.util.List;
@@ -23,4 +24,12 @@ public interface IYaAlbumMediaService extends IService<YaAlbumMedia> {
     boolean updateByDto(YaAlbumMediaDto dto);
 
     boolean deleteByIds(List<Integer> ids);
+
+    /**
+     * 素材统计（图片数、文字数）
+     *
+     * @param albumId 纪念册ID
+     * @return 统计信息
+     */
+    MediaStatsVo getStats(Integer albumId);
 }

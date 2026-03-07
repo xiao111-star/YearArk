@@ -158,6 +158,8 @@ security:
     - /actuator/**
     - /workflow/**
     - /admin/workflow/**
+    # 用户端接口（由 YaUserSecurityConfig 独立管理认证）
+    - /api/user/**
 # 多租户配置
 tenant:
   # 是否开启

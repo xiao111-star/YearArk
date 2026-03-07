@@ -22,7 +22,12 @@ public enum UserType {
     /**
      * app端
      */
-    APP_USER("app_user");
+    APP_USER("app_user"),
+
+    /**
+     * YearArk 用户端
+     */
+    YA_USER("ya-user");
 
     private final String userType;
 

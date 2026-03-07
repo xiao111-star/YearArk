@@ -35,6 +35,13 @@ public class UserActionListener implements SaTokenListener {
      */
     @Override
     public void doLogin(String loginType, Object loginId, String tokenValue, SaLoginModel loginModel) {
+        // 通过 loginType 判断用户体系，而非解析 loginId
+        if ("ya-user".equals(loginType) || "ya-anon".equals(loginType)) {
+            // YearArk 用户端 / 匿名端登录，仅记录日志，不走管理端逻辑
+            log.info("{} doLogin, loginId:{}, token:{}", loginType, loginId, tokenValue);
+            return;
+        }
+
         UserType userType = UserType.getUserType(loginId.toString());
         if (userType == UserType.SYS_USER) {
             UserAgent userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));

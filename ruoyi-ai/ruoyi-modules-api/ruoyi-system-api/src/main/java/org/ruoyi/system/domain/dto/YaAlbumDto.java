@@ -1,7 +1,6 @@
 package org.ruoyi.system.domain.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -20,7 +19,6 @@ public class YaAlbumDto {
 
     private String des;
 
-    @NotNull(message = "创建者ID不能为空")
     private Integer userId;
 
 
