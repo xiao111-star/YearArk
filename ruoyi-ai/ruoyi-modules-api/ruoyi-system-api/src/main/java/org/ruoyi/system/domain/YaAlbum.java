@@ -75,6 +75,19 @@ public class YaAlbum implements Serializable {
     private LocalDateTime updateAt;
 
     /**
+     * 生成状态：0 待生成 / 1 生成中 / 2 生成完成 / 3 生成失败
+     * 字典类型：ya_album_generation_status
+     */
+    @TableField("generation_status")
+    private Integer generationStatus;
+
+    /**
+     * 生成失败原因
+     */
+    @TableField("generation_fail_reason")
+    private String generationFailReason;
+
+    /**
      * 逻辑删除字段（0 存在 2 删除）
      */
     @TableLogic

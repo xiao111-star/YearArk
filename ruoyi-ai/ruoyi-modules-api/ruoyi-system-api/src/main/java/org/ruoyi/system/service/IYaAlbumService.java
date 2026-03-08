@@ -28,4 +28,9 @@ public interface IYaAlbumService extends IService<YaAlbum> {
      * 校验纪念册归属（album.userId == userId），不通过则抛异常
      */
     void checkOwnership(Integer albumId, Integer userId);
+
+    /**
+     * 获取生成状态（复用 queryById，返回 YaAlbumVo）
+     */
+    YaAlbumVo getGenerationStatus(Integer albumId);
 }

@@ -23,6 +23,12 @@ public class YaAlbumVo {
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
 
+    /** 生成状态（字典：ya_album_generation_status） */
+    private Integer generationStatus;
+
+    /** 生成失败原因 */
+    private String generationFailReason;
+
     /** 关联展示字段 */
     private String userName;
     private String templateName;

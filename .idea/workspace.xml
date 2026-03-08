@@ -4,23 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="267c28b1-7f08-4a11-8500-356541775c2b" name="Changes" comment=" bugfix">
+    <list default="true" id="267c28b1-7f08-4a11-8500-356541775c2b" name="Changes" comment="mq消息实体类">
       <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/item/MediaItem.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/item/TemplatePageItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.kiro/specs/album-render-pipeline/design.md" beforeDir="false" afterPath="$PROJECT_DIR$/.kiro/specs/album-render-pipeline/design.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.kiro/specs/album-render-pipeline/requirements.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.kiro/specs/album-render-pipeline/tasks.md" beforeDir="false" afterPath="$PROJECT_DIR$/.kiro/specs/album-render-pipeline/tasks.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-admin/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-admin/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaAlbum.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/YaAlbum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaAlbumVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/domain/vo/YaAlbumVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/IYaAlbumMediaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/IYaAlbumMediaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/IYaAlbumService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/IYaAlbumService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/AlbumGenerationServiceImpl.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/TemplateRenderServiceImpl.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaAlbumMediaServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaAlbumMediaServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaAlbumServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaAlbumServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/UserAlbumController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/controller/yearark/UserAlbumController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yearark-web/src/api/album.ts" beforeDir="false" afterPath="$PROJECT_DIR$/yearark-web/src/api/album.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yearark-web/src/views/AlbumDetailPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/yearark-web/src/views/AlbumDetailPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yearark-web/src/views/AlbumPreviewPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/yearark-web/src/views/AlbumPreviewPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yearark-ai/models/request.py" beforeDir="false" afterPath="$PROJECT_DIR$/yearark-ai/models/request.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,42 +67,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.RuoYiAIApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ruoyi-ai [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Notification.DisplayName-DoNotAsk-Dependencies from package.json&quot;: &quot;Dependencies from package.json available&quot;,
-    &quot;Notification.DoNotAsk-Dependencies from package.json&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.RuoYiAIApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/bytedance/workspaces/YearArk&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.dev:antd.executor&quot;: &quot;Run&quot;,
-    &quot;npm.install.executor&quot;: &quot;Run&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.3275862&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.itangcent.idea.plugin.configurable.AccountConfigurable.apifox&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;E:\\WorkSpace\\IdeaProjects\\YearArk\\ruoyi-admin\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.RuoYiAIApplication.executor": "Debug",
+    "Maven.ruoyi-ai [clean].executor": "Run",
+    "Notification.DisplayName-DoNotAsk-Dependencies from package.json": "Dependencies from package.json available",
+    "Notification.DoNotAsk-Dependencies from package.json": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.RuoYiAIApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/bytedance/workspaces/YearArk",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.dev:antd.executor": "Run",
+    "npm.install.executor": "Run",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.3275862",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "com.itangcent.idea.plugin.configurable.AccountConfigurable.apifox",
+    "ts.external.directory.path": "E:\\WorkSpace\\IdeaProjects\\YearArk\\ruoyi-admin\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -191,7 +189,7 @@
       <workItem from="1772705109470" duration="22004000" />
       <workItem from="1772815538440" duration="858000" />
       <workItem from="1772856957016" duration="29974000" />
-      <workItem from="1772942259081" duration="13143000" />
+      <workItem from="1772942259081" duration="18910000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -361,7 +359,39 @@
       <option name="project" value="LOCAL" />
       <updated>1772944480300</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="ai模块 初版">
+      <option name="closed" value="true" />
+      <created>1772969808724</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1772969808724</updated>
+    </task>
+    <task id="LOCAL-00023" summary="素材sort按照album自增">
+      <option name="closed" value="true" />
+      <created>1772973522162</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1772973522162</updated>
+    </task>
+    <task id="LOCAL-00024" summary="mq生产者和接收者">
+      <option name="closed" value="true" />
+      <created>1772974301712</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1772974301712</updated>
+    </task>
+    <task id="LOCAL-00025" summary="mq消息实体类">
+      <option name="closed" value="true" />
+      <created>1772974434126</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1772974434126</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -410,26 +440,31 @@
     <MESSAGE value="mvp" />
     <MESSAGE value="整理后端代码" />
     <MESSAGE value=" bugfix" />
-    <option name="LAST_COMMIT_MESSAGE" value=" bugfix" />
+    <MESSAGE value="ai模块 初版" />
+    <MESSAGE value="素材sort按照album自增" />
+    <MESSAGE value="mq生产者和接收者" />
+    <MESSAGE value="mq消息实体类" />
+    <option name="LAST_COMMIT_MESSAGE" value="mq消息实体类" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/SysOssServiceImpl.java</url>
-          <line>161</line>
-          <properties class="org.ruoyi.system.service.impl.SysOssServiceImpl" method="upload">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/ruoyi-ai/ruoyi-modules-api/ruoyi-system-api/src/main/java/org/ruoyi/system/service/impl/YaTemplateServiceImpl.java</url>
           <line>88</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/ruoyi-ai/ruoyi-modules/ruoyi-system/src/main/java/org/ruoyi/system/service/impl/AlbumGenerationServiceImpl.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="message.templatePages.get(0)" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

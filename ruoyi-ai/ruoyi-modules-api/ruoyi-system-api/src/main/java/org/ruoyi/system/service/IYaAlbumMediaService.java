@@ -27,9 +27,11 @@ public interface IYaAlbumMediaService extends IService<YaAlbumMedia> {
 
     /**
      * 素材统计（图片数、文字数）
-     *
-     * @param albumId 纪念册ID
-     * @return 统计信息
      */
     MediaStatsVo getStats(Integer albumId);
+
+    /**
+     * 获取纪念册下审核通过的未使用图片列表（type=2, status=2）
+     */
+    List<YaAlbumMediaVo> listUnusedImages(Integer albumId);
 }

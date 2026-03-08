@@ -14,8 +14,7 @@ import org.ruoyi.system.domain.YaAlbum;
 import org.ruoyi.system.domain.YaAlbumPage;
 import org.ruoyi.system.domain.dto.YaAlbumDto;
 import org.ruoyi.system.domain.dto.YaAlbumQueryDto;
-import org.ruoyi.system.domain.vo.YaAlbumVo;
-import org.ruoyi.system.mapper.YaAlbumMapper;
+import org.ruoyi.system.domain.vo.YaAlbumVo;import org.ruoyi.system.mapper.YaAlbumMapper;
 import org.ruoyi.system.service.IYaAlbumPageService;
 import org.ruoyi.system.service.IYaAlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,5 +98,12 @@ public class YaAlbumServiceImpl extends ServiceImpl<YaAlbumMapper, YaAlbum> impl
         if (album == null || !album.getUserId().equals(userId)) {
             throw new ServiceException("无权操作该纪念册");
         }
+    }
+
+    @Override
+    public YaAlbumVo getGenerationStatus(Integer albumId) {
+        YaAlbumVo vo = this.queryById(albumId);
+        if (vo == null) throw new ServiceException("纪念册不存在");
+        return vo;
     }
 }

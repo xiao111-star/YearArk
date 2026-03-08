@@ -102,4 +102,17 @@ public class YaAlbumMediaServiceImpl extends ServiceImpl<YaAlbumMediaMapper, YaA
         stats.setTextCount(textCount);
         return stats;
     }
+
+    @Override
+    public List<YaAlbumMediaVo> listUnusedImages(Integer albumId) {
+        return BeanUtil.copyToList(
+            this.lambdaQuery()
+                .eq(YaAlbumMedia::getAlbumId, albumId)
+                .eq(YaAlbumMedia::getType, 2)
+                .eq(YaAlbumMedia::getStatus, 2)
+                .orderByAsc(YaAlbumMedia::getSort)
+                .list(),
+            YaAlbumMediaVo.class
+        );
+    }
 }
