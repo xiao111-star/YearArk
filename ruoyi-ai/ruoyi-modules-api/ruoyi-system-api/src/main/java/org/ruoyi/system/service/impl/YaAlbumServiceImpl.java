@@ -14,7 +14,6 @@ import org.ruoyi.system.domain.YaAlbum;
 import org.ruoyi.system.domain.YaAlbumPage;
 import org.ruoyi.system.domain.dto.YaAlbumDto;
 import org.ruoyi.system.domain.dto.YaAlbumQueryDto;
-import org.ruoyi.system.domain.vo.YaAlbumPageVo;
 import org.ruoyi.system.domain.vo.YaAlbumVo;
 import org.ruoyi.system.mapper.YaAlbumMapper;
 import org.ruoyi.system.service.IYaAlbumPageService;

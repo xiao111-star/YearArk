@@ -56,7 +56,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                     SaRouter
                             .match(allUrlHandler.getUrls())
                             .notMatch("/api/user/**", "/api/anonUser/**")
-                            .check(() -> StpUtil.checkLogin());
+                            .check(StpUtil::checkLogin);
                 })).addPathPatterns("/**")
                 .excludePathPatterns(securityProperties.getExcludes());
     }
