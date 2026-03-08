@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { register } from '@/api/auth'
-import type { YaUserDto } from '@/types/user'
+import { sha256 } from '@/utils/crypto'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -10,9 +10,9 @@ import { Label } from '@/components/ui/label'
 
 const router = useRouter()
 
-const form = ref<YaUserDto>({
+const form = ref({
   username: '',
-  passwordHash: '',
+  password: '',
   email: '',
 })
 const loading = ref(false)
@@ -25,11 +25,11 @@ async function handleRegister() {
     errorMsg.value = '请输入用户名'
     return
   }
-  if (!form.value.passwordHash) {
+  if (!form.value.password) {
     errorMsg.value = '请输入密码'
     return
   }
-  if (form.value.passwordHash.length < 6) {
+  if (form.value.password.length < 6) {
     errorMsg.value = '密码长度不能少于6位'
     return
   }
@@ -40,9 +40,10 @@ async function handleRegister() {
 
   loading.value = true
   try {
+    const passwordHash = await sha256(form.value.password)
     await register({
       username: form.value.username.trim(),
-      passwordHash: form.value.passwordHash,
+      passwordHash,
       email: form.value.email.trim(),
     })
     router.push('/login')
@@ -75,7 +76,7 @@ async function handleRegister() {
           <Label for="password">密码</Label>
           <Input
             id="password"
-            v-model="form.passwordHash"
+            v-model="form.password"
             type="password"
             placeholder="请输入密码（至少6位）"
             autocomplete="new-password"

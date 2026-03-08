@@ -1,13 +1,13 @@
-package org.ruoyi.system.controller.client;
+package org.ruoyi.system.controller.yearark;
 
 import lombok.RequiredArgsConstructor;
 import org.ruoyi.common.core.domain.R;
+import org.ruoyi.common.satoken.utils.StpUserUtil;
 import org.ruoyi.common.web.core.BaseController;
 import org.ruoyi.system.domain.dto.YaInviteDto;
 import org.ruoyi.system.domain.dto.YaInviteQueryDto;
 import org.ruoyi.system.domain.vo.YaInviteVo;
 import org.ruoyi.system.service.IYaInviteService;
-import org.ruoyi.system.util.YaLoginHelper;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/user/invite")
-public class YaInviteController extends BaseController {
+public class InviteController extends BaseController {
 
     private final IYaInviteService inviteService;
 
@@ -33,7 +33,7 @@ public class YaInviteController extends BaseController {
      */
     @PostMapping
     public R<Void> create(@Validated @RequestBody YaInviteDto dto) {
-        return toAjax(inviteService.createInvite(dto, YaLoginHelper.getUserId()));
+        return toAjax(inviteService.createInvite(dto, StpUserUtil.getLoginIdAsInt()));
     }
 
     /**
@@ -51,6 +51,6 @@ public class YaInviteController extends BaseController {
      */
     @PostMapping("/{id}/disable")
     public R<Void> disable(@PathVariable Integer id) {
-        return toAjax(inviteService.disableInvite(id, YaLoginHelper.getUserId()));
+        return toAjax(inviteService.disableInvite(id, StpUserUtil.getLoginIdAsInt()));
     }
 }

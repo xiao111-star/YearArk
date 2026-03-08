@@ -1,4 +1,4 @@
-package org.ruoyi.system.service.client;
+package org.ruoyi.system.service;
 
 import org.ruoyi.common.core.domain.R;
 import org.ruoyi.system.domain.vo.AnonAlbumInfoVo;

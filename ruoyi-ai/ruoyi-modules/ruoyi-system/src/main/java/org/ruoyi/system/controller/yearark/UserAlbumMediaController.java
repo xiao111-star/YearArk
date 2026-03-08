@@ -1,4 +1,4 @@
-package org.ruoyi.system.controller.client;
+package org.ruoyi.system.controller.yearark;
 
 import lombok.RequiredArgsConstructor;
 import org.ruoyi.common.core.domain.R;
@@ -8,7 +8,7 @@ import org.ruoyi.system.domain.vo.MediaStatsVo;
 import org.ruoyi.system.domain.vo.YaAlbumMediaVo;
 import org.ruoyi.system.service.IYaAlbumMediaService;
 import org.ruoyi.system.service.IYaAlbumService;
-import org.ruoyi.system.util.YaLoginHelper;
+import org.ruoyi.common.satoken.utils.StpUserUtil;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,13 +30,13 @@ public class UserAlbumMediaController extends BaseController {
 
     @GetMapping("/list")
     public R<List<YaAlbumMediaVo>> list(YaAlbumMediaQueryDto query) {
-        albumService.checkOwnership(query.getAlbumId(), YaLoginHelper.getUserId());
+        albumService.checkOwnership(query.getAlbumId(), StpUserUtil.getLoginIdAsInt());
         return R.ok(mediaService.queryList(query));
     }
 
     @GetMapping("/stats")
     public R<MediaStatsVo> stats(@RequestParam Integer albumId) {
-        albumService.checkOwnership(albumId, YaLoginHelper.getUserId());
+        albumService.checkOwnership(albumId, StpUserUtil.getLoginIdAsInt());
         return R.ok(mediaService.getStats(albumId));
     }
 }

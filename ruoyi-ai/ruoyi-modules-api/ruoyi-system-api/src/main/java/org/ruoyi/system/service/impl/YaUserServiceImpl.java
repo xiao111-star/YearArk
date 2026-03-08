@@ -13,15 +13,15 @@ import org.ruoyi.core.page.TableDataInfo;
 import org.ruoyi.system.domain.YaAlbum;
 import org.ruoyi.system.domain.YaUser;
 import org.ruoyi.system.domain.dto.YaUserDto;
+import org.ruoyi.system.domain.dto.YaUserLoginDto;
 import org.ruoyi.system.domain.dto.YaUserQueryDto;
-import org.ruoyi.system.domain.model.YaLoginUser;
+import org.ruoyi.system.domain.dto.YaUserRegisterDto;
 import org.ruoyi.system.domain.vo.YaUserVo;
 import org.ruoyi.system.domain.vo.client.YaLoginVo;
 import org.ruoyi.system.mapper.YaUserMapper;
+import org.ruoyi.common.satoken.utils.StpUserUtil;
 import org.ruoyi.system.service.IYaAlbumService;
 import org.ruoyi.system.service.IYaUserService;
-import org.ruoyi.system.util.StpUserUtil;
-import org.ruoyi.system.util.YaLoginHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,21 +88,20 @@ public class YaUserServiceImpl extends ServiceImpl<YaUserMapper, YaUser> impleme
     }
 
     @Override
-    public R<Void> register(String username, String password, String email) {
-
-        // Service 层校验用户名唯一
+    public R<Void> register(YaUserRegisterDto dto) {
+        // 用户名唯一性校验
         long count = this.count(
-            new LambdaQueryWrapper<YaUser>().eq(YaUser::getUsername, username)
+            new LambdaQueryWrapper<YaUser>().eq(YaUser::getUsername, dto.getUsername())
         );
         if (count > 0) {
             return R.fail("用户名已存在");
         }
 
-        // BCrypt 加密密码并保存
+        // dto.getPasswordHash() 是前端 SHA-256 后的哈希值，后端再用 BCrypt 加密存储
         YaUser yaUser = new YaUser();
-        yaUser.setUsername(username);
-        yaUser.setPasswordHash(BCrypt.hashpw(password));
-        yaUser.setEmail(email);
+        yaUser.setUsername(dto.getUsername());
+        yaUser.setPasswordHash(BCrypt.hashpw(dto.getPasswordHash()));
+        yaUser.setEmail(dto.getEmail());
         yaUser.setStatus(CommonConstants.IS_AVAILABLE);
         yaUser.setIsDelete(CommonConstants.NOT_DELETE);
         this.save(yaUser);
@@ -111,29 +110,23 @@ public class YaUserServiceImpl extends ServiceImpl<YaUserMapper, YaUser> impleme
     }
 
     @Override
-    public R<YaLoginVo> login(String username, String password) {
-        // 查询用户
+    public R<YaLoginVo> login(YaUserLoginDto dto) {
         YaUser yaUser = this.getOne(
             new LambdaQueryWrapper<YaUser>()
-                .eq(YaUser::getUsername, username)
+                .eq(YaUser::getUsername, dto.getUsername())
                 .eq(YaUser::getStatus, CommonConstants.IS_AVAILABLE)
         );
         if (yaUser == null) {
             return R.fail("用户名或密码错误");
         }
 
-        // BCrypt 验证密码
-        if (!BCrypt.checkpw(password, yaUser.getPasswordHash())) {
+        // dto.getPasswordHash() 是前端 SHA-256 后的哈希值，与 BCrypt 存储值比对
+        if (!BCrypt.checkpw(dto.getPasswordHash(), yaUser.getPasswordHash())) {
             return R.fail("用户名或密码错误");
         }
 
-        // 构建 YaLoginUser 并登录
-        YaLoginUser loginUser = new YaLoginUser();
-        loginUser.setUserId(yaUser.getId());
-        loginUser.setUsername(yaUser.getUsername());
-        YaLoginHelper.login(loginUser);
+        StpUserUtil.login(yaUser.getId());
 
-        // 构建返回 VO
         YaLoginVo loginVo = new YaLoginVo();
         loginVo.setToken(StpUserUtil.getTokenValue());
         loginVo.setUserId(yaUser.getId());
@@ -144,11 +137,7 @@ public class YaUserServiceImpl extends ServiceImpl<YaUserMapper, YaUser> impleme
 
     @Override
     public R<Void> logout() {
-        try {
-            StpUserUtil.logout();
-            return R.ok("退出成功");
-        } catch (Exception e) {
-            return R.fail("退出失败");
-        }
+        StpUserUtil.logout();
+        return R.ok("退出成功");
     }
 }

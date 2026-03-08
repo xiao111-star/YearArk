@@ -69,7 +69,7 @@ public class YaAlbumServiceImpl extends ServiceImpl<YaAlbumMapper, YaAlbum> impl
     public boolean deleteByIds(List<Integer> ids) {
         for (Integer id : ids) {
             if (this.getById(id) == null) {
-                throw new RuntimeException("纪念册 [id=" + id + "] 不存在");
+                throw new ServiceException("纪念册 [id=" + id + "] 不存在");
             }
         }
         // 先删除所有关联的 AlbumPage

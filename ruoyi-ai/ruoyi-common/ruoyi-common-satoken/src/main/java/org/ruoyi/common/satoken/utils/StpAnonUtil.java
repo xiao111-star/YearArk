@@ -1,26 +1,26 @@
-package org.ruoyi.system.util;
+package org.ruoyi.common.satoken.utils;
 
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpLogic;
 
 /**
- * 用户端已登录用户的 Sa-Token 操作工具类
+ * 匿名上传者的 Sa-Token 操作工具类
  * <p>
- * 对应 ya_user 表，使用独立的 StpLogic 实例，token-name: Ya-Auth
- * 与管理端 StpUtil（Authorization）和匿名端 StpAnonUtil（Ya-Anon-Auth）互不干扰
+ * 对应 ya_invite_token 表，使用独立的 StpLogic 实例，token-name: Ya-Anon-Auth
+ * 与管理端 StpUtil（Authorization）和用户端 StpUserUtil（Ya-Auth）互不干扰
  */
-public class StpUserUtil {
+public class StpAnonUtil {
 
-    public static final String TYPE = "ya-user";
+    public static final String TYPE = "ya-anon";
 
     public static final StpLogic stpLogic = new StpLogic(TYPE) {
         @Override
         public String splicingKeyTokenName() {
-            return "Ya-Auth";
+            return "Ya-Anon-Auth";
         }
     };
 
-    private StpUserUtil() {
+    private StpAnonUtil() {
     }
 
     /**

@@ -6,7 +6,9 @@ import org.ruoyi.core.page.PageQuery;
 import org.ruoyi.core.page.TableDataInfo;
 import org.ruoyi.system.domain.YaUser;
 import org.ruoyi.system.domain.dto.YaUserDto;
+import org.ruoyi.system.domain.dto.YaUserLoginDto;
 import org.ruoyi.system.domain.dto.YaUserQueryDto;
+import org.ruoyi.system.domain.dto.YaUserRegisterDto;
 import org.ruoyi.system.domain.vo.YaUserVo;
 import org.ruoyi.system.domain.vo.client.YaLoginVo;
 
@@ -29,21 +31,18 @@ public interface IYaUserService extends IService<YaUser> {
     /**
      * 用户注册
      *
-     * @param username 用户名
-     * @param password 密码
-     * @param email    邮箱
+     * @param dto 注册信息（passwordHash 为前端 SHA-256 后的哈希值）
      * @return 注册结果
      */
-    R<Void> register(String username, String password, String email);
+    R<Void> register(YaUserRegisterDto dto);
 
     /**
      * 用户登录
      *
-     * @param username 用户名
-     * @param password 密码
+     * @param dto 登录信息（passwordHash 为前端 SHA-256 后的哈希值）
      * @return 登录结果（含 token）
      */
-    R<YaLoginVo> login(String username, String password);
+    R<YaLoginVo> login(YaUserLoginDto dto);
 
     /**
      * 用户退出登录

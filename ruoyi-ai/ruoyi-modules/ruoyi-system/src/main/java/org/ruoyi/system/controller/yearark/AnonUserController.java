@@ -1,4 +1,4 @@
-package org.ruoyi.system.controller.client;
+package org.ruoyi.system.controller.yearark;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +7,7 @@ import org.ruoyi.system.domain.dto.UploadTextDto;
 import org.ruoyi.system.domain.vo.AnonAlbumInfoVo;
 import org.ruoyi.system.domain.vo.AnonTokenVo;
 import org.ruoyi.system.domain.vo.YaAlbumMediaVo;
-import org.ruoyi.system.service.client.IAnonUserService;
+import org.ruoyi.system.service.IAnonUserService;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * 匿名用户接口（公开 + 匿名认证）
  * <p>
- * 路径：/api/user/share/**
+ * 路径：/api/anonUser/invite/**
  * <p>
  * 公开接口（无需认证）：
  * - GET /{inviteCode} - 验证邀请码，获取纪念册信息
@@ -35,7 +35,7 @@ import java.util.Map;
 @Validated
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/user/share")
+@RequestMapping("/api/anonUser/invite")
 public class AnonUserController {
 
     private final IAnonUserService anonUserService;

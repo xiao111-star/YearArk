@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { login } from '@/api/auth'
-import type { YaUserDto } from '@/types/user'
+import { sha256 } from '@/utils/crypto'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -13,9 +13,9 @@ const router = useRouter()
 const route = useRoute()
 const userStore = useUserStore()
 
-const form = ref<YaUserDto>({
+const form = ref({
   username: '',
-  passwordHash: '',
+  password: '',
 })
 const loading = ref(false)
 const errorMsg = ref('')
@@ -27,16 +27,17 @@ async function handleLogin() {
     errorMsg.value = '请输入用户名'
     return
   }
-  if (!form.value.passwordHash) {
+  if (!form.value.password) {
     errorMsg.value = '请输入密码'
     return
   }
 
   loading.value = true
   try {
+    const passwordHash = await sha256(form.value.password)
     const res = await login({
       username: form.value.username.trim(),
-      passwordHash: form.value.passwordHash,
+      passwordHash,
     })
     const { token, userId, username } = res.data.data
     userStore.setLoginInfo(token, userId, username)
@@ -72,7 +73,7 @@ async function handleLogin() {
           <Label for="password">密码</Label>
           <Input
             id="password"
-            v-model="form.passwordHash"
+            v-model="form.password"
             type="password"
             placeholder="请输入密码"
             autocomplete="current-password"

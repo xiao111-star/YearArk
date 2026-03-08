@@ -1,4 +1,4 @@
-package org.ruoyi.system.domain.model;
+package org.ruoyi.system.domain;
 
 import lombok.Data;
 
