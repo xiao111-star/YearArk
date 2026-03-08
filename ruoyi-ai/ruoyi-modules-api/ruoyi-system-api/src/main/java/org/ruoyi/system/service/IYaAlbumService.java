@@ -18,7 +18,7 @@ public interface IYaAlbumService extends IService<YaAlbum> {
 
     YaAlbumVo queryById(Integer id);
 
-    boolean insertByDto(YaAlbumDto dto);
+    Integer insertByDto(YaAlbumDto dto);
 
     boolean updateByDto(YaAlbumDto dto);
 

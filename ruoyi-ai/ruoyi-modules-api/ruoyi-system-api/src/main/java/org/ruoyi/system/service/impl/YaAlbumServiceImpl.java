@@ -46,14 +46,15 @@ public class YaAlbumServiceImpl extends ServiceImpl<YaAlbumMapper, YaAlbum> impl
         YaAlbum entity = this.getById(id);
         return entity == null ? null : BeanUtil.copyProperties(entity, YaAlbumVo.class);
     }
-
+    
     @Override
-    public boolean insertByDto(YaAlbumDto dto) {
+    public Integer insertByDto(YaAlbumDto dto) {
         YaAlbum yaAlbum = BeanUtil.toBean(dto, YaAlbum.class);
         yaAlbum.setStatus(dto.getStatus()!=null? dto.getStatus(): CommonConstants.IS_AVAILABLE);
         yaAlbum.setIsPublic(AlbumConstants.IS_PUBLIC_NO);
         yaAlbum.setIsDelete(CommonConstants.NOT_DELETE);
-        return this.save(yaAlbum);
+        this.save(yaAlbum);
+        return yaAlbum.getId();
     }
 
     @Override

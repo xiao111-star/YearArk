@@ -53,9 +53,9 @@ public class UserAlbumController extends BaseController {
     }
 
     @PostMapping
-    public R<Void> insert(@Validated @RequestBody YaAlbumDto dto) {
+    public R<Integer> insert(@Validated @RequestBody YaAlbumDto dto) {
         dto.setUserId(StpUserUtil.getLoginIdAsInt());
-        return toAjax(albumService.insertByDto(dto));
+        return R.ok(albumService.insertByDto(dto));
     }
 
     @PostMapping("/update")
