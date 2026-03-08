@@ -45,7 +45,16 @@ public class YaAlbumMediaServiceImpl extends ServiceImpl<YaAlbumMediaMapper, YaA
     public boolean insertByDto(YaAlbumMediaDto dto) {
         YaAlbumMedia yaAlbumMedia = BeanUtil.toBean(dto, YaAlbumMedia.class);
         yaAlbumMedia.setIsDelete(CommonConstants.NOT_DELETE);
-        yaAlbumMedia.setStatus(dto.getStatus()!=null?dto.getStatus():AlbumMediaConstants.STATUS_WAIT_AUDIT);
+        yaAlbumMedia.setStatus(dto.getStatus() != null ? dto.getStatus() : AlbumMediaConstants.STATUS_WAIT_AUDIT);
+        // 按 album_id 自增 sort
+        Integer maxSort = this.lambdaQuery()
+                .eq(YaAlbumMedia::getAlbumId, dto.getAlbumId())
+                .orderByDesc(YaAlbumMedia::getSort)
+                .last("LIMIT 1")
+                .oneOpt()
+                .map(YaAlbumMedia::getSort)
+                .orElse(0);
+        yaAlbumMedia.setSort(maxSort + 1);
         return this.save(yaAlbumMedia);
     }
 
