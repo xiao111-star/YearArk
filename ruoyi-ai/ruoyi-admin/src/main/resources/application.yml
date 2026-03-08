@@ -80,6 +80,16 @@ spring:
   mvc:
     format:
       date-time: yyyy-MM-dd HH:mm:ss
+  # RabbitMQ 配置
+  rabbitmq:
+    host: 36.137.121.41
+    port: 5672
+    username: rabbitmq
+    password: yangdp
+    virtual-host: /
+    listener:
+      simple:
+        acknowledge-mode: auto
   jackson:
     # 日期格式化
     date-format: yyyy-MM-dd HH:mm:ss

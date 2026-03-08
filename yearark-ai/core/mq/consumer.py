@@ -1,14 +1,17 @@
+"""
+RabbitMQ 消费者
+基础设施层，负责监听队列、反序列化消息、调用 pipeline 处理、发布结果
+"""
 import json
 import logging
 import aio_pika
-from models.request import GenerationRequest
-from models.result import GenerationResult
-from strategy.mock_strategy import MockGroupingStrategy
-from publisher.result_publisher import publish_result
+from domain.request import GenerationRequest
+from pipeline.album_pipeline import AlbumPipeline
+from core.mq.publisher import publish_result
 from config import EXCHANGE_NAME, REQUEST_QUEUE
 
 logger = logging.getLogger(__name__)
-_strategy = MockGroupingStrategy()
+_pipeline = AlbumPipeline()
 
 
 async def start_consumer(connection: aio_pika.abc.AbstractConnection):
@@ -29,10 +32,10 @@ async def start_consumer(connection: aio_pika.abc.AbstractConnection):
                 try:
                     data = json.loads(message.body)
                     request = GenerationRequest(**data)
-                    result = _strategy.process(request)
+                    result = _pipeline.process(request)
                     await publish_result(channel, result)
-                    logger.info("Processed albumId=%s correlationId=%s pages=%d",
+                    logger.info("处理完成 albumId=%s correlationId=%s pages=%d",
                                 request.albumId, request.correlationId,
                                 len(result.pages) if result.pages else 0)
                 except Exception as e:
-                    logger.exception("Failed to process message: %s", e)
+                    logger.exception("消息处理失败: %s", e)

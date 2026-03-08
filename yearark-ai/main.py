@@ -3,7 +3,7 @@ import logging
 import aio_pika
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
-from consumer.generation_consumer import start_consumer
+from core.mq.consumer import start_consumer
 from config import RABBITMQ_URL
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s - %(message)s")

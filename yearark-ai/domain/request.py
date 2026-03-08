@@ -19,6 +19,8 @@ class TemplatePageItem(BaseModel):
     schemaId: int
     imageCount: int
     textCount: int
+    pageTypeName: Optional[str] = None  # 页面类型中文名，如：封面、章节页、内容页
+    schemaContent: Optional[str] = None  # Schema JSON，含各 slot 的 label/maxLength
 
 
 class GenerationRequest(BaseModel):
