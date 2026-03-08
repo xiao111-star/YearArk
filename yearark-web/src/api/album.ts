@@ -34,3 +34,28 @@ export function generateAlbum(id: number) {
 export function previewAlbum(id: number) {
   return request.get(`/api/user/album/${id}/preview`)
 }
+
+/** 获取生成状态 */
+export function getAlbumStatus(id: number) {
+  return request.get(`/api/user/album/${id}/status`)
+}
+
+/** 获取编辑数据（每页 Data JSON + schemaContent + 渲染 HTML） */
+export function getAlbumEditData(id: number) {
+  return request.get(`/api/user/album/${id}/edit-data`)
+}
+
+/** 更新单页 Data JSON */
+export function updatePageData(pageId: number, data: Record<string, unknown>) {
+  return request.put(`/api/user/album/page/${pageId}`, { data })
+}
+
+/** 批量更新多页 Data JSON */
+export function batchUpdatePages(albumId: number, updates: { pageId: number; dataMap: Record<string, unknown> }[]) {
+  return request.put(`/api/user/album/${albumId}/pages`, updates)
+}
+
+/** 获取未使用的图片素材 */
+export function getUnusedMedia(albumId: number) {
+  return request.get(`/api/user/album/${albumId}/unused-media`)
+}

@@ -1,0 +1,4 @@
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+aio-pika==9.4.3
+pydantic==2.9.2
