@@ -16,6 +16,7 @@ def chat(messages: list[dict], model: str = None) -> str:
     resp = _client.chat.completions.create(
         model=model or settings.text_model,
         messages=messages,
+        extra_body={"enable_thinking": settings.text_model_enable_thinking},
     )
     return resp.choices[0].message.content
 

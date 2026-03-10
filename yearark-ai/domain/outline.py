@@ -8,16 +8,9 @@ from typing import Optional
 
 @dataclass
 class ImageFeature:
-    """单张图片的 AI 分析特征"""
+    """图片基础信息（视觉分组后只需 id 和 url）"""
     media_id: int
     url: str
-    scene: str = ""        # 场景：地铁、景区、室内...
-    people: str = ""       # 人物：独处、合影、微笑...
-    color_tone: str = ""   # 色彩：暖色调、冷色调、夜景...
-    composition: str = ""  # 构图：自拍、特写、风景...
-    action: str = ""       # 动作/事件：正在野餐、在沙滩奔跑...
-    emotion: str = ""      # 情感氛围：温馨陪伴、热烈欢庆...
-    summary: str = ""      # 一句话描述
 
 
 @dataclass
@@ -27,8 +20,9 @@ class OutlinePage:
     image_count: int
     text_count: int
     schema_content: Optional[str]
-    images: list[ImageFeature] = field(default_factory=list)   # 分配到本页的图片
-    texts: dict[str, str] = field(default_factory=dict)        # 生成的文案 {slot_id: content}
+    page_type: str = "content"  # cover / chapter / content / text_only
+    images: list[ImageFeature] = field(default_factory=list)
+    texts: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass
@@ -36,8 +30,8 @@ class OutlineChapter:
     """大纲中的一个章节"""
     title: str
     description: str
-    images: list[ImageFeature] = field(default_factory=list)   # 本章所有图片
-    pages: list[OutlinePage] = field(default_factory=list)     # 本章拆分出的页面
+    images: list[ImageFeature] = field(default_factory=list)
+    pages: list[OutlinePage] = field(default_factory=list)
 
 
 @dataclass

@@ -20,7 +20,7 @@ class Settings:
     vision_model: str = "qwen3.5-plus"
     text_model: str = "qwen3.5-plus"
     image_model_enable_thinking: bool = False
-    text_model_enable_thinking: bool = True
+    text_model_enable_thinking: bool = False
 
     # ── 应用 ──────────────────────────────────────────────────────────────
     app_host: str = "0.0.0.0"
