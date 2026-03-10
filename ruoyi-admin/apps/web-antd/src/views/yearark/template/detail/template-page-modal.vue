@@ -21,7 +21,6 @@ const title = computed(() => {
   return isUpdate.value ? '编辑模板页' : '新增模板页';
 });
 
-// Load schema options for the select
 const schemaOptions = ref<Array<{ label: string; value: number }>>([]);
 async function loadSchemaOptions() {
   const list = await schemaList({});
@@ -52,7 +51,7 @@ const [BasicForm, formApi] = useVbenForm({
       component: 'Select',
       componentProps: {
         getPopupContainer,
-        options: getDictOptions('ya_template_page_type'),
+        options: getDictOptions('ya_template_page_type', true),
         style: { width: '100%' },
       },
       fieldName: 'type',
@@ -72,6 +71,7 @@ const [BasicForm, formApi] = useVbenForm({
       }),
       fieldName: 'templateSchemaId',
       label: '关联Schema',
+      rules: 'required',
     },
     {
       component: 'Textarea',
@@ -85,15 +85,21 @@ const [BasicForm, formApi] = useVbenForm({
       rules: 'required',
     },
     {
-      component: 'Input',
+      component: 'ImageUpload',
+      componentProps: {
+        maxNumber: 1,
+        maxSize: 50,
+        resultField: 'url',
+      },
       fieldName: 'previewUrl',
-      label: '预览图URL',
+      formItemClass: 'items-start',
+      label: '预览图',
     },
     {
       component: 'RadioGroup',
       componentProps: {
         buttonStyle: 'solid',
-        options: getDictOptions(DictEnum.SYS_NORMAL_DISABLE),
+        options: getDictOptions(DictEnum.SYS_NORMAL_DISABLE, true),
         optionType: 'button',
       },
       defaultValue: 0,
@@ -114,7 +120,6 @@ const [BasicModal, modalApi] = useVbenModal({
     }
     modalApi.modalLoading(true);
 
-    // Load schema options
     await loadSchemaOptions();
 
     const { id, templateId } = modalApi.getData() as {
@@ -123,7 +128,6 @@ const [BasicModal, modalApi] = useVbenModal({
     };
     isUpdate.value = !!id;
 
-    // Set templateId
     await formApi.setValues({ templateId });
 
     if (isUpdate.value && id) {

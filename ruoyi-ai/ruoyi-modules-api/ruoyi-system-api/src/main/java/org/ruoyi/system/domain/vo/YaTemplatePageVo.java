@@ -17,8 +17,8 @@ public class YaTemplatePageVo {
     private Integer templateSchemaId;
     private String content;
     private String previewUrl;
-    private String type;
-    private Integer Status;
+    private Integer type;
+    private Integer status;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
     private Integer createBy;

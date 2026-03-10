@@ -22,5 +22,5 @@ public class YaTemplatePageDto {
     private String content;
     private String previewUrl;
     private Integer type;
-    private Integer Status;
+    private Integer status;
 }

@@ -30,7 +30,7 @@ export const querySchema: FormSchemaGetter = () => [
     component: 'Select',
     componentProps: {
       getPopupContainer,
-      options: getDictOptions(DictEnum.SYS_NORMAL_DISABLE),
+      options: getDictOptions(DictEnum.SYS_NORMAL_DISABLE, true),
     },
     fieldName: 'status',
     label: '状态',
@@ -39,24 +39,14 @@ export const querySchema: FormSchemaGetter = () => [
 
 export const columns: VxeGridProps['columns'] = [
   { type: 'checkbox', width: 60 },
-  {
-    title: '模板ID',
-    field: 'id',
-    minWidth: 80,
-  },
-  {
-    title: '模板名称',
-    field: 'name',
-    minWidth: 120,
-  },
+  { title: '模板ID', field: 'id', minWidth: 80 },
+  { title: '模板名称', field: 'name', minWidth: 120 },
   {
     title: '模板类型',
     field: 'type',
     minWidth: 100,
     slots: {
-      default: ({ row }) => {
-        return renderDict(row.type, 'ya_template_type');
-      },
+      default: ({ row }) => renderDict(row.type, 'ya_template_type'),
     },
   },
   {
@@ -65,9 +55,7 @@ export const columns: VxeGridProps['columns'] = [
     minWidth: 100,
     slots: {
       default: ({ row }) => {
-        if (!row.previewUrl) {
-          return h('span', '-');
-        }
+        if (!row.previewUrl) return h('span', '-');
         return h(Image, {
           src: row.previewUrl,
           width: 60,
@@ -79,41 +67,19 @@ export const columns: VxeGridProps['columns'] = [
       },
     },
   },
-  {
-    title: '描述',
-    field: 'des',
-    minWidth: 120,
-  },
+  { title: '描述', field: 'des', minWidth: 120 },
   {
     title: '状态',
     field: 'status',
     minWidth: 80,
     slots: {
-      default: ({ row }) => {
-        return renderDict(row.status, DictEnum.SYS_NORMAL_DISABLE);
-      },
+      default: ({ row }) => renderDict(row.status, DictEnum.SYS_NORMAL_DISABLE),
     },
   },
-  {
-    title: '使用数量',
-    field: 'albumCount',
-    minWidth: 100,
-  },
-  {
-    title: '创建时间',
-    field: 'createAt',
-    minWidth: 180,
-  },
-  {
-    title: '更新时间',
-    field: 'updateAt',
-    minWidth: 180,
-  },
-  {
-    title: '创建人',
-    field: 'createByName',
-    minWidth: 100,
-  },
+  { title: '使用数量', field: 'albumCount', minWidth: 100 },
+  { title: '创建时间', field: 'createAt', minWidth: 180 },
+  { title: '更新时间', field: 'updateAt', minWidth: 180 },
+  { title: '创建人', field: 'createByName', minWidth: 100 },
   {
     field: 'action',
     fixed: 'right',
@@ -126,10 +92,7 @@ export const columns: VxeGridProps['columns'] = [
 export const modalSchema: FormSchemaGetter = () => [
   {
     component: 'Input',
-    dependencies: {
-      show: () => false,
-      triggerFields: [''],
-    },
+    dependencies: { show: () => false, triggerFields: [''] },
     fieldName: 'id',
     label: '模板ID',
   },
@@ -143,22 +106,27 @@ export const modalSchema: FormSchemaGetter = () => [
     component: 'Select',
     componentProps: {
       getPopupContainer,
-      options: getDictOptions('ya_template_type'),
+      options: getDictOptions('ya_template_type', true),
+      style: { width: '100%' },
     },
     fieldName: 'type',
     label: '模板类型',
     rules: 'required',
   },
   {
-    component: 'Input',
+    component: 'ImageUpload',
+    componentProps: {
+      maxNumber: 1,
+      maxSize: 50,
+      resultField: 'url',
+    },
     fieldName: 'previewUrl',
-    label: '预览图URL',
+    formItemClass: 'items-start',
+    label: '预览图',
   },
   {
     component: 'Textarea',
-    componentProps: {
-      autoSize: true,
-    },
+    componentProps: { autoSize: true },
     fieldName: 'des',
     formItemClass: 'items-start',
     label: '描述',
@@ -167,7 +135,7 @@ export const modalSchema: FormSchemaGetter = () => [
     component: 'RadioGroup',
     componentProps: {
       buttonStyle: 'solid',
-      options: getDictOptions(DictEnum.SYS_NORMAL_DISABLE),
+      options: getDictOptions(DictEnum.SYS_NORMAL_DISABLE, true),
       optionType: 'button',
     },
     defaultValue: 0,

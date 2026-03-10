@@ -12,7 +12,7 @@ export const querySchema: FormSchemaGetter = () => [
     component: 'Select',
     componentProps: {
       getPopupContainer,
-      options: getDictOptions(DictEnum.SYS_NORMAL_DISABLE),
+      options: getDictOptions(DictEnum.SYS_NORMAL_DISABLE, true),
     },
     fieldName: 'status',
     label: '状态',
@@ -126,7 +126,7 @@ export const modalSchema: FormSchemaGetter = () => [
     component: 'RadioGroup',
     componentProps: {
       buttonStyle: 'solid',
-      options: getDictOptions(DictEnum.SYS_NORMAL_DISABLE),
+      options: getDictOptions(DictEnum.SYS_NORMAL_DISABLE, true),
       optionType: 'button',
     },
     defaultValue: 0,
