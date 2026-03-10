@@ -48,9 +48,26 @@ _PROMPT = """角色：你是一位资深纪念册策划编辑，擅长从照片�
 - 每个章节的 description：一句话，带有情感温度，15~30字
 - media_ids：该章节包含的照片编号数组
 
+除章节分组外，还需要为每张照片判断视觉焦点：
+- focus_x：主体在画面中的水平位置，0.0=最左，1.0=最右，0.5=居中
+- focus_y：主体在画面中的垂直位置，0.0=最上，1.0=最下，0.5=居中
+- 人像/自拍：人脸通常在上半部，focus_y 约 0.25~0.40
+- 风景/全景：主体居中，focus_x=0.5，focus_y=0.5
+- 主体偏左：focus_x 约 0.25~0.35；主体偏右：focus_x 约 0.65~0.75
+- 精确到 0.05 即可，不需要过于精细
+
 示例输出（仅供格式参考，内容请根据实际照片生成）：
 {
   "album_title": "山海间的笑声",
+  "images": [
+    {"media_id": 1, "focus_x": 0.5, "focus_y": 0.35},
+    {"media_id": 2, "focus_x": 0.3, "focus_y": 0.5},
+    {"media_id": 3, "focus_x": 0.5, "focus_y": 0.5},
+    {"media_id": 4, "focus_x": 0.6, "focus_y": 0.4},
+    {"media_id": 5, "focus_x": 0.5, "focus_y": 0.5},
+    {"media_id": 6, "focus_x": 0.4, "focus_y": 0.35},
+    {"media_id": 7, "focus_x": 0.5, "focus_y": 0.5}
+  ],
   "chapters": [
     {
       "title": "出发的早晨",
@@ -95,12 +112,23 @@ class OutlineService:
         data = json.loads(raw[start:end])
 
         outline = AlbumOutline(album_title=data.get("album_title", "我们的纪念册"))
+
+        # 解析每张图片的焦点坐标
+        focus_map: dict[int, tuple[float, float]] = {}
+        for item in data.get("images", []):
+            mid = item.get("media_id")
+            if mid is not None:
+                fx = max(0.0, min(1.0, float(item.get("focus_x", 0.5))))
+                fy = max(0.0, min(1.0, float(item.get("focus_y", 0.5))))
+                focus_map[mid] = (fx, fy)
+
         for ch in data.get("chapters", []):
             chapter_images = []
             for mid in ch.get("media_ids", []):
                 if mid in media_map:
                     m = media_map[mid]
-                    chapter_images.append(ImageFeature(media_id=m.id, url=m.content))
+                    fx, fy = focus_map.get(mid, (0.5, 0.5))
+                    chapter_images.append(ImageFeature(media_id=m.id, url=m.content, focus_x=fx, focus_y=fy))
             chapter = OutlineChapter(
                 title=ch.get("title", ""),
                 description=ch.get("description", ""),

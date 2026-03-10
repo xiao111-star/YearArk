@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -10,10 +10,10 @@ import MediaTextList from '@/components/MediaTextList.vue'
 import InviteLinkItem from '@/components/InviteLinkItem.vue'
 import type { MediaItem } from '@/components/MediaGrid.vue'
 import type { Invite } from '@/components/InviteLinkItem.vue'
-import { getAlbumDetail, generateAlbum } from '@/api/album'
+import { getAlbumDetail, generateAlbum, getAlbumStatus } from '@/api/album'
 import { listMedia, getMediaStats } from '@/api/media'
 import { listInvites, createInvite, disableInvite } from '@/api/invite'
-import { ArrowLeft } from 'lucide-vue-next'
+import { ArrowLeft, Loader2 } from 'lucide-vue-next'
 
 const route = useRoute()
 const router = useRouter()
@@ -40,6 +40,15 @@ const creatingInvite = ref(false)
 // Loading
 const loading = ref(false)
 const generating = ref(false)
+
+// 轮询
+let pollTimer: ReturnType<typeof setTimeout> | null = null
+const POLL_INTERVAL = 3000
+const POLL_MAX = 60 // 最多轮询 60 次（3分钟）
+let pollCount = 0
+
+const isProcessing = computed(() => album.value?.generationStatus === 1)
+const generationFailed = computed(() => album.value?.generationStatus === 3)
 
 async function fetchAlbum() {
   try {
@@ -99,8 +108,38 @@ async function handleGenerate() {
   try {
     await generateAlbum(albumId)
     await fetchAlbum()
+    startPolling()
   } catch { /* interceptor */ } finally { generating.value = false }
 }
+
+function startPolling() {
+  stopPolling()
+  pollCount = 0
+  poll()
+}
+
+function stopPolling() {
+  if (pollTimer) { clearTimeout(pollTimer); pollTimer = null }
+}
+
+async function poll() {
+  if (pollCount >= POLL_MAX) { stopPolling(); return }
+  pollCount++
+  try {
+    const res = await getAlbumStatus(albumId)
+    const updated = res.data?.data
+    if (updated) album.value = { ...album.value!, ...updated }
+    if (updated?.generationStatus === 2 || updated?.generationStatus === 3) {
+      stopPolling()
+    } else {
+      pollTimer = setTimeout(poll, POLL_INTERVAL)
+    }
+  } catch {
+    pollTimer = setTimeout(poll, POLL_INTERVAL)
+  }
+}
+
+onUnmounted(() => stopPolling())
 
 function goPreview() {
   router.push(`/album/${albumId}/preview`)
@@ -114,6 +153,8 @@ onMounted(async () => {
   loading.value = true
   await Promise.all([fetchAlbum(), fetchMedia(), fetchInvites()])
   loading.value = false
+  // 如果进入页面时已经在生成中，自动开始轮询
+  if (album.value?.generationStatus === 1) startPolling()
 })
 </script>
 
@@ -145,11 +186,20 @@ onMounted(async () => {
             >
               {{ album.status === 1 ? '已发布' : '草稿' }}
             </span>
-            <Button v-if="album.status === 1" variant="outline" @click="router.push(`/album/${albumId}/preview`)">
-              预览
+            <!-- 生成失败提示 -->
+            <span v-if="generationFailed" class="text-sm text-destructive">
+              生成失败：{{ album.generationFailReason || '未知错误' }}
+            </span>
+            <Button
+              variant="outline"
+              :disabled="isProcessing"
+              @click="router.push(`/album/${albumId}/preview`)"
+            >
+              预览纪念册
             </Button>
-            <Button @click="handleGenerate" :disabled="generating">
-              {{ generating ? '生成中...' : '生成纪念册' }}
+            <Button @click="handleGenerate" :disabled="generating || isProcessing">
+              <Loader2 v-if="isProcessing" class="w-4 h-4 mr-2 animate-spin" />
+              {{ isProcessing ? '生成中...' : '生成纪念册' }}
             </Button>
           </div>
         </div>

@@ -43,15 +43,22 @@ class MatchingService:
         all_images = [img for ch in outline.chapters for img in ch.images]
         if covers and all_images:
             cover_tp = covers[0]
-            cover_imgs = all_images[:cover_tp.imageCount] if cover_tp.imageCount > 0 else []
-            outline.cover_page = _to_outline_page(cover_tp, "cover", cover_imgs)
+            if cover_tp.imageCount > 0 and len(all_images) >= cover_tp.imageCount:
+                cover_imgs = all_images[:cover_tp.imageCount]
+                outline.cover_page = _to_outline_page(cover_tp, "cover", cover_imgs)
+            elif cover_tp.imageCount == 0:
+                outline.cover_page = _to_outline_page(cover_tp, "cover", [])
 
         # 章节页 + 内容页
         for chapter in outline.chapters:
             if chapter_pool:
                 cp = chapter_pool.pop(0)
-                ch_imgs = chapter.images[:cp.imageCount] if cp.imageCount > 0 else []
-                chapter.pages.append(_to_outline_page(cp, "chapter", ch_imgs))
+                if cp.imageCount == 0 or len(chapter.images) >= cp.imageCount:
+                    ch_imgs = chapter.images[:cp.imageCount] if cp.imageCount > 0 else []
+                    chapter.pages.append(_to_outline_page(cp, "chapter", ch_imgs))
+                else:
+                    logger.info("章节页 [templatePageId=%d] 需要 %d 张图但只有 %d 张，跳过",
+                                cp.templatePageId, cp.imageCount, len(chapter.images))
 
             matched = self._greedy_match(chapter.images, content_pages)
             chapter.pages.extend(matched)
@@ -70,8 +77,11 @@ class MatchingService:
         while remaining and usable:
             tp = next((p for p in usable if p.imageCount <= len(remaining)), None)
             if tp is None:
-                tp = usable[-1]
-            cap = min(tp.imageCount, len(remaining))
+                # 没有能容纳剩余图片数量的模板，剩余图片无法安全填充必填 slot，直接丢弃
+                logger.info("剩余 %d 张图片无匹配模板（最小需要 %d 张），已丢弃",
+                            len(remaining), usable[-1].imageCount)
+                break
+            cap = tp.imageCount
             result.append(_to_outline_page(tp, "content", remaining[:cap]))
             remaining = remaining[cap:]
 

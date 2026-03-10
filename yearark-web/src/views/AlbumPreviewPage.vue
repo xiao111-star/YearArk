@@ -1,169 +1,168 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { ArrowLeft, ChevronLeft, ChevronRight, BookOpen, Layers } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
-import BookViewer from '@/components/BookViewer.vue'
-import PageEditor from '@/components/PageEditor.vue'
-import MediaPanel from '@/components/MediaPanel.vue'
+import { Card, CardContent } from '@/components/ui/card'
 import type { PageItem } from '@/components/BookViewer.vue'
-import type { EditablePage } from '@/components/PageEditor.vue'
-import type { UnusedMedia } from '@/components/MediaPanel.vue'
-import { previewAlbum, getAlbumEditData, updatePageData, batchUpdatePages, getUnusedMedia } from '@/api/album'
+import { previewAlbum, getAlbumDetail } from '@/api/album'
 
 const route = useRoute()
 const router = useRouter()
 const albumId = Number(route.params.id)
 
-// Read-only preview
 const pages = ref<PageItem[]>([])
 const loading = ref(false)
+const currentIndex = ref(0)
+const albumName = ref('')
 
-// Edit mode
-const editMode = ref(route.query.edit === '1')
-const editPages = ref<EditablePage[]>([])
-const unusedMedia = ref<UnusedMedia[]>([])
-const editLoading = ref(false)
-const saving = ref(false)
-const saveErrors = ref<Record<number, string>>({})
+const isFirst = () => currentIndex.value === 0
+const isLast = () => currentIndex.value >= pages.value.length - 1
+const currentPage = () => pages.value[currentIndex.value]
 
-// Track local edits: pageId -> updated dataMap
-const pendingEdits = ref<Map<number, Record<string, unknown>>>(new Map())
+function prev() {
+  if (!isFirst()) currentIndex.value--
+}
 
-const currentEditPageIndex = ref(0)
-const currentEditPage = computed(() => editPages.value[currentEditPageIndex.value] ?? null)
+function next() {
+  if (!isLast()) currentIndex.value++
+}
 
-async function fetchPages() {
+function goToPage(idx: number) {
+  currentIndex.value = idx
+}
+
+async function fetchData() {
   loading.value = true
   try {
-    const res = await previewAlbum(albumId)
-    pages.value = res.data?.data ?? []
-  } catch { pages.value = [] } finally { loading.value = false }
-}
-
-async function fetchEditData() {
-  editLoading.value = true
-  try {
-    const [editRes, mediaRes] = await Promise.all([
-      getAlbumEditData(albumId),
-      getUnusedMedia(albumId),
+    const [previewRes, detailRes] = await Promise.all([
+      previewAlbum(albumId),
+      getAlbumDetail(albumId),
     ])
-    editPages.value = editRes.data?.data?.pages ?? []
-    unusedMedia.value = mediaRes.data?.data ?? []
-  } catch { /* interceptor */ } finally { editLoading.value = false }
-}
-
-async function toggleEditMode() {
-  editMode.value = !editMode.value
-  if (editMode.value && editPages.value.length === 0) {
-    await fetchEditData()
+    pages.value = previewRes.data?.data ?? []
+    albumName.value = detailRes.data?.data?.name ?? '纪念册预览'
+  } catch {
+    pages.value = []
+  } finally {
+    loading.value = false
   }
-  pendingEdits.value = new Map()
-  saveErrors.value = {}
 }
 
-function onPageUpdate(pageId: number, data: Record<string, unknown>) {
-  pendingEdits.value.set(pageId, data)
+function goBack() {
+  router.push(`/album/${albumId}`)
 }
 
-async function handleSave() {
-  if (pendingEdits.value.size === 0) { editMode.value = false; return }
-  saving.value = true
-  saveErrors.value = {}
-  try {
-    const updates = Array.from(pendingEdits.value.entries()).map(([pageId, dataMap]) => ({ pageId, dataMap }))
-    await batchUpdatePages(albumId, updates)
-    pendingEdits.value = new Map()
-    // Refresh both views
-    await Promise.all([fetchPages(), fetchEditData()])
-    editMode.value = false
-  } catch (e: unknown) {
-    const msg = (e as { response?: { data?: { msg?: string } } })?.response?.data?.msg ?? '保存失败，请检查数据'
-    saveErrors.value[-1] = msg
-  } finally { saving.value = false }
-}
-
-function goBack() { router.push(`/album/${albumId}`) }
-
-onMounted(async () => {
-  await fetchPages()
-  if (editMode.value) await fetchEditData()
-})
+onMounted(fetchData)
 </script>
 
 <template>
-  <div>
-    <!-- Top bar -->
-    <div class="mb-4 flex items-center justify-between">
-      <Button variant="ghost" size="sm" @click="goBack">← 返回详情</Button>
-      <div class="flex gap-2">
-        <Button
-          v-if="!editMode"
-          variant="outline"
-          size="sm"
-          @click="toggleEditMode"
-        >进入编辑模式</Button>
-        <template v-else>
-          <Button variant="outline" size="sm" :disabled="saving" @click="toggleEditMode">取消</Button>
-          <Button size="sm" :disabled="saving" @click="handleSave">
-            {{ saving ? '保存中...' : '保存' }}
-          </Button>
-        </template>
+  <div class="space-y-6">
+    <!-- Header -->
+    <div>
+      <Button variant="ghost" class="gap-2 pl-0 hover:bg-transparent hover:text-primary" @click="goBack">
+        <ArrowLeft class="w-4 h-4" />
+        返回详情
+      </Button>
+      <div class="flex items-center justify-between mt-2">
+        <div>
+          <h1 class="text-3xl font-serif font-bold tracking-tight text-primary">{{ albumName }}</h1>
+          <p class="text-muted-foreground mt-1">
+            <span v-if="!loading && pages.length > 0">共 {{ pages.length }} 页</span>
+            <span v-else-if="!loading">暂无内容</span>
+          </p>
+        </div>
       </div>
     </div>
 
-    <!-- Global save error -->
-    <div v-if="saveErrors[-1]" class="mb-4 rounded-md bg-red-50 border border-red-200 px-4 py-2 text-sm text-red-700">
-      {{ saveErrors[-1] }}
+    <!-- Loading skeleton -->
+    <div v-if="loading" class="space-y-4">
+      <div class="h-[600px] rounded-xl bg-muted animate-pulse" />
+      <div class="flex justify-center gap-2">
+        <div class="h-9 w-24 rounded-md bg-muted animate-pulse" />
+        <div class="h-9 w-32 rounded-md bg-muted animate-pulse" />
+        <div class="h-9 w-24 rounded-md bg-muted animate-pulse" />
+      </div>
     </div>
 
-    <!-- Loading -->
-    <div v-if="loading || editLoading" class="text-center py-12 text-muted-foreground">加载中...</div>
-
-    <!-- Empty -->
-    <div v-else-if="!editMode && pages.length === 0" class="text-center py-20">
-      <p class="text-muted-foreground mb-4">纪念册尚未生成，请先点击生成</p>
+    <!-- Empty state -->
+    <div
+      v-else-if="pages.length === 0"
+      class="flex flex-col items-center justify-center py-20 bg-card rounded-xl border border-dashed"
+    >
+      <div class="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
+        <BookOpen class="w-8 h-8 text-muted-foreground" />
+      </div>
+      <h3 class="text-lg font-medium">纪念册尚未生成</h3>
+      <p class="text-muted-foreground mb-6">请先在详情页点击"生成纪念册"</p>
       <Button @click="goBack">返回详情页</Button>
     </div>
 
-    <!-- Read-only preview -->
-    <BookViewer v-else-if="!editMode" :pages="pages" />
+    <!-- Viewer -->
+    <template v-else>
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <!-- Page thumbnails sidebar -->
+        <div class="lg:col-span-1 order-2 lg:order-1">
+          <Card>
+            <CardContent class="p-3">
+              <div class="flex items-center gap-2 mb-3 px-1">
+                <Layers class="w-4 h-4 text-muted-foreground" />
+                <span class="text-sm font-medium text-muted-foreground">页面导航</span>
+              </div>
+              <div class="space-y-1 max-h-[560px] overflow-y-auto pr-1">
+                <button
+                  v-for="(p, idx) in pages"
+                  :key="p.pageId"
+                  :class="[
+                    'w-full text-left px-3 py-2 rounded-md text-sm transition-colors flex items-center gap-2',
+                    idx === currentIndex
+                      ? 'bg-primary text-primary-foreground'
+                      : 'hover:bg-muted text-muted-foreground hover:text-foreground',
+                  ]"
+                  @click="goToPage(idx)"
+                >
+                  <span class="w-5 h-5 rounded-full flex items-center justify-center text-xs font-medium shrink-0"
+                    :class="idx === currentIndex ? 'bg-primary-foreground/20' : 'bg-muted'"
+                  >
+                    {{ idx + 1 }}
+                  </span>
+                  第 {{ p.sort }} 页
+                </button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
-    <!-- Edit mode -->
-    <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      <!-- Page list (left) -->
-      <div class="lg:col-span-1 space-y-2">
-        <p class="text-sm font-medium text-muted-foreground">页面列表</p>
-        <button
-          v-for="(p, idx) in editPages"
-          :key="p.pageId"
-          :class="[
-            'w-full text-left px-3 py-2 rounded-md text-sm border transition-colors',
-            idx === currentEditPageIndex
-              ? 'bg-primary text-primary-foreground border-primary'
-              : 'hover:bg-muted border-transparent',
-          ]"
-          @click="currentEditPageIndex = idx"
-        >
-          第 {{ p.sort }} 页
-        </button>
-      </div>
+        <!-- Main viewer -->
+        <div class="lg:col-span-3 order-1 lg:order-2 space-y-4">
+          <Card class="overflow-hidden shadow-md">
+            <CardContent class="p-0">
+              <iframe
+                v-if="currentPage()"
+                :srcdoc="currentPage()!.html"
+                class="w-full border-0"
+                style="height: 600px"
+                sandbox="allow-same-origin"
+                title="纪念册页面"
+              />
+            </CardContent>
+          </Card>
 
-      <!-- Editor (center) -->
-      <div class="lg:col-span-1">
-        <div v-if="currentEditPage" class="space-y-3">
-          <p class="text-sm font-medium">第 {{ currentEditPage.sort }} 页</p>
-          <PageEditor
-            :page="currentEditPage"
-            :unused-media="unusedMedia"
-            @update="onPageUpdate(currentEditPage.pageId, $event)"
-          />
+          <!-- Navigation controls -->
+          <div class="flex items-center justify-between">
+            <Button variant="outline" :disabled="isFirst()" @click="prev" class="gap-2">
+              <ChevronLeft class="w-4 h-4" />
+              上一页
+            </Button>
+            <span class="text-sm text-muted-foreground">
+              第 {{ currentIndex + 1 }} 页 / 共 {{ pages.length }} 页
+            </span>
+            <Button variant="outline" :disabled="isLast()" @click="next" class="gap-2">
+              下一页
+              <ChevronRight class="w-4 h-4" />
+            </Button>
+          </div>
         </div>
       </div>
-
-      <!-- Media panel (right) -->
-      <div class="lg:col-span-1">
-        <MediaPanel :media="unusedMedia" @drag-start="() => {}" />
-      </div>
-    </div>
+    </template>
   </div>
 </template>

@@ -54,6 +54,7 @@
     "dayjs": "catalog:",
     "echarts": "^5.5.1",
     "echarts-gl": "^2.0.9",
+    "flipbook-vue": "1.0.0-beta.4",
     "jsencrypt": "^3.3.2",
     "lodash-es": "^4.17.21",
     "pinia": "catalog:",

@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 def _build_data_map(page: OutlinePage) -> dict:
     data: dict = {}
     for i, img in enumerate(page.images, 1):
-        data[f"image_{i}"] = {"url": img.url, "focus_x": 0.5, "focus_y": 0.5, "scale": 1.0}
+        data[f"image_{i}"] = {"url": img.url, "focus_x": img.focus_x, "focus_y": img.focus_y, "scale": 1.0}
     data.update(page.texts)
     return data
 

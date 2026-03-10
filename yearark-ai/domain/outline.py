@@ -8,9 +8,11 @@ from typing import Optional
 
 @dataclass
 class ImageFeature:
-    """图片基础信息（视觉分组后只需 id 和 url）"""
+    """图片基础信息，含视觉模型识别的焦点坐标"""
     media_id: int
     url: str
+    focus_x: float = 0.5   # 主体水平位置（0.0=最左 ~ 1.0=最右）
+    focus_y: float = 0.5   # 主体垂直位置（0.0=最上 ~ 1.0=最下）
 
 
 @dataclass
