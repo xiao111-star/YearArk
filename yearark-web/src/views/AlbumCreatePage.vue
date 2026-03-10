@@ -46,10 +46,31 @@ async function handleSubmit() {
       des: des.value.trim() || undefined,
       templateId: selectedTemplateId.value ?? undefined,
     })
-    const albumId = res.data?.data?.id ?? res.data?.data
-    if (albumId) {
-      router.push(`/album/${albumId}`)
+    
+    // Check if the response indicates success
+    if (res.data?.code === 200) {
+      // If the data is null, it means we don't have the ID to navigate to detail
+      // So we navigate to the list page instead
+      if (res.data.data === null) {
+         router.push('/albums')
+      } else {
+         // If we have an ID (e.g. data is the ID or an object with id), try to use it
+         const albumId = res.data.data?.id ?? res.data.data
+         if (albumId && typeof albumId !== 'object') {
+             router.push(`/album/${albumId}`)
+         } else {
+             // Fallback to list if data structure is unexpected but successful
+             router.push('/albums')
+         }
+      }
+    } else {
+      // Handle error (e.g. show toast)
+      console.error('Create failed:', res.data?.msg)
+      alert(`创建失败: ${res.data?.msg || '未知错误'}`)
     }
+  } catch (err) {
+    console.error('Create error:', err)
+    alert('创建请求失败，请稍后重试')
   } finally {
     loading.value = false
   }

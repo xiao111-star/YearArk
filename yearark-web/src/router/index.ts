@@ -48,6 +48,20 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/AlbumDetailPage.vue'),
       },
       {
+        path: 'albums',
+        redirect: '/dashboard',
+      },
+      {
+        path: 'templates',
+        name: 'Templates',
+        component: () => import('@/views/TemplatesPage.vue'),
+      },
+      {
+        path: 'shared',
+        name: 'Shared',
+        component: () => import('@/views/SharedPage.vue'),
+      },
+      {
         path: 'album/:id/preview',
         name: 'AlbumPreview',
         component: () => import('@/views/AlbumPreviewPage.vue'),
