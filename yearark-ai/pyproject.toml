@@ -2,7 +2,7 @@
 name = "yearark-ai"
 version = "0.1.0"
 description = "Add your description here"
-requires-python = ">=3.13"
+requires-python = ">=3.10"
 dependencies = [
     "aio-pika==9.4.3",
     "fastapi==0.115.0",

@@ -20,9 +20,11 @@ public class SaTokenConfig implements WebMvcConfigurer {
 
     @Bean
     public StpLogic getStpLogicJwt() {
-        // Sa-Token 整合 jwt (简单模式)
+        // Sa-Token 整合 jwt (简单模式)，替换默认 StpUtil（管理端）
         return new StpLogicJwtForSimple();
     }
+
+
 
     /**
      * 权限接口实现(使用bean注入方便用户替换)

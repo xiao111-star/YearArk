@@ -1,5 +1,6 @@
 package org.ruoyi.common.satoken.utils;
 
+import cn.dev33.satoken.jwt.StpLogicJwtForSimple;
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpLogic;
 
@@ -13,7 +14,7 @@ public class StpAnonUtil {
 
     public static final String TYPE = "ya-anon";
 
-    public static final StpLogic stpLogic = new StpLogic(TYPE) {
+    public static final StpLogic stpLogic = new StpLogicJwtForSimple(TYPE) {
         @Override
         public String splicingKeyTokenName() {
             return "Ya-Anon-Auth";
