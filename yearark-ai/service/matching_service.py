@@ -65,17 +65,24 @@ class MatchingService:
         return outline
 
     def _greedy_match(self, images: list[ImageFeature], content_pages: list[TemplatePageItem]) -> list[OutlinePage]:
-        """按 imageCount 降序贪心匹配，允许舍弃多余图片"""
-        sorted_pages = sorted(content_pages, key=lambda p: p.imageCount, reverse=True)
+        """
+        按 imageCount 降序贪心匹配，只按图片数量匹配，文案由 AI 后续生成。
+        每次从剩余图片中取 imageCount 张，直到图片耗尽或无可用模板。
+        允许最后一页图片不足（用实际剩余数量填充）。
+        """
+        # 只保留有图片槽的模板，按容量降序
+        usable = sorted([p for p in content_pages if p.imageCount > 0],
+                        key=lambda p: p.imageCount, reverse=True)
         remaining = list(images)
         result = []
 
-        for tp in sorted_pages:
-            if not remaining:
-                break
-            cap = tp.imageCount
-            if cap <= 0 or cap > len(remaining):
-                continue
+        while remaining and usable:
+            # 找到不超过剩余数量的最大容量模板
+            tp = next((p for p in usable if p.imageCount <= len(remaining)), None)
+            if tp is None:
+                # 所有模板容量都大于剩余图片，取容量最小的模板，用实际剩余填充
+                tp = usable[-1]
+            cap = min(tp.imageCount, len(remaining))
             result.append(_to_outline_page(tp, remaining[:cap]))
             remaining = remaining[cap:]
 

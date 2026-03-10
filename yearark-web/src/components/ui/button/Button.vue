@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { cn } from '@/lib/utils'
 import { useAttrs } from 'vue'
-import { buttonVariants, type ButtonVariants } from './variants'
+import { buttonVariants, type ButtonVariants } from './variants.ts'
 
 defineOptions({ inheritAttrs: false })
 

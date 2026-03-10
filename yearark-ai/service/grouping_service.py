@@ -9,18 +9,18 @@ from core.llm.client import chat
 
 logger = logging.getLogger(__name__)
 
-_PROMPT_TEMPLATE = """你是一个纪念册编辑，请根据以下图片的特征信息，将它们分成不超过5组，每组代表一个章节主题。
+_PROMPT_TEMPLATE = """你是一个专业的纪念册编辑。请根据以下按时间顺序排列的图片特征，将它们划分为不超过5个章节。
 
-图片特征列表（JSON）：
+【核心分组原则】（请在内部严格遵循）：
+1. 连贯性优先：必须将特征相似且序号相邻（顺延）的图片分在一组，切忌跨序号跳跃拼凑。
+2. 场景与事件：优先以“场景的转换”或“核心事件的发展阶段”（如：出发、游玩、聚餐、返程）作为划分边界。
+3. 均衡性：尽量避免某一组只有1张图而另一组有10张图，除非遇到极其明显的场景断层。
+
+图片特征列表（按真实顺序排列）：
 {features_json}
 
-要求：
-1. 分组数量不超过5组，尽量让每组图片数量均衡
-2. 每组给出一个简短的章节标题（4-8个字）和一句话描述
-3. 每张图片只能属于一个组，用 media_id 标识
-4. 同时为整本纪念册起一个标题
-
-请严格按以下 JSON 格式返回，不要输出任何其他内容：
+请结合上述特征，给出整本纪念册的名称，以及每个章节的精炼标题（4-8字）和一句话情感描述。
+【警告】你只需要输出合法的 JSON，不要输出任何额外的解释或思考过程代码块！请严格按以下 JSON 格式返回：
 {{
   "album_title": "纪念册总标题",
   "chapters": [
@@ -45,6 +45,7 @@ class GroupingService:
         features_json = json.dumps(
             [{"media_id": f.media_id, "scene": f.scene, "people": f.people,
               "color_tone": f.color_tone, "composition": f.composition,
+              "action": f.action, "emotion": f.emotion,
               "summary": f.summary}
              for f in features],
             ensure_ascii=False, indent=2

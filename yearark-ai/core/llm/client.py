@@ -2,25 +2,30 @@
 阿里云百炼 LLM 客户端
 基础设施层，只负责 API 调用，不含任何业务逻辑
 """
-import os
 from openai import OpenAI
+from config import settings
 
 _client = OpenAI(
-    api_key=os.getenv("DASHSCOPE_API_KEY", ""),
-    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    api_key=settings.dashscope_api_key,
+    base_url=settings.dashscope_base_url,
 )
 
-VISION_MODEL = os.getenv("VISION_MODEL", "qwen-vl-plus")
-TEXT_MODEL = os.getenv("TEXT_MODEL", "qwen-plus")
 
-
-def chat(messages: list[dict], model: str = TEXT_MODEL) -> str:
+def chat(messages: list[dict], model: str = None) -> str:
     """文本对话"""
-    resp = _client.chat.completions.create(model=model, messages=messages)
+    resp = _client.chat.completions.create(
+        model=model or settings.text_model,
+        messages=messages,
+    )
     return resp.choices[0].message.content
 
 
-def vision_chat(messages: list[dict], model: str = VISION_MODEL) -> str:
+def vision_chat(messages: list[dict], model: str = None) -> str:
     """视觉对话（含图片）"""
-    resp = _client.chat.completions.create(model=model, messages=messages)
-    return resp.choices[0].message.content
+    resp = _client.chat.completions.create(
+        model=model or settings.vision_model,
+        messages=messages,
+        extra_body ={"enable_thinking": settings.image_model_enable_thinking}
+    )
+    a = resp.choices[0].message.content
+    return a
