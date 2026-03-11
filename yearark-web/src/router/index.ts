@@ -5,7 +5,8 @@ import { useUserStore } from '@/stores/user'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/dashboard',
+    name: 'Home',
+    component: () => import('@/views/HomePage.vue'),
   },
   // AuthLayout routes
   {
@@ -60,6 +61,11 @@ const routes: RouteRecordRaw[] = [
         path: 'shared',
         name: 'Shared',
         component: () => import('@/views/SharedPage.vue'),
+      },
+      {
+        path: 'profile',
+        name: 'Profile',
+        component: () => import('@/views/ProfilePage.vue'),
       },
       {
         path: 'album/:id/preview',

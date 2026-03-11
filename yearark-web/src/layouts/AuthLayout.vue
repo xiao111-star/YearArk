@@ -1,14 +1,14 @@
 <script setup lang="ts">
+import Navbar from '@/components/Navbar.vue'
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-muted/40 px-4">
-    <div class="w-full max-w-md">
-      <div class="mb-8 text-center">
-        <h1 class="text-3xl font-bold text-primary">YearArk</h1>
-        <p class="mt-2 text-sm text-muted-foreground">毕业纪念册，留住青春记忆</p>
+  <div class="min-h-screen bg-muted/40 font-sans text-foreground">
+    <Navbar />
+    <div class="flex items-center justify-center px-4 py-16 min-h-[calc(100vh-4rem)]">
+      <div class="w-full max-w-md">
+        <router-view />
       </div>
-      <router-view />
     </div>
   </div>
 </template>

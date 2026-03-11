@@ -5,6 +5,8 @@ import org.ruoyi.common.core.domain.R;
 import org.ruoyi.core.page.PageQuery;
 import org.ruoyi.core.page.TableDataInfo;
 import org.ruoyi.system.domain.YaUser;
+import org.ruoyi.system.domain.dto.ChangePasswordDto;
+import org.ruoyi.system.domain.dto.UserProfileDto;
 import org.ruoyi.system.domain.dto.YaUserDto;
 import org.ruoyi.system.domain.dto.YaUserLoginDto;
 import org.ruoyi.system.domain.dto.YaUserQueryDto;
@@ -50,5 +52,20 @@ public interface IYaUserService extends IService<YaUser> {
      * @return 退出结果
      */
     R<Void> logout();
+
+    /**
+     * 更新个人资料
+     */
+    R<Void> updateProfile(Integer userId, UserProfileDto dto);
+
+    /**
+     * 更新头像
+     */
+    void updateAvatar(Integer userId, String avatarUrl);
+
+    /**
+     * 修改密码
+     */
+    R<Void> changePassword(Integer userId, ChangePasswordDto dto);
 }
 

@@ -12,6 +12,8 @@ import org.ruoyi.core.page.PageQuery;
 import org.ruoyi.core.page.TableDataInfo;
 import org.ruoyi.system.domain.YaAlbum;
 import org.ruoyi.system.domain.YaUser;
+import org.ruoyi.system.domain.dto.ChangePasswordDto;
+import org.ruoyi.system.domain.dto.UserProfileDto;
 import org.ruoyi.system.domain.dto.YaUserDto;
 import org.ruoyi.system.domain.dto.YaUserLoginDto;
 import org.ruoyi.system.domain.dto.YaUserQueryDto;
@@ -139,5 +141,46 @@ public class YaUserServiceImpl extends ServiceImpl<YaUserMapper, YaUser> impleme
     public R<Void> logout() {
         StpUserUtil.logout();
         return R.ok("退出成功");
+    }
+
+    @Override
+    public R<Void> updateProfile(Integer userId, UserProfileDto dto) {
+        YaUser user = this.getById(userId);
+        if (user == null) return R.fail("用户不存在");
+
+        // 用户名唯一性校验（排除自己）
+        if (!user.getUsername().equals(dto.getUsername())) {
+            long count = this.count(
+                new LambdaQueryWrapper<YaUser>().eq(YaUser::getUsername, dto.getUsername())
+            );
+            if (count > 0) return R.fail("用户名已存在");
+        }
+
+        user.setUsername(dto.getUsername());
+        user.setEmail(dto.getEmail());
+        this.updateById(user);
+        return R.ok("更新成功");
+    }
+
+    @Override
+    public void updateAvatar(Integer userId, String avatarUrl) {
+        YaUser user = new YaUser();
+        user.setId(userId);
+        user.setAvatarUrl(avatarUrl);
+        this.updateById(user);
+    }
+
+    @Override
+    public R<Void> changePassword(Integer userId, ChangePasswordDto dto) {
+        YaUser user = this.getById(userId);
+        if (user == null) return R.fail("用户不存在");
+
+        if (!BCrypt.checkpw(dto.getOldPasswordHash(), user.getPasswordHash())) {
+            return R.fail("旧密码不正确");
+        }
+
+        user.setPasswordHash(BCrypt.hashpw(dto.getNewPasswordHash()));
+        this.updateById(user);
+        return R.ok("密码修改成功");
     }
 }
