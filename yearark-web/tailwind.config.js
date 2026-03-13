@@ -51,7 +51,7 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+        serif: ['"Playfair Display"', '"Noto Serif SC"', 'Georgia', '"STSong"', 'serif'],
       },
       borderRadius: {
         xl: 'calc(var(--radius) + 4px)',

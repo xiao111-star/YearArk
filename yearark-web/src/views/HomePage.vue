@@ -32,11 +32,11 @@ function randomHeight(index: number) {
 
 const gradients = [
   'from-primary/10 to-primary/5',
-  'from-blue-100/60 to-indigo-50/40',
-  'from-amber-50/60 to-orange-50/40',
-  'from-emerald-50/60 to-teal-50/40',
-  'from-rose-50/60 to-pink-50/40',
-  'from-violet-50/60 to-purple-50/40',
+  'from-amber-50/60 to-orange-50/30',
+  'from-stone-100/60 to-amber-50/40',
+  'from-orange-50/50 to-yellow-50/30',
+  'from-rose-50/40 to-amber-50/30',
+  'from-stone-50/60 to-stone-100/40',
 ]
 function randomGradient(index: number) {
   return gradients[index % gradients.length]
@@ -108,14 +108,14 @@ onMounted(() => {
       <!-- Decorative blobs -->
       <div class="absolute top-10 left-10 w-20 h-20 rounded-full bg-primary/5 blur-2xl" />
       <div class="absolute bottom-10 right-10 w-32 h-32 rounded-full bg-accent/20 blur-3xl" />
-      <div class="absolute top-1/2 left-1/3 w-40 h-40 rounded-full bg-blue-100/20 blur-3xl" />
+      <div class="absolute top-1/2 left-1/3 w-40 h-40 rounded-full bg-amber-100/20 blur-3xl" />
 
       <div class="container mx-auto max-w-7xl px-6 py-24 md:py-36 flex flex-col items-center text-center relative z-10">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
           <BookOpen class="w-4 h-4" />
           留住青春，珍藏回忆
         </div>
-        <h1 class="text-4xl md:text-6xl font-serif font-bold tracking-tight text-foreground leading-tight">
+        <h1 class="text-4xl md:text-6xl font-serif font-bold text-foreground leading-tight" style="letter-spacing: 0.15em;">
           用一本纪念册<br />
           <span class="text-primary">定格你的故事</span>
         </h1>

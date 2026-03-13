@@ -188,7 +188,7 @@ onMounted(fetchProfile)
               </div>
             </div>
             <!-- Message -->
-            <p v-if="profileMsg.text" class="text-sm" :class="profileMsg.type === 'error' ? 'text-destructive' : 'text-green-600'">
+            <p v-if="profileMsg.text" class="text-sm" :class="profileMsg.type === 'error' ? 'text-destructive' : 'text-emerald-700'">
               <Check v-if="profileMsg.type === 'success'" class="w-4 h-4 inline mr-1" />
               {{ profileMsg.text }}
             </p>
@@ -225,7 +225,7 @@ onMounted(fetchProfile)
               </div>
             </div>
             <!-- Message -->
-            <p v-if="passwordMsg.text" class="text-sm" :class="passwordMsg.type === 'error' ? 'text-destructive' : 'text-green-600'">
+            <p v-if="passwordMsg.text" class="text-sm" :class="passwordMsg.type === 'error' ? 'text-destructive' : 'text-emerald-700'">
               <Check v-if="passwordMsg.type === 'success'" class="w-4 h-4 inline mr-1" />
               {{ passwordMsg.text }}
             </p>

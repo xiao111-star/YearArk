@@ -37,7 +37,6 @@
   }
 
   .dark {
-    /* Dark mode - Dark Slate/Stone */
     --background: 222 47% 11%;
     --foreground: 210 40% 98%;
 

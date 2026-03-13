@@ -82,7 +82,7 @@ spring:
       date-time: yyyy-MM-dd HH:mm:ss
   # RabbitMQ 配置
   rabbitmq:
-    host: 36.137.121.41
+    host: 8.145.63.127
     port: 5672
     username: rabbitmq
     password: yangdp
