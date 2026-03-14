@@ -68,6 +68,7 @@ public class AlbumPageEditServiceImpl implements AlbumPageEditService {
             vo.setPageId(page.getId());
             vo.setSort(page.getSort());
             vo.setHtml(templateRenderService.renderPage(tp.getContent(), page.getData()));
+            vo.setTemplateHtml(tp.getContent());
             vo.setData(dataMap);
             vo.setSchemaContent(schemaContent);
             result.add(vo);

@@ -72,6 +72,11 @@ const routes: RouteRecordRaw[] = [
         name: 'AlbumPreview',
         component: () => import('@/views/AlbumPreviewPage.vue'),
       },
+      {
+        path: 'album/:id/edit',
+        name: 'AlbumEditor',
+        component: () => import('@/views/AlbumEditorPage.vue'),
+      },
     ],
   },
   // ShareLayout routes (no auth needed)
@@ -83,6 +88,11 @@ const routes: RouteRecordRaw[] = [
         path: '',
         name: 'ShareUpload',
         component: () => import('@/views/ShareUploadPage.vue'),
+      },
+      {
+        path: 'complete',
+        name: 'ShareComplete',
+        component: () => import('@/views/ShareCompletePage.vue'),
       },
     ],
   },

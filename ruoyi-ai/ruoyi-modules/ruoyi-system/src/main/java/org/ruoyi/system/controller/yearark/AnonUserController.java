@@ -105,4 +105,17 @@ public class AnonUserController {
     public R<List<YaAlbumMediaVo>> myUploads() {
         return anonUserService.getMyUploads();
     }
+
+    /**
+     * 匿名用户删除自己上传的素材
+     * <p>
+     * 需要 Ya-Anon-Auth token。只能删除自己上传的素材。
+     *
+     * @param mediaId 素材ID
+     * @return 操作结果
+     */
+    @DeleteMapping("/media/{mediaId}")
+    public R<Void> deleteMedia(@PathVariable Long mediaId) {
+        return anonUserService.deleteMyUpload(mediaId);
+    }
 }

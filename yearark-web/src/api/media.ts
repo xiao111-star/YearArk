@@ -9,3 +9,8 @@ export function listMedia(params: { albumId: number; type?: number }) {
 export function getMediaStats(albumId: number) {
   return request.get('/api/user/media/stats', { params: { albumId } })
 }
+
+/** 删除素材 */
+export function deleteMedia(mediaId: number) {
+  return request.delete(`/api/user/album/media/${mediaId}`)
+}

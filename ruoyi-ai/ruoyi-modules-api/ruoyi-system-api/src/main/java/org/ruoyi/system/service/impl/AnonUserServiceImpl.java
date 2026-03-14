@@ -187,6 +187,24 @@ public class AnonUserServiceImpl implements IAnonUserService {
         return R.ok(BeanUtil.copyToList(list, YaAlbumMediaVo.class));
     }
 
+    @Override
+    public R<Void> deleteMyUpload(Long mediaId) {
+        YaAnonUser anonUser = getCurrentAnonUser();
+
+        YaAlbumMedia media = mediaService.getById(mediaId);
+        if (media == null) {
+            return R.fail("素材不存在");
+        }
+        // 只能删除自己上传的素材
+        if (!media.getTokenId().equals(anonUser.getTokenId())
+            || !media.getAlbumId().equals(anonUser.getAlbumId())) {
+            return R.fail("无权删除该素材");
+        }
+
+        mediaService.removeById(mediaId);
+        return R.ok();
+    }
+
     /**
      * 从当前 token session 中获取匿名用户信息
      */

@@ -10,10 +10,13 @@ import MediaTextList from '@/components/MediaTextList.vue'
 import InviteLinkItem from '@/components/InviteLinkItem.vue'
 import type { MediaItem } from '@/components/MediaGrid.vue'
 import type { Invite } from '@/components/InviteLinkItem.vue'
-import { getAlbumDetail, generateAlbum, getAlbumStatus } from '@/api/album'
-import { listMedia, getMediaStats } from '@/api/media'
+import { getAlbumDetail, generateAlbum, getAlbumStatus, uploadAlbumMedia } from '@/api/album'
+import { listMedia, getMediaStats, deleteMedia } from '@/api/media'
 import { listInvites, createInvite, disableInvite } from '@/api/invite'
+import { useToast } from '@/components/ui/toast/use-toast'
 import { ArrowLeft, Loader2 } from 'lucide-vue-next'
+
+const { toast } = useToast()
 
 const route = useRoute()
 const router = useRouter()
@@ -32,6 +35,7 @@ const newExpireHours = ref(72)
 const creatingInvite = ref(false)
 const loading = ref(false)
 const generating = ref(false)
+const uploadingMedia = ref(false)
 
 let pollTimer: ReturnType<typeof setTimeout> | null = null
 const POLL_INTERVAL = 3000
@@ -74,6 +78,27 @@ async function handleDisableInvite(id: number) {
 async function handleGenerate() {
   generating.value = true
   try { await generateAlbum(albumId); await fetchAlbum(); startPolling() } catch {} finally { generating.value = false }
+}
+
+async function handleMediaUpload(file: File) {
+  uploadingMedia.value = true
+  try {
+    await uploadAlbumMedia(albumId, file)
+    await fetchMedia()
+    toast({ description: '已上传 1 张照片' })
+  } catch {
+    toast({ description: '上传失败，请重试', variant: 'destructive' })
+  } finally { uploadingMedia.value = false }
+}
+
+async function handleMediaDelete(mediaId: number) {
+  try {
+    await deleteMedia(mediaId)
+    await fetchMedia()
+    toast({ description: '已删除 1 张照片' })
+  } catch {
+    toast({ description: '删除失败，请重试', variant: 'destructive' })
+  }
 }
 
 function startPolling() { stopPolling(); pollCount = 0; poll() }
@@ -122,6 +147,7 @@ onMounted(async () => {
             </span>
             <span v-if="generationFailed" class="text-sm text-destructive">生成失败：{{ album.generationFailReason || '未知错误' }}</span>
             <Button variant="outline" :disabled="isProcessing" @click="router.push(`/album/${albumId}/preview`)">预览纪念册</Button>
+            <Button v-if="album.generationStatus === 2" variant="outline" @click="router.push(`/album/${albumId}/edit`)">编辑纪念册</Button>
             <Button @click="handleGenerate" :disabled="generating || isProcessing">
               <Loader2 v-if="isProcessing" class="w-4 h-4 mr-2 animate-spin" />
               {{ isProcessing ? '生成中...' : '生成纪念册' }}
@@ -142,7 +168,13 @@ onMounted(async () => {
           </div>
         </CardHeader>
         <CardContent>
-          <MediaGrid v-if="mediaTab === 'image'" :images="images" />
+          <MediaGrid
+            v-if="mediaTab === 'image'"
+            :images="images"
+            :uploading="uploadingMedia"
+            @upload="handleMediaUpload"
+            @delete="handleMediaDelete"
+          />
           <MediaTextList v-else :texts="texts" />
         </CardContent>
       </Card>

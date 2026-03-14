@@ -24,4 +24,6 @@ public class EditablePageVo {
 
     /** Schema JSON 字符串（原始内容，前端解析 slots 定义） */
     private String schemaContent;
+    /** 模板原始 HTML（含 {{slot_id}} 占位符） */
+    private String templateHtml;
 }

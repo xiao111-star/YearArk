@@ -61,4 +61,13 @@ public interface IAnonUserService {
      * @return 素材列表
      */
     R<List<YaAlbumMediaVo>> getMyUploads();
+
+    /**
+     * 匿名用户删除自己上传的素材
+     *
+     * @param mediaId 素材ID
+     * @return 操作结果
+     */
+    R<Void> deleteMyUpload(Long mediaId);
+
 }

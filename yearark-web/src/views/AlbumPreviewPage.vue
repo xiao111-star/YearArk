@@ -5,7 +5,9 @@ import { ArrowLeft, ChevronLeft, ChevronRight, BookOpen, Maximize2, Minimize2 } 
 import { Button } from '@/components/ui/button'
 import FlipBook from '@/components/FlipBook.vue'
 import type { FlipPage } from '@/components/FlipBook.vue'
-import { previewAlbum, getAlbumDetail } from '@/api/album'
+import { getAlbumEditData, getAlbumDetail } from '@/api/album'
+import { renderPage } from '@/utils/albumRenderer'
+import type { PageData } from '@/types/editor'
 
 const route = useRoute()
 const router = useRouter()
@@ -21,11 +23,16 @@ const isFullscreen = ref(false)
 async function fetchData() {
   loading.value = true
   try {
-    const [previewRes, detailRes] = await Promise.all([
-      previewAlbum(albumId),
+    const [editDataRes, detailRes] = await Promise.all([
+      getAlbumEditData(albumId),
       getAlbumDetail(albumId),
     ])
-    pages.value = previewRes.data?.data ?? []
+    const editPages: PageData[] = editDataRes.data?.data ?? []
+    pages.value = editPages.map((p) => ({
+      pageId: p.pageId,
+      sort: p.sort,
+      html: renderPage(p.templateHtml, p.data),
+    }))
     albumName.value = detailRes.data?.data?.name ?? '纪念册预览'
     albumDes.value = detailRes.data?.data?.des ?? ''
   } catch {

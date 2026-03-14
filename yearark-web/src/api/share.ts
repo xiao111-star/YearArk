@@ -28,3 +28,8 @@ export function uploadText(data: { content: string }) {
 export function getMyUploads() {
   return request.get('/api/anonUser/invite/my-uploads')
 }
+
+/** 匿名用户删除自己上传的素材 */
+export function deleteMyUpload(mediaId: number) {
+  return request.delete(`/api/anonUser/invite/media/${mediaId}`)
+}

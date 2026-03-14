@@ -9,7 +9,7 @@ from dataclasses import dataclass
 @dataclass
 class Settings:
     # ── RabbitMQ ──────────────────────────────────────────────────────────
-    rabbitmq_url: str = "amqp://rabbitmq:yangdp@36.137.121.41:5672/"
+    rabbitmq_url: str = "amqp://rabbitmq:yangdp@8.145.63.127:5672/"
     mq_exchange: str = "yearark.album"
     mq_request_queue: str = "album.generation.request"
     mq_result_queue: str = "album.generation.result"

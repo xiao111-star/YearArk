@@ -17,8 +17,10 @@ import org.ruoyi.system.service.IYaAlbumMediaService;
 import org.ruoyi.system.service.IYaAlbumService;
 import org.ruoyi.system.service.TemplateRenderService;
 import org.ruoyi.common.satoken.utils.StpUserUtil;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
 import java.util.List;
@@ -116,5 +118,17 @@ public class UserAlbumController extends BaseController {
     public R<List<YaAlbumMediaVo>> unusedMedia(@PathVariable Integer id) {
         albumService.checkOwnership(id, StpUserUtil.getLoginIdAsInt());
         return R.ok(albumMediaService.listUnusedImages(id));
+    }
+
+    @PostMapping(value = "/{id}/media/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public R<YaAlbumMediaVo> uploadMedia(@PathVariable Integer id,
+                                         @RequestPart("file") MultipartFile file) {
+        return R.ok(albumMediaService.uploadImage(id, StpUserUtil.getLoginIdAsInt(), file));
+    }
+
+    @DeleteMapping("/media/{mediaId}")
+    public R<Void> deleteMedia(@PathVariable Integer mediaId) {
+        albumMediaService.deleteMediaByUser(mediaId, StpUserUtil.getLoginIdAsInt());
+        return R.ok();
     }
 }

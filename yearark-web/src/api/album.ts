@@ -59,3 +59,12 @@ export function batchUpdatePages(albumId: number, updates: { pageId: number; dat
 export function getUnusedMedia(albumId: number) {
   return request.get(`/api/user/album/${albumId}/unused-media`)
 }
+
+/** 登录用户上传图片到纪念册素材库 */
+export function uploadAlbumMedia(albumId: number, file: File) {
+  const formData = new FormData()
+  formData.append('file', file)
+  return request.post(`/api/user/album/${albumId}/media/upload`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  })
+}
