@@ -18,7 +18,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'delete', id: number): void
-  (e: 'upload', file: File): void
+  (e: 'upload', files: File[]): void
 }>()
 
 const fileInput = ref<HTMLInputElement>()
@@ -29,11 +29,9 @@ function triggerUpload() {
 
 function onFileChange(e: Event) {
   const input = e.target as HTMLInputElement
-  const file = input.files?.[0]
-  if (!file) return
+  const files = Array.from(input.files ?? []).filter(f => f.type.startsWith('image/'))
   input.value = ''
-  if (!file.type.startsWith('image/')) return
-  emit('upload', file)
+  if (files.length > 0) emit('upload', files)
 }
 </script>
 
@@ -49,7 +47,7 @@ function onFileChange(e: Event) {
       <Loader2 v-if="uploading" class="w-5 h-5 text-muted-foreground animate-spin" />
       <Plus v-else class="w-5 h-5 text-muted-foreground" />
     </button>
-    <input ref="fileInput" type="file" accept="image/*" class="hidden" @change="onFileChange" />
+    <input ref="fileInput" type="file" accept="image/*" multiple class="hidden" @change="onFileChange" />
 
     <!-- Image tiles -->
     <div
