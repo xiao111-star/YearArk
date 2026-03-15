@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { ArrowLeft, ChevronLeft, ChevronRight, BookOpen, Maximize2, Minimize2 } from 'lucide-vue-next'
+import { ArrowLeft, ChevronLeft, ChevronRight, BookOpen, Maximize2, Minimize2, Share2, Check, Copy } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import FlipBook from '@/components/FlipBook.vue'
 import type { FlipPage } from '@/components/FlipBook.vue'
@@ -19,6 +19,22 @@ const albumName = ref('')
 const albumDes = ref('')
 const flipBookRef = ref<InstanceType<typeof FlipBook>>()
 const isFullscreen = ref(false)
+const showSharePopover = ref(false)
+const copied = ref(false)
+
+const shareUrl = `${window.location.origin}/view/${albumId}`
+
+function copyShareLink() {
+  navigator.clipboard.writeText(shareUrl).then(() => {
+    copied.value = true
+    setTimeout(() => { copied.value = false }, 2000)
+  })
+}
+
+function toggleSharePopover() {
+  showSharePopover.value = !showSharePopover.value
+  copied.value = false
+}
 
 async function fetchData() {
   loading.value = true
@@ -72,6 +88,33 @@ onMounted(fetchData)
           <span v-if="!loading && pages.length > 0" class="text-xs text-muted-foreground hidden sm:inline">
             第 {{ (flipBookRef?.currentPage ?? 0) + 1 }} / {{ flipBookRef?.totalPages ?? pages.length }} 页
           </span>
+          <div class="relative">
+            <Button variant="outline" size="sm" class="gap-1.5" @click="toggleSharePopover">
+              <Share2 class="w-3.5 h-3.5" />
+              <span class="hidden sm:inline">分享</span>
+            </Button>
+            <!-- Share popover -->
+            <div
+              v-if="showSharePopover"
+              class="absolute right-0 top-full mt-2 w-80 rounded-lg border bg-card p-4 shadow-lg z-50"
+            >
+              <p class="text-sm font-medium mb-2">分享链接</p>
+              <p class="text-xs text-muted-foreground mb-3">复制链接发送给朋友，无需登录即可查看</p>
+              <div class="flex gap-2">
+                <input
+                  :value="shareUrl"
+                  readonly
+                  class="flex-1 h-9 rounded-md border bg-muted px-3 text-xs text-foreground select-all outline-none"
+                  @focus="($event.target as HTMLInputElement).select()"
+                />
+                <Button size="sm" class="gap-1.5 shrink-0" @click="copyShareLink">
+                  <Check v-if="copied" class="w-3.5 h-3.5" />
+                  <Copy v-else class="w-3.5 h-3.5" />
+                  {{ copied ? '已复制' : '复制' }}
+                </Button>
+              </div>
+            </div>
+          </div>
           <Button variant="ghost" size="icon" class="w-8 h-8" @click="toggleFullscreen">
             <Minimize2 v-if="isFullscreen" class="w-4 h-4" />
             <Maximize2 v-else class="w-4 h-4" />
