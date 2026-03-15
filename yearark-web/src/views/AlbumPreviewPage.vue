@@ -96,7 +96,7 @@ onMounted(fetchData)
             <!-- Share popover -->
             <div
               v-if="showSharePopover"
-              class="absolute right-0 top-full mt-2 w-80 rounded-lg border bg-card p-4 shadow-lg z-50"
+              class="absolute right-0 top-full mt-2 w-80 rounded-lg border bg-card p-4 shadow-lg z-[9999]"
             >
               <p class="text-sm font-medium mb-2">分享链接</p>
               <p class="text-xs text-muted-foreground mb-3">复制链接发送给朋友，无需登录即可查看</p>
