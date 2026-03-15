@@ -79,6 +79,12 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  // Public album view (no auth, share link)
+  {
+    path: '/view/:id',
+    name: 'ShareView',
+    component: () => import('@/views/ShareViewPage.vue'),
+  },
   // ShareLayout routes (no auth needed)
   {
     path: '/share/:inviteCode',

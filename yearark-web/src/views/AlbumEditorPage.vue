@@ -51,9 +51,15 @@ function onReplaceMediaPick(media: { id: number; url: string }) {
 
 // ---- Page refs for click detection ----
 const pageRefs = ref<Record<number, HTMLElement>>({})
+const thumbRefs = ref<Record<number, HTMLElement>>({})
+const thumbnailListRef = ref<HTMLElement | null>(null)
 
 function setPageRef(pageId: number, el: HTMLElement | null) {
   if (el) pageRefs.value[pageId] = el
+}
+
+function setThumbRef(pageId: number, el: HTMLElement | null) {
+  if (el) thumbRefs.value[pageId] = el
 }
 
 // ---- Computed ----
@@ -71,9 +77,61 @@ function selectPage(pageId: number) {
   if (el && pageAreaRef.value) {
     // Adding a small delay to ensure DOM is ready
     nextTick(() => {
+      // Use scrollIntoView to scroll the main canvas to the selected page
       el.scrollIntoView({ behavior: 'smooth', block: 'center' })
     })
   }
+}
+
+// Track currently visible page during scroll
+const visiblePageId = ref<number | null>(null)
+
+function onCanvasScroll() {
+  if (!pageAreaRef.value) return
+  
+  const container = pageAreaRef.value
+  const containerCenter = container.scrollTop + container.clientHeight / 2
+
+  let closestPageId: number | null = null
+  let minDistance = Infinity
+
+  // Find the page closest to the center of the viewport
+  for (const page of pages.value) {
+    const el = pageRefs.value[page.pageId]
+    if (!el) continue
+
+    // Since pages are within a scaling wrapper, we need to calculate relative to container
+    // el.offsetTop gets the offset relative to the closest positioned ancestor.
+    // In our layout, the wrapper is in the flex column. We can use getBoundingClientRect 
+    // or offsetTop from the container. getBoundingClientRect is safer.
+    const rect = el.getBoundingClientRect()
+    const containerRect = container.getBoundingClientRect()
+    
+    const elCenterY = (rect.top - containerRect.top) + rect.height / 2
+    
+    // We want the element whose center is closest to the container's center (which is containerRect.height / 2)
+    const distance = Math.abs(elCenterY - containerRect.height / 2)
+    
+    if (distance < minDistance) {
+      minDistance = distance
+      closestPageId = page.pageId
+    }
+  }
+
+  if (closestPageId !== null && visiblePageId.value !== closestPageId) {
+    visiblePageId.value = closestPageId
+    syncThumbnailScroll(closestPageId)
+  }
+}
+
+function syncThumbnailScroll(pageId: number) {
+  if (!thumbnailListRef.value) return
+  
+  const thumbEl = thumbRefs.value[pageId]
+  if (!thumbEl) return
+
+  // Smoothly scroll the thumbnail into view if it's out of bounds
+  thumbEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
 }
 
 const activeImageValue = computed<ImageSlotValue | null>(() => {
@@ -153,10 +211,13 @@ function selectImageSlot(pageId: number, slotId: string, imgEl: HTMLImageElement
   // Disable context menu on the active image
   activeImgEl.addEventListener('contextmenu', preventDefault)
 
-  // Add a subtle highlight to the selected image
-  imgEl.style.outline = '2px solid hsl(200 80% 60%)'
-  imgEl.style.outlineOffset = '-2px'
+  // Add a clear highlight to the selected image
+  imgEl.style.outline = '3px solid hsl(210, 100%, 50%)'
+  imgEl.style.outlineOffset = '-3px'
+  imgEl.style.boxShadow = '0 0 0 4px rgba(255, 255, 255, 0.5), 0 8px 16px rgba(0,0,0,0.2)'
   imgEl.style.cursor = 'grab'
+  imgEl.style.zIndex = '10' // Bring to front
+  imgEl.style.transition = 'box-shadow 0.2s ease, outline 0.2s ease'
 }
 
 function selectTextSlot(pageId: number, slotId: string, targetEl: HTMLElement) {
@@ -239,6 +300,9 @@ function clearImageHighlight() {
     activeImgEl.removeEventListener('contextmenu', preventDefault)
     activeImgEl.style.outline = ''
     activeImgEl.style.outlineOffset = ''
+    activeImgEl.style.boxShadow = ''
+    activeImgEl.style.zIndex = ''
+    activeImgEl.style.transition = ''
     activeImgEl.style.cursor = ''
     activeImgEl = null
   }
@@ -293,16 +357,50 @@ function onImagePointerMove(e: PointerEvent) {
 
   const rect = container.getBoundingClientRect()
   
-  // Calculate movement sensitivity based on current scale
-  const currentScale = pendingImageValue.value?.scale ?? val.scale
-  const sensitivity = 1.0 / currentScale
+  // Calculate movement sensitivity based on actual image dimensions
+  // To make drag 1:1, we need to know how many pixels of the image are hidden.
+  // object-position % is based on the *difference* between the image's displayed size and the container size.
+  // For example, if image is 200px wide and container is 100px wide, 100% object-position means moving 100px.
+  // So 1% = 1px. If we move mouse 1px, we should change focus by 1%.
+  // If image is 150px wide, 100% object-position means moving 50px.
+  // So 1% = 0.5px. If we move mouse 1px, we should change focus by 2%.
+  // Therefore: delta_focus = delta_pixel / (image_displayed_size - container_size)
   
-  const dx = -(e.clientX - dragStartX) / rect.width * sensitivity
-  const dy = -(e.clientY - dragStartY) / rect.height * sensitivity
+  // Let's get the natural dimensions of the active image
+  const imgNaturalW = activeImgEl.naturalWidth
+  const imgNaturalH = activeImgEl.naturalHeight
+  const containerW = rect.width
+  const containerH = rect.height
+  
+  const currentScale = pendingImageValue.value?.scale ?? val.scale
+  
+  // Calculate displayed size of the image before object-position is applied (object-fit: cover)
+  const imgRatio = imgNaturalW / imgNaturalH
+  const containerRatio = containerW / containerH
+  
+  let displayedW, displayedH
+  if (imgRatio > containerRatio) {
+    // Image is wider than container, height is constrained to container height
+    displayedH = containerH * currentScale
+    displayedW = (containerH * imgRatio) * currentScale
+  } else {
+    // Image is taller than container, width is constrained to container width
+    displayedW = containerW * currentScale
+    displayedH = (containerW / imgRatio) * currentScale
+  }
+  
+  // The draggable range in pixels
+  const rangeX = Math.max(0, displayedW - containerW)
+  const rangeY = Math.max(0, displayedH - containerH)
+  
+  // If range is 0, the image fits exactly, so it shouldn't move.
+  // If range > 0, calculate delta based on range to achieve 1:1 pixel movement.
+  const dx = rangeX > 0 ? -(e.clientX - dragStartX) / rangeX : 0
+  const dy = rangeY > 0 ? -(e.clientY - dragStartY) / rangeY : 0
 
   const clamped = clampImageValue({
-    focus_x: Number((dragStartFocusX + dx).toFixed(2)),
-    focus_y: Number((dragStartFocusY + dy).toFixed(2)),
+    focus_x: Number((dragStartFocusX + dx).toFixed(4)), // Use more precision for internal math
+    focus_y: Number((dragStartFocusY + dy).toFixed(4)),
     scale: val.scale,
   })
 
@@ -365,7 +463,8 @@ function onImageWheel(e: WheelEvent) {
   const currentFocusY = pendingImageValue.value?.focus_y ?? val.focus_y
   
   // Reduce zoom speed (was 0.1, now 0.05)
-  const delta = e.deltaY > 0 ? -0.05 : 0.05
+  // Reduced further to 0.02 as requested
+  const delta = e.deltaY > 0 ? -0.02 : 0.02
   
   const clamped = clampImageValue({
     focus_x: currentFocusX,
@@ -432,7 +531,23 @@ function handleOutsideClick(e: MouseEvent) {
   }
 }
 
+function preventDefaultBehavior(e: Event) {
+  e.preventDefault()
+}
+
+// Disable browser zoom via Ctrl+Wheel
+function preventBrowserZoom(e: WheelEvent) {
+  if (e.ctrlKey || e.metaKey) {
+    e.preventDefault()
+  }
+}
+
 onMounted(async () => {
+  // Global event listeners to prevent default behaviors
+  document.addEventListener('contextmenu', preventDefaultBehavior)
+  document.addEventListener('dragstart', preventDefaultBehavior)
+  document.addEventListener('wheel', preventBrowserZoom, { passive: false })
+
   await loadEditData()
   detectContentSize()
   await nextTick()
@@ -440,10 +555,18 @@ onMounted(async () => {
     updatePageScale()
     scaleObserver = new ResizeObserver(updatePageScale)
     scaleObserver.observe(pageAreaRef.value)
+    
+    // Initialize visible page
+    onCanvasScroll()
   }
 })
 
 onUnmounted(() => {
+  // Clean up global listeners
+  document.removeEventListener('contextmenu', preventDefaultBehavior)
+  document.removeEventListener('dragstart', preventDefaultBehavior)
+  document.removeEventListener('wheel', preventBrowserZoom)
+
   scaleObserver?.disconnect()
 })
 </script>
@@ -490,25 +613,66 @@ onUnmounted(() => {
     </div>
 
     <!-- Main content area -->
-    <div class="flex-1">
+    <div class="flex-1 flex overflow-hidden">
       <!-- Loading -->
-      <div v-if="loading" class="flex flex-col items-center gap-4 py-20">
+      <div v-if="loading" class="flex-1 flex flex-col items-center justify-center gap-4">
         <Loader2 class="w-8 h-8 text-muted-foreground animate-spin" />
         <p class="text-sm text-muted-foreground">加载编辑数据中...</p>
       </div>
 
       <!-- Empty -->
-      <div v-else-if="pages.length === 0" class="flex flex-col items-center justify-center py-20">
-        <BookOpen class="w-10 h-10 text-muted-foreground mb-4" />
-        <h3 class="text-lg font-serif font-medium mb-2">纪念册尚未生成</h3>
+      <div v-else-if="pages.length === 0" class="flex-1 flex flex-col items-center justify-center">
+        <BookOpen class="w-12 h-12 text-muted-foreground/50 mb-4" />
+        <h3 class="text-lg font-medium mb-2">纪念册尚未生成</h3>
         <p class="text-sm text-muted-foreground mb-6">请先在详情页点击"生成纪念册"</p>
         <Button @click="goBack" class="gap-2"><ArrowLeft class="w-4 h-4" />返回详情页</Button>
       </div>
 
-      <!-- Editor layout (full width, no side panel) -->
-      <div v-else class="h-[calc(100vh-3.5rem)] flex overflow-hidden">
-        <div class="flex-1 overflow-y-auto editor-pages bg-muted/30" ref="pageAreaRef">
-          <div class="py-6 flex flex-col items-center gap-6">
+      <!-- Editor layout (Figma style) -->
+      <template v-else>
+        <!-- Left Panel: Page Thumbnails -->
+        <div class="w-64 border-r bg-card flex flex-col shrink-0 z-20 shadow-[1px_0_10px_rgba(0,0,0,0.02)]">
+          <div class="px-4 py-3 border-b bg-muted/20 flex items-center gap-2">
+            <Layers class="w-4 h-4 text-muted-foreground" />
+            <span class="text-sm font-medium">页面列表</span>
+            <span class="text-xs text-muted-foreground ml-auto">{{ pages.length }} 页</span>
+          </div>
+          <div class="flex-1 overflow-y-auto p-3 space-y-3 custom-scrollbar" ref="thumbnailListRef">
+            <div
+              v-for="(page, idx) in pages"
+              :key="page.pageId"
+              :ref="(el) => setThumbRef(page.pageId, el as HTMLElement)"
+              class="group relative rounded-md border-2 transition-all cursor-pointer overflow-hidden bg-background"
+              :class="(activePageId === page.pageId || visiblePageId === page.pageId) ? 'border-primary ring-2 ring-primary/20' : 'border-transparent hover:border-muted-foreground/30'"
+              @click="selectPage(page.pageId)"
+            >
+              <div class="aspect-[1/1.414] w-full bg-muted/10 relative">
+                <!-- Thumbnail rendering: scaled down via CSS transform -->
+                <div 
+                  class="absolute top-0 left-0 origin-top-left pointer-events-none"
+                  :style="{
+                    width: contentW + 'px', 
+                    height: contentH + 'px', 
+                    transform: `scale(${220 / contentW})` 
+                  }"
+                >
+                  <div v-html="getRenderedHtml(page)" class="w-full h-full overflow-hidden" />
+                </div>
+              </div>
+              <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/50 to-transparent p-2">
+                <span class="text-white text-xs font-medium drop-shadow-md">第 {{ idx + 1 }} 页</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center Panel: Canvas -->
+        <div 
+          class="flex-1 overflow-y-auto bg-muted/30 editor-pages relative" 
+          ref="pageAreaRef"
+          @scroll="onCanvasScroll"
+        >
+          <div class="py-12 flex flex-col items-center gap-12 min-h-full">
             <div
               v-for="page in pages"
               :key="page.pageId"
@@ -517,7 +681,7 @@ onUnmounted(() => {
             >
               <div
                 :ref="(el) => setPageRef(page.pageId, el as HTMLElement)"
-                class="page-card rounded-xl bg-card border shadow-sm overflow-hidden cursor-pointer"
+                class="page-card rounded-sm bg-background shadow-xl overflow-hidden cursor-pointer transition-shadow"
                 :style="{ width: contentW + 'px', height: contentH + 'px', transform: `scale(${pageScale})`, transformOrigin: 'top left' }"
                 @click.stop="handlePageClick(page.pageId, $event)"
                 @pointerdown.stop="onImagePointerDown($event)"
@@ -532,17 +696,20 @@ onUnmounted(() => {
           </div>
         </div>
 
-        <!-- Right Side Panel -->
-        <div 
-          v-if="editMode === 'image'" 
-          class="w-80 border-l bg-background flex flex-col transition-all duration-300 z-20 shadow-xl"
-        >
+        <!-- Right Panel: Properties / Media Picker (Fixed width placeholder to prevent layout shift) -->
+        <div class="w-80 border-l bg-card flex flex-col shrink-0 z-20 shadow-[-1px_0_10px_rgba(0,0,0,0.02)]">
           <MediaSidePanel 
+            v-if="editMode === 'image'"
             :album-id="albumId" 
             @pick="onReplaceMediaPick" 
           />
+          <div v-else class="flex-1 flex flex-col items-center justify-center text-muted-foreground p-6 text-center">
+            <ImagePlus class="w-12 h-12 mb-4 opacity-20" />
+            <p class="text-sm font-medium mb-1">未选中图片</p>
+            <p class="text-xs opacity-70">点击画布中的图片即可在此替换</p>
+          </div>
         </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>
@@ -563,6 +730,21 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+
+/* Custom scrollbar for thumbnail list */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.2);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.4);
 }
 
 :deep(img) {
