@@ -68,13 +68,20 @@ export function useAlbumEditor(albumId: Ref<number>) {
     }
   }
 
-  function updateSlotValue(pageId: number, slotId: string, value: SlotValue): void {
+  function updateSlotValue(pageId: number, slotId: string, value: SlotValue, doSave: boolean = true): void {
     const page = pages.value.find((p) => p.pageId === pageId)
     if (!page) return
 
     page.data[slotId] = value
 
-    // Build full data json for save — convert SlotValue to plain objects
+    if (doSave) {
+      savePageData(pageId)
+    }
+  }
+
+  function savePageData(pageId: number) {
+    const page = pages.value.find((p) => p.pageId === pageId)
+    if (!page) return
     const fullData: Record<string, unknown> = { ...page.data }
     autoSave.save(pageId, fullData)
   }
@@ -83,5 +90,5 @@ export function useAlbumEditor(albumId: Ref<number>) {
     return pages.value.find((p) => p.pageId === pageId)
   }
 
-  return { pages, loading, albumName, loadEditData, updateSlotValue, getPageData }
+  return { pages, loading, albumName, loadEditData, updateSlotValue, savePageData, getPageData }
 }

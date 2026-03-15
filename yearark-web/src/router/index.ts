@@ -119,6 +119,12 @@ router.beforeEach((to, _from, next) => {
     }
   }
 
+  // Redirect logged-in users from home to dashboard
+  if (to.path === '/' && userStore.isLoggedIn) {
+    next('/dashboard')
+    return
+  }
+
   // Guest-only routes (login/register): redirect to dashboard if already logged in
   if (to.matched.some((record) => record.meta.guest)) {
     if (userStore.isLoggedIn) {

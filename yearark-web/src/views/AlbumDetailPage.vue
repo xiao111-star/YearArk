@@ -331,101 +331,113 @@ onUnmounted(() => stopPolling())
       </div>
     </div>
 
-    <!-- Media Section -->
-    <Card>
-      <CardHeader>
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div class="flex items-center gap-2">
-            <CardTitle class="text-lg">素材管理</CardTitle>
-            <span class="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
-              {{ stats.imageCount }} 图 · {{ stats.textCount }} 文
-            </span>
+    <!-- Media & Invite Section (Grid Layout) -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Media Section (Left, takes 2 columns) -->
+      <Card class="lg:col-span-2 flex flex-col h-full">
+        <CardHeader>
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div class="flex items-center gap-2">
+              <CardTitle class="text-lg">素材管理</CardTitle>
+              <span class="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
+                {{ stats.imageCount }} 图 · {{ stats.textCount }} 文
+              </span>
+            </div>
+            <div class="flex rounded-lg border p-0.5 bg-muted/50 self-start sm:self-auto">
+              <button
+                class="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-colors"
+                :class="
+                  mediaTab === 'image'
+                    ? 'bg-background text-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                "
+                @click="mediaTab = 'image'"
+              >
+                <ImageIcon class="w-3.5 h-3.5" />
+                图片
+              </button>
+              <button
+                class="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-colors"
+                :class="
+                  mediaTab === 'text'
+                    ? 'bg-background text-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                "
+                @click="mediaTab = 'text'"
+              >
+                <Type class="w-3.5 h-3.5" />
+                文字
+              </button>
+            </div>
           </div>
-          <div class="flex rounded-lg border p-0.5 bg-muted/50 self-start">
-            <button
-              class="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-colors"
-              :class="
-                mediaTab === 'image'
-                  ? 'bg-background text-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground'
-              "
-              @click="mediaTab = 'image'"
-            >
-              <ImageIcon class="w-3.5 h-3.5" />
-              图片
-            </button>
-            <button
-              class="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-colors"
-              :class="
-                mediaTab === 'text'
-                  ? 'bg-background text-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground'
-              "
-              @click="mediaTab = 'text'"
-            >
-              <Type class="w-3.5 h-3.5" />
-              文字
-            </button>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <MediaGrid
-          v-if="mediaTab === 'image'"
-          :images="images"
-          :uploading="uploadingMedia"
-          @upload="handleMediaUpload"
-          @delete="confirmDeleteMedia"
-        />
-        <MediaTextList v-else :texts="texts" />
-      </CardContent>
-    </Card>
-
-    <!-- Invite Section -->
-    <Card>
-      <CardHeader>
-        <div class="flex items-center gap-2">
-          <Link2 class="w-4 h-4 text-muted-foreground" />
-          <CardTitle class="text-lg">邀请链接</CardTitle>
-        </div>
-      </CardHeader>
-      <CardContent class="space-y-4">
-        <!-- Existing invites -->
-        <div v-if="invites.length > 0" class="space-y-2">
-          <InviteLinkItem
-            v-for="inv in invites"
-            :key="inv.id"
-            :invite="inv"
-            @disable="handleDisableInvite"
+        </CardHeader>
+        <CardContent class="flex-1 min-h-[400px]">
+          <MediaGrid
+            v-if="mediaTab === 'image'"
+            :images="images"
+            :uploading="uploadingMedia"
+            @upload="handleMediaUpload"
+            @delete="confirmDeleteMedia"
           />
-        </div>
-        <p v-else class="text-sm text-muted-foreground py-2">暂无邀请链接，创建一个分享给朋友吧</p>
+          <MediaTextList v-else :texts="texts" />
+        </CardContent>
+      </Card>
 
-        <!-- Create form -->
-        <div class="flex flex-wrap items-end gap-3 pt-4 border-t">
-          <div class="space-y-1.5">
-            <Label class="text-xs text-muted-foreground">访问码</Label>
-            <Input
-              v-model="newAccessCode"
-              placeholder="设置访问码"
-              class="w-36 h-9 text-sm"
+      <!-- Invite Section (Right, takes 1 column) -->
+      <Card class="flex flex-col h-full">
+        <CardHeader>
+          <div class="flex items-center gap-2">
+            <Link2 class="w-4 h-4 text-muted-foreground" />
+            <CardTitle class="text-lg">邀请链接</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent class="space-y-4 flex-1">
+          <!-- Existing invites -->
+          <div v-if="invites.length > 0" class="space-y-3">
+            <InviteLinkItem
+              v-for="inv in invites"
+              :key="inv.id"
+              :invite="inv"
+              @disable="handleDisableInvite"
             />
           </div>
-          <div class="space-y-1.5">
-            <Label class="text-xs text-muted-foreground">有效期（小时）</Label>
-            <Input
-              v-model.number="newExpireHours"
-              type="number"
-              :min="1"
-              class="w-24 h-9 text-sm"
-            />
+          <div v-else class="flex flex-col items-center justify-center py-8 text-center px-4">
+            <div class="w-12 h-12 rounded-full bg-muted flex items-center justify-center mb-3">
+              <Link2 class="w-6 h-6 text-muted-foreground/50" />
+            </div>
+            <p class="text-sm text-muted-foreground">暂无邀请链接</p>
+            <p class="text-xs text-muted-foreground/70 mt-1">创建一个分享给朋友，一起完善纪念册</p>
           </div>
-          <Button size="sm" :disabled="creatingInvite" @click="handleCreateInvite">
-            {{ creatingInvite ? '生成中...' : '生成链接' }}
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+
+          <!-- Create form -->
+          <div class="mt-auto pt-6 border-t space-y-3">
+            <h4 class="text-sm font-medium">创建新链接</h4>
+            <div class="space-y-3">
+              <div class="space-y-1.5">
+                <Label class="text-xs text-muted-foreground">访问码</Label>
+                <Input
+                  v-model="newAccessCode"
+                  placeholder="设置访问码"
+                  class="h-9 text-sm"
+                />
+              </div>
+              <div class="space-y-1.5">
+                <Label class="text-xs text-muted-foreground">有效期（小时）</Label>
+                <Input
+                  v-model.number="newExpireHours"
+                  type="number"
+                  :min="1"
+                  class="h-9 text-sm"
+                />
+              </div>
+              <Button class="w-full" size="sm" :disabled="creatingInvite" @click="handleCreateInvite">
+                {{ creatingInvite ? '生成中...' : '生成链接' }}
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   </div>
 
   <!-- Delete Media Confirmation Dialog -->

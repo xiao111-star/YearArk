@@ -17,7 +17,6 @@ const showUserMenu = ref(false)
 const mobileMenuOpen = ref(false)
 
 const navItems = [
-  { label: '首页', path: '/', auth: true, icon: Book },
   { label: '我的纪念册', path: '/dashboard', auth: true, icon: LayoutDashboard },
   { label: '模板中心', path: '/templates', auth: true, icon: LayoutTemplate },
   { label: '我的分享', path: '/shared', auth: true, icon: Share2 },
@@ -28,7 +27,6 @@ const visibleNavItems = computed(() =>
 )
 
 function isActive(path: string) {
-  if (path === '/') return route.path === '/'
   return route.path.startsWith(path)
 }
 
