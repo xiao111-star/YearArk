@@ -24,7 +24,7 @@ captcha:
 # 开发环境配置
 server:
   # 服务器的HTTP端口，默认为8080
-  port: 6039
+  port: 8080
   servlet:
     # 应用的访问路径
     context-path: /
@@ -82,7 +82,7 @@ spring:
       date-time: yyyy-MM-dd HH:mm:ss
   # RabbitMQ 配置
   rabbitmq:
-    host: 8.145.63.127
+    host: 39.101.67.8
     port: 5672
     username: rabbitmq
     password: yangdp

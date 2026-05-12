@@ -9,7 +9,7 @@ from dataclasses import dataclass
 @dataclass
 class Settings:
     # ── RabbitMQ ──────────────────────────────────────────────────────────
-    rabbitmq_url: str = "amqp://rabbitmq:yangdp@8.145.63.127:5672/"
+    rabbitmq_url: str = "amqp://rabbitmq:yangdp@39.101.67.8:5672/"
     mq_exchange: str = "yearark.album"
     mq_request_queue: str = "album.generation.request"
     mq_result_queue: str = "album.generation.result"
@@ -21,6 +21,7 @@ class Settings:
     text_model: str = "qwen3.5-plus"
     image_model_enable_thinking: bool = False
     text_model_enable_thinking: bool = False
+
 
     # ── 应用 ──────────────────────────────────────────────────────────────
     app_host: str = "0.0.0.0"
