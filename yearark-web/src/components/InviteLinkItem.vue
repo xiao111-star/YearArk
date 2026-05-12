@@ -25,7 +25,7 @@ const shareUrl = (() => {
   const loc = window.location
   let host = loc.host
   if (loc.hostname === 'localhost' || loc.hostname === '127.0.0.1') {
-    host = '117.78.1.49:5173'
+    host = 'yearark.top'
   }
   return `${loc.protocol}//${host}/share/${props.invite.inviteCode}`
 })()

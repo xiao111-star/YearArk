@@ -28,7 +28,7 @@ function getShareUrl(): string {
   let host = loc.host
   // 如果是 localhost，替换为服务器实际 IP
   if (loc.hostname === 'localhost' || loc.hostname === '127.0.0.1') {
-    host = '192.168.31.72:5173'
+    host = 'yearark.top'
   }
   return `${loc.protocol}//${host}/view/${albumId}`
 }
