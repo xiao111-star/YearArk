@@ -26,7 +26,7 @@ export function getActiveAnonToken(): string | null {
 }
 
 const request = axios.create({
-  baseURL: '/',
+  baseURL: 'http://39.101.67.8:8080',
   timeout: 30000,
 })
 
