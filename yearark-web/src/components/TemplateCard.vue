@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card'
 export interface Template {
   id: number
   name: string
-  previewImage: string
+  previewUrl: string
   des: string
 }
 
@@ -30,8 +30,8 @@ const emit = defineEmits<{
   >
     <div class="relative aspect-[3/4] overflow-hidden rounded-t-lg bg-muted">
       <img
-        v-if="props.template.previewImage"
-        :src="props.template.previewImage"
+        v-if="props.template.previewUrl"
+        :src="props.template.previewUrl"
         :alt="props.template.name"
         class="h-full w-full object-cover"
       />

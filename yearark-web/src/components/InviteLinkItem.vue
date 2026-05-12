@@ -21,7 +21,14 @@ const emit = defineEmits<{
 
 const copied = ref(false)
 
-const shareUrl = `${window.location.origin}/share/${props.invite.inviteCode}`
+const shareUrl = (() => {
+  const loc = window.location
+  let host = loc.host
+  if (loc.hostname === 'localhost' || loc.hostname === '127.0.0.1') {
+    host = '117.78.1.49:5173'
+  }
+  return `${loc.protocol}//${host}/share/${props.invite.inviteCode}`
+})()
 
 const isExpired = props.invite.expireAt ? new Date(props.invite.expireAt) < new Date() : false
 const isActive = props.invite.status === 0 && !isExpired
@@ -37,13 +44,37 @@ function formatTime(dateStr: string) {
   })
 }
 
-async function copyLink() {
+/** 兼容非 HTTPS 环境的复制方法 */
+function fallbackCopy(text: string): boolean {
+  const textarea = document.createElement('textarea')
+  textarea.value = text
+  textarea.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0;'
+  document.body.appendChild(textarea)
+  textarea.select()
+  let ok = false
   try {
-    await navigator.clipboard.writeText(shareUrl)
+    ok = document.execCommand('copy')
+  } catch { /* ignore */ }
+  document.body.removeChild(textarea)
+  return ok
+}
+
+async function copyLink() {
+  let success = false
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(shareUrl)
+      success = true
+    }
+  } catch { /* Clipboard API 不可用（非 HTTPS） */ }
+
+  if (!success) {
+    success = fallbackCopy(shareUrl)
+  }
+
+  if (success) {
     copied.value = true
     setTimeout(() => (copied.value = false), 2000)
-  } catch {
-    // fallback
   }
 }
 </script>

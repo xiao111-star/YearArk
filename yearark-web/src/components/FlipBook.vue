@@ -22,6 +22,14 @@ const props = withDefaults(
     contentWidth?: number
     /** 纪念册 HTML 内容的原始设计高度 */
     contentHeight?: number
+    /**
+     * 是否允许自动切换到单页（portrait）模式。
+     * true = 容器窄时自动单页，false = 始终双页展开。
+     * 默认 true（预览页），分享页传 false 强制双页。
+     */
+    usePortrait?: boolean
+    /** 单页最大宽度，双页模式下实际占用 2x */
+    maxWidth?: number
   }>(),
   {
     width: 550,
@@ -29,6 +37,8 @@ const props = withDefaults(
     showCover: true,
     contentWidth: 0,
     contentHeight: 0,
+    usePortrait: true,
+    maxWidth: 800,
   },
 )
 
@@ -77,14 +87,14 @@ function initFlipBook() {
       height: pageH,
       size: 'stretch',
       minWidth: 300,
-      maxWidth: 800,
+      maxWidth: props.maxWidth,
       minHeight: Math.round(300 / aspectRatio),
-      maxHeight: Math.round(800 / aspectRatio),
+      maxHeight: Math.round(props.maxWidth / aspectRatio),
       showCover: props.showCover,
       maxShadowOpacity: 0.5,
       mobileScrollSupport: true,
       flippingTime: 800,
-      usePortrait: true,
+      usePortrait: props.usePortrait,
       startZIndex: 0,
       autoSize: true,
       drawShadow: true,

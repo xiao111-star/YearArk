@@ -7,8 +7,8 @@
 import json
 import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from domain.outline import OutlinePage, AlbumOutline
-from core.llm.client import chat
+from domain.outline import OutlinePage, AlbumOutline, OutlineChapter
+from core.llm.client import chat, vision_chat
 
 logger = logging.getLogger(__name__)
 
@@ -35,10 +35,18 @@ def _build_slots_json_hint(slot_defs: list[dict]) -> str:
     return "{\n  " + pairs + "\n}"
 
 
-def _call_and_fill(page: OutlinePage, prompt: str, slot_defs: list[dict]) -> None:
-    """调用 LLM 并将结果写入 page.texts"""
+def _call_and_fill(page: OutlinePage, prompt: str, slot_defs: list[dict],
+                   image_urls: list[str] | None = None) -> None:
+    """调用 LLM 并将结果写入 page.texts。若提供 image_urls 则使用视觉模型。"""
     try:
-        raw = chat([{"role": "user", "content": prompt}])
+        if image_urls:
+            content = []
+            for url in image_urls:
+                content.append({"type": "image_url", "image_url": {"url": url}})
+            content.append({"type": "text", "text": prompt})
+            raw = vision_chat([{"role": "user", "content": content}])
+        else:
+            raw = chat([{"role": "user", "content": prompt}])
         start, end = raw.find("{"), raw.rfind("}") + 1
         result = json.loads(raw[start:end])
         for s in slot_defs:
@@ -85,13 +93,16 @@ _CHAPTER_PROMPT = """角色：你是一位纪念册文案编辑，文风温暖�
 本章内容页已生成的文案（供你参考，确保章节页文案能概括这些内容）：
 {content_texts_summary}
 
+上面附带的图片就是本章节包含的所有照片，请仔细观察它们的内容。
+
 任务：为本章节页的文字槽位生成文案。章节页是本章的开篇，文案应起到引领和概括作用。
 
 槽位要求：
 {slots_desc}
 
 要求：
-- 章节标题要能概括本章所有内容页的主题
+- 文案必须贴合附带图片的实际内容，不要凭空想象
+- 章节标题要能概括本章所有照片的主题
 - 描述性文案要能引出后续内容，有承上启下的感觉
 - 严格遵守每个槽位的字数限制
 
@@ -109,12 +120,15 @@ _COVER_PROMPT = """角色：你是一位纪念册文案编辑，文风温暖、�
 整本纪念册各章节的内容摘要：
 {all_chapters_summary}
 
+上面附带的图片是整本纪念册中的代表性照片，请仔细观察它们的内容。
+
 任务：为封面页的文字槽位生成文案。封面是整本纪念册的门面，文案应概括全书主题。
 
 槽位要求：
 {slots_desc}
 
 要求：
+- 文案必须贴合附带图片的实际内容，不要凭空想象
 - 封面标题要有诗意或画面感，能概括整本纪念册
 - 副标题或描述要简洁温暖
 - 严格遵守每个槽位的字数限制
@@ -147,7 +161,7 @@ class TextService:
                         slots_desc=_build_slots_desc(slot_defs),
                         slots_json_hint=_build_slots_json_hint(slot_defs),
                     )
-                    content_tasks.append((page, prompt, slot_defs))
+                    content_tasks.append((page, prompt, slot_defs, None))
 
         self._run_parallel(content_tasks)
 
@@ -164,6 +178,8 @@ class TextService:
                         continue
                     # 收集本章内容页已生成的文案
                     content_summary = self._summarize_chapter_texts(chapter)
+                    # 收集本章所有图片 URL，供视觉模型参考
+                    chapter_image_urls = [img.url for img in chapter.images]
                     prompt = _CHAPTER_PROMPT.format(
                         album_title=outline.album_title,
                         chapter_title=chapter.title,
@@ -173,13 +189,17 @@ class TextService:
                         slots_desc=_build_slots_desc(slot_defs),
                         slots_json_hint=_build_slots_json_hint(slot_defs),
                     )
-                    summary_tasks.append((page, prompt, slot_defs))
+                    summary_tasks.append((page, prompt, slot_defs, chapter_image_urls))
 
         # 封面页
         if outline.cover_page:
             slot_defs = _parse_text_slots(outline.cover_page.schema_content)
             if slot_defs:
                 all_summary = self._summarize_all_chapters(outline)
+                # 每章取前2张图作为代表，避免图片过多
+                cover_image_urls = []
+                for ch in outline.chapters:
+                    cover_image_urls.extend(img.url for img in ch.images[:2])
                 prompt = _COVER_PROMPT.format(
                     album_title=outline.album_title,
                     user_texts=user_texts_str,
@@ -187,7 +207,7 @@ class TextService:
                     slots_desc=_build_slots_desc(slot_defs),
                     slots_json_hint=_build_slots_json_hint(slot_defs),
                 )
-                summary_tasks.append((outline.cover_page, prompt, slot_defs))
+                summary_tasks.append((outline.cover_page, prompt, slot_defs, cover_image_urls))
 
         self._run_parallel(summary_tasks)
 
@@ -206,8 +226,8 @@ class TextService:
             return
         with ThreadPoolExecutor(max_workers=8) as executor:
             futures = {
-                executor.submit(_call_and_fill, page, prompt, slot_defs): page
-                for page, prompt, slot_defs in tasks
+                executor.submit(_call_and_fill, page, prompt, slot_defs, image_urls): page
+                for page, prompt, slot_defs, image_urls in tasks
             }
             for future in as_completed(futures):
                 future.result()
