@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { ArrowLeft, Loader2, BookOpen, ImagePlus, ChevronRight, Layers } from 'lucide-vue-next'
+import { ArrowLeft, Loader2, BookOpen, ImagePlus, Layers } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import { useAlbumEditor } from '@/composables/useAlbumEditor'
 import { useAutoSave } from '@/composables/useAutoSave'
@@ -15,7 +15,7 @@ const route = useRoute()
 const router = useRouter()
 const albumId = computed(() => Number(route.params.id))
 
-const { pages, loading, albumName, loadEditData, updateSlotValue, savePageData } = useAlbumEditor(albumId)
+const { pages, loading, albumName, loadEditData, updateSlotValue } = useAlbumEditor(albumId)
 const { saving } = useAutoSave()
 
 // ---- Editor state ----
@@ -90,7 +90,6 @@ function onCanvasScroll() {
   if (!pageAreaRef.value) return
   
   const container = pageAreaRef.value
-  const containerCenter = container.scrollTop + container.clientHeight / 2
 
   let closestPageId: number | null = null
   let minDistance = Infinity

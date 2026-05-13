@@ -31,11 +31,17 @@ function checkDevice() {
   isPortrait.value = window.innerHeight > window.innerWidth
 }
 
+// lock()/unlock() 是非标准 API，TS 的 DOM lib 未声明，这里做局部窄化类型断言
+type LockableOrientation = ScreenOrientation & {
+  lock?: (orientation: 'landscape' | 'portrait' | 'natural' | 'any') => Promise<void>
+  unlock?: () => void
+}
+
 /** 尝试锁定屏幕方向为横屏 */
 async function tryLockLandscape() {
   if (!isMobile.value) return
   try {
-    const orientation = screen.orientation
+    const orientation = screen.orientation as LockableOrientation
     if (orientation?.lock) {
       await orientation.lock('landscape')
       orientationLocked.value = true
@@ -49,8 +55,9 @@ async function tryLockLandscape() {
 /** 解锁屏幕方向 */
 function unlockOrientation() {
   try {
-    if (orientationLocked.value && screen.orientation?.unlock) {
-      screen.orientation.unlock()
+    const orientation = screen.orientation as LockableOrientation
+    if (orientationLocked.value && orientation?.unlock) {
+      orientation.unlock()
     }
   } catch { /* ignore */ }
 }

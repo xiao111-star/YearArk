@@ -1,20 +1,17 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
 import {
   LayoutDashboard,
   Book,
   LayoutTemplate,
   Share2,
-  Settings,
   LogOut,
-  User
 } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import { useUserStore } from '@/stores/user'
 import { logout as logoutApi } from '@/api/auth'
 import { useRouter } from 'vue-router'
+import { cn } from '@/lib/utils'
 
-const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
 
@@ -49,8 +46,7 @@ async function handleLogout() {
         <router-link :to="item.path" v-slot="{ isActive }">
           <Button
             variant="ghost"
-            class="w-full justify-start gap-3 mb-1"
-            :class="{ 'bg-accent text-accent-foreground font-medium': isActive }"
+            :class="cn('w-full justify-start gap-3 mb-1', isActive && 'bg-accent text-accent-foreground font-medium')"
           >
             <component :is="item.icon" class="w-4 h-4" />
             {{ item.label }}

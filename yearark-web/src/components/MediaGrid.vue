@@ -11,7 +11,7 @@ export interface MediaItem {
   sort: number
 }
 
-const props = defineProps<{
+defineProps<{
   images: MediaItem[]
   uploading?: boolean
 }>()

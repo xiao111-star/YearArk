@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Card, CardContent } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 
 export interface Template {
   id: number
@@ -20,12 +21,12 @@ const emit = defineEmits<{
 
 <template>
   <Card
-    class="cursor-pointer transition-all hover:shadow-md"
-    :class="[
+    :class="cn(
+      'cursor-pointer transition-all hover:shadow-md',
       props.selected
         ? 'ring-2 ring-primary border-primary shadow-md'
         : 'hover:border-muted-foreground/30',
-    ]"
+    )"
     @click="emit('select', props.template.id)"
   >
     <div class="relative aspect-[3/4] overflow-hidden rounded-t-lg bg-muted">

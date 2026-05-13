@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { Plus, Search, BookOpen, Clock, Trash2, AlertTriangle } from 'lucide-vue-next'
+import { Plus, Search, BookOpen, AlertTriangle } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Card, CardContent } from '@/components/ui/card'
 import {
   Dialog,
   DialogContent,
@@ -77,11 +76,6 @@ async function handleConfirmDelete() {
     deleting.value = false
     albumToDelete.value = null
   }
-}
-
-function formatDate(dateStr: string) {
-  if (!dateStr) return ''
-  return new Date(dateStr).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })
 }
 
 onMounted(fetchAlbums)
