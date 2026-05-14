@@ -12,10 +12,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { useToast } from '@/components/ui/toast/use-toast'
 import AlbumCard, { type Album } from '@/components/AlbumCard.vue'
-import { listAlbums, deleteAlbum } from '@/api/album'
+import { listAlbums, deleteAlbum, toggleAlbumPublic, publishAlbum } from '@/api/album'
 
 const router = useRouter()
+const { toast } = useToast()
 const albums = ref<Album[]>([])
 const loading = ref(false)
 const searchQuery = ref('')
@@ -75,6 +77,47 @@ async function handleConfirmDelete() {
   } finally {
     deleting.value = false
     albumToDelete.value = null
+  }
+}
+
+async function handleTogglePublic(id: number) {
+  try {
+    const album = albums.value.find(a => a.id === id)
+    const isPublic = album?.isPublic === 1
+    
+    await toggleAlbumPublic(id)
+    // 刷新列表
+    await fetchAlbums()
+    
+    // 显示成功提示
+    toast({
+      description: isPublic ? '已取消放到首页' : '已放到首页',
+    })
+  } catch (e: any) {
+    console.error(e)
+    toast({
+      description: e.response?.data?.msg || '操作失败',
+      variant: 'destructive',
+    })
+  }
+}
+
+async function handlePublish(id: number) {
+  try {
+    await publishAlbum(id)
+    // 刷新列表
+    await fetchAlbums()
+    
+    // 显示成功提示
+    toast({
+      description: '纪念册已发布',
+    })
+  } catch (e: any) {
+    console.error(e)
+    toast({
+      description: e.response?.data?.msg || '发布失败',
+      variant: 'destructive',
+    })
   }
 }
 
@@ -140,6 +183,8 @@ onMounted(fetchAlbums)
         :album="album"
         @detail="goDetail"
         @delete="openDeleteDialog"
+        @toggle-public="handleTogglePublic"
+        @publish="handlePublish"
       />
     </div>
 

@@ -33,4 +33,15 @@ public interface IYaAlbumService extends IService<YaAlbum> {
      * 获取生成状态（复用 queryById，返回 YaAlbumVo）
      */
     YaAlbumVo getGenerationStatus(Integer albumId);
+
+    /**
+     * 切换纪念册公开状态（放到/取消放到首页）
+     * 只有发布状态的纪念册才能放到首页
+     */
+    boolean togglePublic(Integer albumId, Integer userId);
+
+    /**
+     * 发布纪念册（从草稿状态改为发布状态）
+     */
+    boolean publishAlbum(Integer albumId, Integer userId);
 }

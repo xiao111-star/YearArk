@@ -32,4 +32,7 @@ public class YaAlbumVo {
     /** 关联展示字段 */
     private String userName;
     private String templateName;
+
+    /** 封面图 URL：取素材库中首张审核通过的图片（type=2, status=2，按 sort 升序） */
+    private String coverUrl;
 }

@@ -68,3 +68,13 @@ export function uploadAlbumMedia(albumId: number, file: File) {
     headers: { 'Content-Type': 'multipart/form-data' },
   })
 }
+
+/** 切换纪念册公开状态（放到/取消放到首页） */
+export function toggleAlbumPublic(id: number) {
+  return request.post(`/api/user/album/${id}/toggle-public`)
+}
+
+/** 发布纪念册（从草稿改为发布状态） */
+export function publishAlbum(id: number) {
+  return request.post(`/api/user/album/${id}/publish`)
+}

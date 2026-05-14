@@ -17,6 +17,7 @@ const pages = ref<FlipPage[]>([])
 const loading = ref(false)
 const albumName = ref('')
 const albumDes = ref('')
+const albumStatus = ref(0) // 0=草稿, 1=发布
 const flipBookRef = ref<InstanceType<typeof FlipBook>>()
 const isFullscreen = ref(false)
 const showSharePopover = ref(false)
@@ -103,6 +104,7 @@ async function fetchData() {
     }))
     albumName.value = detailRes.data?.data?.name ?? '纪念册预览'
     albumDes.value = detailRes.data?.data?.des ?? ''
+    albumStatus.value = detailRes.data?.data?.status ?? 0
   } catch {
     pages.value = []
   } finally {
@@ -140,7 +142,7 @@ onMounted(fetchData)
           <span v-if="!loading && pages.length > 0" class="text-xs text-muted-foreground hidden sm:inline">
             第 {{ (flipBookRef?.currentPage ?? 0) + 1 }} / {{ flipBookRef?.totalPages ?? pages.length }} 页
           </span>
-          <div class="relative share-popover-wrapper">
+          <div v-if="albumStatus === 1" class="relative share-popover-wrapper">
             <Button variant="outline" size="sm" class="gap-1.5" @click.stop="toggleSharePopover">
               <Share2 class="w-3.5 h-3.5" />
               <span class="hidden sm:inline">分享</span>

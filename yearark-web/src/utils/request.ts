@@ -65,6 +65,18 @@ request.interceptors.response.use(
       console.warn('[API 400]', message)
     }
 
+    // 检查是否是邀请链接被禁用的错误
+    if (message.includes('邀请链接已被禁用') || message.includes('该邀请链接已禁用')) {
+      // 清除所有匿名 token
+      const keys = Object.keys(localStorage)
+      keys.forEach(key => {
+        if (key.startsWith(ANON_TOKEN_KEY_PREFIX)) {
+          localStorage.removeItem(key)
+        }
+      })
+      setActiveAnonToken(null)
+    }
+
     return Promise.reject(error)
   },
 )

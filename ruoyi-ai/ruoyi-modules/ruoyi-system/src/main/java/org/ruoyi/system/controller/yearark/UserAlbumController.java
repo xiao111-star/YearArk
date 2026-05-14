@@ -131,4 +131,14 @@ public class UserAlbumController extends BaseController {
         albumMediaService.deleteMediaByUser(mediaId, StpUserUtil.getLoginIdAsInt());
         return R.ok();
     }
+
+    @PostMapping("/{id}/toggle-public")
+    public R<Void> togglePublic(@PathVariable Integer id) {
+        return toAjax(albumService.togglePublic(id, StpUserUtil.getLoginIdAsInt()));
+    }
+
+    @PostMapping("/{id}/publish")
+    public R<Void> publish(@PathVariable Integer id) {
+        return toAjax(albumService.publishAlbum(id, StpUserUtil.getLoginIdAsInt()));
+    }
 }

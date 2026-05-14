@@ -18,6 +18,7 @@ interface PublicAlbum {
   des: string
   userName?: string
   createAt: string
+  coverUrl?: string
 }
 
 const router = useRouter()
@@ -264,11 +265,28 @@ onMounted(() => {
           @click="handleAlbumClick(album.id)"
         >
           <div class="relative overflow-hidden" :class="randomHeight(index)">
-            <div class="absolute inset-0 bg-gradient-to-br" :class="randomGradient(index)" />
-            <div class="absolute inset-0 flex items-center justify-center">
+            <img
+              v-if="album.coverUrl"
+              :src="album.coverUrl"
+              :alt="album.name"
+              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div
+              v-if="album.coverUrl"
+              class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"
+            />
+            <div
+              v-if="!album.coverUrl"
+              class="absolute inset-0 bg-gradient-to-br"
+              :class="randomGradient(index)"
+            />
+            <div
+              v-if="!album.coverUrl"
+              class="absolute inset-0 flex items-center justify-center"
+            >
               <BookOpen class="w-12 h-12 text-primary/15 group-hover:text-primary/25 transition-colors" />
             </div>
-            <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors" />
+            <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors pointer-events-none" />
           </div>
           <div class="p-4">
             <h3 class="font-serif font-bold text-base text-foreground line-clamp-1 group-hover:text-primary transition-colors">

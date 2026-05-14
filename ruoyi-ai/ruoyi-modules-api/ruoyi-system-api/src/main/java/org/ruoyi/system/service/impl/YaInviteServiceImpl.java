@@ -8,24 +8,34 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.ruoyi.common.core.constant.CommonConstants;
 import org.ruoyi.common.core.exception.ServiceException;
+import org.ruoyi.common.redis.utils.RedisUtils;
 import org.ruoyi.core.page.PageQuery;
 import org.ruoyi.core.page.TableDataInfo;
 import org.ruoyi.system.domain.YaInvite;
+import org.ruoyi.system.domain.YaInviteToken;
 import org.ruoyi.system.domain.dto.YaInviteDto;
 import org.ruoyi.system.domain.dto.YaInviteQueryDto;
 import org.ruoyi.system.domain.vo.YaInviteVo;
 import org.ruoyi.system.mapper.YaInviteMapper;
 import org.ruoyi.system.service.IYaAlbumService;
 import org.ruoyi.system.service.IYaInviteService;
+import org.ruoyi.system.service.IYaInviteTokenService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class YaInviteServiceImpl extends ServiceImpl<YaInviteMapper, YaInvite> implements IYaInviteService {
 
     private final IYaAlbumService albumService;
+    private final IYaInviteTokenService inviteTokenService;
+
+    public YaInviteServiceImpl(IYaAlbumService albumService, @Lazy IYaInviteTokenService inviteTokenService) {
+        this.albumService = albumService;
+        this.inviteTokenService = inviteTokenService;
+    }
 
     @Override
     public TableDataInfo<YaInviteVo> queryPage(YaInviteQueryDto query, PageQuery pageQuery) {
@@ -101,7 +111,45 @@ public class YaInviteServiceImpl extends ServiceImpl<YaInviteMapper, YaInvite> i
         YaInvite update = new YaInvite();
         update.setId(id);
         update.setStatus(CommonConstants.NOT_AVAILABLE);
-        return this.updateById(update);
+        boolean result = this.updateById(update);
+        
+        // 禁用成功后，将该邀请链接关联的所有 token 加入黑名单
+        if (result) {
+            addTokensToBlacklist(id);
+        }
+        
+        return result;
+    }
+
+    /**
+     * 将邀请链接关联的所有 token 加入 Redis 黑名单
+     */
+    private void addTokensToBlacklist(Integer inviteId) {
+        // 查询该邀请链接下的所有 token
+        List<YaInviteToken> tokens = inviteTokenService.list(
+            new LambdaQueryWrapper<YaInviteToken>()
+                .eq(YaInviteToken::getInviteId, inviteId)
+                .eq(YaInviteToken::getStatus, CommonConstants.IS_AVAILABLE)
+        );
+        
+        // 将每个 token 加入黑名单，设置过期时间为 30 天
+        for (YaInviteToken token : tokens) {
+            if (token.getToken() != null && !token.getToken().isEmpty() && !"pending".equals(token.getToken())) {
+                String blacklistKey = "invite:token:blacklist:" + token.getToken();
+                RedisUtils.setCacheObject(blacklistKey, true, Duration.ofDays(30));
+            }
+        }
+        
+        // 同时禁用数据库中的 token 记录
+        if (!tokens.isEmpty()) {
+            List<Integer> tokenIds = tokens.stream()
+                .map(YaInviteToken::getId)
+                .collect(java.util.stream.Collectors.toList());
+            inviteTokenService.lambdaUpdate()
+                .in(YaInviteToken::getId, tokenIds)
+                .set(YaInviteToken::getStatus, CommonConstants.NOT_AVAILABLE)
+                .update();
+        }
     }
 
     /**

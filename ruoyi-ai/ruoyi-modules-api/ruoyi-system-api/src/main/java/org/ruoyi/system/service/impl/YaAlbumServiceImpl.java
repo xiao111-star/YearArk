@@ -11,16 +11,22 @@ import org.ruoyi.common.core.exception.ServiceException;
 import org.ruoyi.core.page.PageQuery;
 import org.ruoyi.core.page.TableDataInfo;
 import org.ruoyi.system.domain.YaAlbum;
+import org.ruoyi.system.domain.YaAlbumMedia;
 import org.ruoyi.system.domain.YaAlbumPage;
 import org.ruoyi.system.domain.dto.YaAlbumDto;
 import org.ruoyi.system.domain.dto.YaAlbumQueryDto;
 import org.ruoyi.system.domain.vo.YaAlbumVo;import org.ruoyi.system.mapper.YaAlbumMapper;
+import org.ruoyi.system.mapper.YaAlbumMediaMapper;
 import org.ruoyi.system.service.IYaAlbumPageService;
 import org.ruoyi.system.service.IYaAlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class YaAlbumServiceImpl extends ServiceImpl<YaAlbumMapper, YaAlbum> implements IYaAlbumService {
@@ -28,23 +34,60 @@ public class YaAlbumServiceImpl extends ServiceImpl<YaAlbumMapper, YaAlbum> impl
     @Autowired
     private IYaAlbumPageService albumPageService;
 
+    @Autowired
+    private YaAlbumMediaMapper albumMediaMapper;
+
     @Override
     public TableDataInfo<YaAlbumVo> queryPage(YaAlbumQueryDto query, PageQuery pageQuery) {
         Page<YaAlbum> page = this.page(pageQuery.build(), buildWrapper(query));
         List<YaAlbumVo> voList = BeanUtil.copyToList(page.getRecords(), YaAlbumVo.class);
+        fillCoverUrls(voList);
         return new TableDataInfo<>(voList, page.getTotal());
     }
 
     @Override
     public List<YaAlbumVo> queryList(YaAlbumQueryDto query) {
         List<YaAlbum> list = this.list(buildWrapper(query));
-        return BeanUtil.copyToList(list, YaAlbumVo.class);
+        List<YaAlbumVo> voList = BeanUtil.copyToList(list, YaAlbumVo.class);
+        fillCoverUrls(voList);
+        return voList;
     }
 
     @Override
     public YaAlbumVo queryById(Integer id) {
         YaAlbum entity = this.getById(id);
-        return entity == null ? null : BeanUtil.copyProperties(entity, YaAlbumVo.class);
+        if (entity == null) return null;
+        YaAlbumVo vo = BeanUtil.copyProperties(entity, YaAlbumVo.class);
+        fillCoverUrls(Collections.singletonList(vo));
+        return vo;
+    }
+
+    /**
+     * 批量填充封面 URL：取素材库中首张审核通过的图片
+     */
+    private void fillCoverUrls(List<YaAlbumVo> voList) {
+        if (voList == null || voList.isEmpty()) return;
+        List<Integer> albumIds = voList.stream()
+                .map(YaAlbumVo::getId)
+                .filter(java.util.Objects::nonNull)
+                .collect(Collectors.toList());
+        if (albumIds.isEmpty()) return;
+
+        LambdaQueryWrapper<YaAlbumMedia> mw = new LambdaQueryWrapper<>();
+        mw.in(YaAlbumMedia::getAlbumId, albumIds)
+                .eq(YaAlbumMedia::getType, 2)
+                .orderByAsc(YaAlbumMedia::getSort);
+        List<YaAlbumMedia> mediaList = albumMediaMapper.selectList(mw);
+
+        Map<Integer, String> coverMap = new HashMap<>();
+        for (YaAlbumMedia m : mediaList) {
+            coverMap.putIfAbsent(m.getAlbumId(), m.getContent());
+        }
+        for (YaAlbumVo vo : voList) {
+            if (vo.getCoverUrl() == null) {
+                vo.setCoverUrl(coverMap.get(vo.getId()));
+            }
+        }
     }
     
     @Override
@@ -106,5 +149,49 @@ public class YaAlbumServiceImpl extends ServiceImpl<YaAlbumMapper, YaAlbum> impl
         YaAlbumVo vo = this.queryById(albumId);
         if (vo == null) throw new ServiceException("纪念册不存在");
         return vo;
+    }
+
+    @Override
+    public boolean togglePublic(Integer albumId, Integer userId) {
+        // 校验归属
+        checkOwnership(albumId, userId);
+        
+        YaAlbum album = this.getById(albumId);
+        if (album == null) {
+            throw new ServiceException("纪念册不存在");
+        }
+        
+        // 只有发布状态的纪念册才能放到首页
+        if (album.getStatus() == null || !album.getStatus().equals(AlbumConstants.STATUS_PUBLISH)) {
+            throw new ServiceException("只有发布状态的纪念册才能放到首页");
+        }
+        
+        // 切换公开状态
+        Integer newPublicStatus = AlbumConstants.IS_PUBLIC_NO.equals(album.getIsPublic()) 
+            ? AlbumConstants.IS_PUBLIC_YES 
+            : AlbumConstants.IS_PUBLIC_NO;
+        
+        album.setIsPublic(newPublicStatus);
+        return this.updateById(album);
+    }
+
+    @Override
+    public boolean publishAlbum(Integer albumId, Integer userId) {
+        // 校验归属
+        checkOwnership(albumId, userId);
+        
+        YaAlbum album = this.getById(albumId);
+        if (album == null) {
+            throw new ServiceException("纪念册不存在");
+        }
+        
+        // 如果已经是发布状态，不需要重复发布
+        if (AlbumConstants.STATUS_PUBLISH.equals(album.getStatus())) {
+            throw new ServiceException("纪念册已经是发布状态");
+        }
+        
+        // 更新为发布状态
+        album.setStatus(AlbumConstants.STATUS_PUBLISH);
+        return this.updateById(album);
     }
 }

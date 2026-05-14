@@ -91,11 +91,34 @@ async function handleVerifyCode() {
 }
 
 async function loadMyUploads() {
-  const res = await getMyUploads()
-  uploads.value = res.data.data || []
+  try {
+    const res = await getMyUploads()
+    uploads.value = res.data.data || []
+  } catch (err: any) {
+    const msg = err.response?.data?.msg || ''
+    // 如果是邀请链接被禁用，清除 token 并返回验证页面
+    if (msg.includes('邀请链接已被禁用') || msg.includes('该邀请链接已禁用')) {
+      localStorage.removeItem(anonTokenKey)
+      setActiveAnonToken(null)
+      errorMsg.value = msg
+      pageState.value = 'invalid'
+      return
+    }
+    throw err
+  }
 }
 
-function onImageUploaded() { loadMyUploads() }
+function onImageUploaded() { 
+  loadMyUploads().catch(err => {
+    const msg = err.response?.data?.msg || '加载失败'
+    if (msg.includes('邀请链接已被禁用') || msg.includes('该邀请链接已禁用')) {
+      toast({ description: msg, variant: 'destructive' })
+      setTimeout(() => {
+        pageState.value = 'invalid'
+      }, 1500)
+    }
+  })
+}
 
 async function handleDeleteMedia(id: number) {
   deletingIds.value.add(id)
@@ -156,7 +179,19 @@ async function handleFinalSubmit() {
     }
     router.push({ path: `/share/${inviteCode}/complete`, query: { albumName: albumName.value } })
   } catch (err: any) {
-    toast({ description: err.response?.data?.msg || '提交失败，请重试', variant: 'destructive' })
+    const msg = err.response?.data?.msg || '提交失败，请重试'
+    // 如果是邀请链接被禁用，显示错误并跳转到无效页面
+    if (msg.includes('邀请链接已被禁用') || msg.includes('该邀请链接已禁用')) {
+      toast({ description: msg, variant: 'destructive' })
+      setTimeout(() => {
+        localStorage.removeItem(anonTokenKey)
+        setActiveAnonToken(null)
+        errorMsg.value = msg
+        pageState.value = 'invalid'
+      }, 1500)
+      return
+    }
+    toast({ description: msg, variant: 'destructive' })
   } finally {
     submitting.value = false
   }

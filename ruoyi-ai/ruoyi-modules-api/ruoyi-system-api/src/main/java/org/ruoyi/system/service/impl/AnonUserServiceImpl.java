@@ -137,6 +137,12 @@ public class AnonUserServiceImpl implements IAnonUserService {
             return R.fail("上传文件不能为空");
         }
 
+        // 检查 token 是否在黑名单中
+        R<Void> blacklistCheck = checkTokenBlacklist();
+        if (R.isError(blacklistCheck)) {
+            return R.fail(blacklistCheck.getMsg());
+        }
+
         YaAnonUser anonUser = getCurrentAnonUser();
 
         SysOssVo ossVo = ossService.upload(file);
@@ -158,6 +164,12 @@ public class AnonUserServiceImpl implements IAnonUserService {
 
     @Override
     public R<YaAlbumMediaVo> uploadText(String content) {
+        // 检查 token 是否在黑名单中
+        R<Void> blacklistCheck = checkTokenBlacklist();
+        if (R.isError(blacklistCheck)) {
+            return R.fail(blacklistCheck.getMsg());
+        }
+
         YaAnonUser anonUser = getCurrentAnonUser();
 
         YaAlbumMedia media = new YaAlbumMedia();
@@ -176,6 +188,12 @@ public class AnonUserServiceImpl implements IAnonUserService {
 
     @Override
     public R<List<YaAlbumMediaVo>> getMyUploads() {
+        // 检查 token 是否在黑名单中
+        R<Void> blacklistCheck = checkTokenBlacklist();
+        if (R.isError(blacklistCheck)) {
+            return R.fail(blacklistCheck.getMsg());
+        }
+
         YaAnonUser anonUser = getCurrentAnonUser();
 
         List<YaAlbumMedia> list = mediaService.list(
@@ -189,6 +207,12 @@ public class AnonUserServiceImpl implements IAnonUserService {
 
     @Override
     public R<Void> deleteMyUpload(Long mediaId) {
+        // 检查 token 是否在黑名单中
+        R<Void> blacklistCheck = checkTokenBlacklist();
+        if (R.isError(blacklistCheck)) {
+            return blacklistCheck;
+        }
+
         YaAnonUser anonUser = getCurrentAnonUser();
 
         YaAlbumMedia media = mediaService.getById(mediaId);
@@ -203,6 +227,31 @@ public class AnonUserServiceImpl implements IAnonUserService {
 
         mediaService.removeById(mediaId);
         return R.ok();
+    }
+
+    /**
+     * 检查当前 token 是否在黑名单中
+     */
+    private R<Void> checkTokenBlacklist() {
+        try {
+            String tokenValue = StpAnonUtil.getTokenValue();
+            if (StrUtil.isBlank(tokenValue)) {
+                return R.fail("未登录");
+            }
+            
+            String blacklistKey = "invite:token:blacklist:" + tokenValue;
+            Boolean isBlacklisted = org.ruoyi.common.redis.utils.RedisUtils.getCacheObject(blacklistKey);
+            
+            if (Boolean.TRUE.equals(isBlacklisted)) {
+                // Token 在黑名单中，强制登出
+                StpAnonUtil.logout();
+                return R.fail("该邀请链接已被禁用，请联系管理员");
+            }
+            
+            return R.ok();
+        } catch (Exception e) {
+            return R.fail("身份验证失败");
+        }
     }
 
     /**
